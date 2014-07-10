@@ -40,6 +40,7 @@ __fastcall Thwin::Thwin(TComponent* Owner)
         kurs = NULL;      
 }
 //---------------------------------------------------------------------------
+//dialog otkritiya faila
 void __fastcall Thwin::fopenkrClick(TObject *Sender)
 {
         AnsiString InDir;
@@ -83,7 +84,7 @@ void __fastcall Thwin::fopenkrClick(TObject *Sender)
         }
 }
 //---------------------------------------------------------------------------
-
+//sohranenie MTR faila
 void __fastcall Thwin::saveClick(TObject *Sender)
 {
   kurs->Save(filename);
@@ -91,7 +92,7 @@ void __fastcall Thwin::saveClick(TObject *Sender)
   MShow->save_quest = false;
 }
 //---------------------------------------------------------------------------
-
+//sohranenie MTR faila
 void __fastcall Thwin::saveasClick(TObject *Sender)
 {
 /*  OpenDialog1->FileName=String(filename);
@@ -111,7 +112,7 @@ void __fastcall Thwin::saveasClick(TObject *Sender)
   kurs->Save(filename);
 }
 //---------------------------------------------------------------------------
-
+//PROB izmenenie MTR faila
 void __fastcall Thwin::qeditClick(TObject *Sender)
 {
   if( kurs->selectquest )
@@ -122,7 +123,7 @@ void __fastcall Thwin::qeditClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
+//deystviya pri inicilizacii formi
 void __fastcall Thwin::FormActivate(TObject *Sender)
 {
   int kx = 0;
@@ -1277,7 +1278,7 @@ void __fastcall Thwin::MTRconv1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-
+//resize formi
 void __fastcall Thwin::FormResize(TObject *Sender)
 {
     const int

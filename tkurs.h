@@ -4,6 +4,8 @@
 //---------------------------------------------------------------------------
 #include "global.h"
 #include "bmentor.h"
+
+//nekiy klass, predpolojitel'no ykazatel' na MTR fail
 class tkurs: public bmentor{
   public:
   TList* qlist;
