@@ -1,0 +1,1 @@
+copy e:\mentor\_TABLE*.mtr e:\qtcreator\quizcreator-build-desktop\*.*

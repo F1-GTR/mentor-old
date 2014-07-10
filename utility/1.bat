@@ -1,0 +1,1 @@
+txt2bmp __temp.txt __temp.bmp

@@ -1,0 +1,268 @@
+head 3
+derivatives 3, 4
+head 4
+#1
+head 2
+someid
+1 1 47
+89 -5 5
+89 -5 5
+head 4
+#2
+head 2
+someid
+1 2 47
+90 -5 5
+90 -5 5
+head 4
+#3
+head 2
+someid
+1 3 47
+91 -5 5
+91 -5 5
+head 4
+#4
+head 2
+someid
+1 4 47
+92 -5 5
+92 -5 5
+head 4
+#5
+head 2
+someid
+1 5 47
+93 -5 5
+93 -5 5
+head 4
+#6
+head 2
+someid
+1 6 47
+94 -5 5
+94 -5 5
+head 4
+#7
+head 2
+someid
+1 7 47
+95 -5 5
+95 -5 5
+head 4
+#8
+head 2
+someid
+1 8 47
+96 -5 5
+96 -5 5
+head 4
+#9
+head 2
+someid
+1 9 47
+97 -5 5
+97 -5 5
+head 4
+#10
+head 2
+someid
+1 10 47
+98 -5 5
+98 -5 5
+head 4
+#11
+head 2
+someid
+1 11 47
+99 -5 5
+99 -5 5
+head 4
+#12
+head 2
+someid
+1 12 47
+100 -5 5
+100 -5 5
+head 4
+#13
+head 2
+someid
+1 13 47
+101 -5 5
+101 -5 5
+head 4
+#14
+head 2
+someid
+1 14 47
+102 -5 5
+102 -5 5
+head 4
+#15
+head 2
+someid
+1 15 47
+103 -5 5
+103 -5 5
+head 4
+#16
+head 2
+someid
+1 16 47
+104 -5 5
+104 -5 5
+head 4
+#17
+head 2
+someid
+1 17 47
+105 -5 5
+105 -5 5
+head 4
+#18
+head 2
+someid
+1 18 47
+106 -5 5
+106 -5 5
+head 4
+#19
+head 2
+someid
+1 19 47
+107 -5 5
+107 -5 5
+head 4
+#20
+head 2
+someid
+1 20 47
+108 -5 5
+108 -5 5
+head 4
+#21
+head 2
+someid
+1 21 47
+109 -5 5
+109 -5 5
+head 4
+#22
+head 2
+someid
+1 22 47
+110 -5 5
+110 -5 5
+head 6
+derivatives 3, 4*
+head 2
+someid
+1 1 47
+89 -5 5
+89 -5 5
+head 2
+someid
+1 2 47
+90 -5 5
+90 -5 5
+head 2
+someid
+1 3 47
+91 -5 5
+91 -5 5
+head 2
+someid
+1 4 47
+92 -5 5
+92 -5 5
+head 2
+someid
+1 5 47
+93 -5 5
+93 -5 5
+head 2
+someid
+1 6 47
+94 -5 5
+94 -5 5
+head 2
+someid
+1 7 47
+95 -5 5
+95 -5 5
+head 2
+someid
+1 8 47
+96 -5 5
+96 -5 5
+head 2
+someid
+1 9 47
+97 -5 5
+97 -5 5
+head 2
+someid
+1 10 47
+98 -5 5
+98 -5 5
+head 2
+someid
+1 11 47
+99 -5 5
+99 -5 5
+head 2
+someid
+1 12 47
+100 -5 5
+100 -5 5
+head 2
+someid
+1 13 47
+101 -5 5
+101 -5 5
+head 2
+someid
+1 14 47
+102 -5 5
+102 -5 5
+head 2
+someid
+1 15 47
+103 -5 5
+103 -5 5
+head 2
+someid
+1 16 47
+104 -5 5
+104 -5 5
+head 2
+someid
+1 17 47
+105 -5 5
+105 -5 5
+head 2
+someid
+1 18 47
+106 -5 5
+106 -5 5
+head 2
+someid
+1 19 47
+107 -5 5
+107 -5 5
+head 2
+someid
+1 20 47
+108 -5 5
+108 -5 5
+head 2
+someid
+1 21 47
+109 -5 5
+109 -5 5
+head 2
+someid
+1 22 47
+110 -5 5
+110 -5 5

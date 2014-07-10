@@ -1,0 +1,37 @@
+#ifndef _M_INTEG2_H_
+#define _M_INTEG2_H_
+
+#include "m_expressions.h"
+
+char *integ201b (const range &r, char *task);
+char *integ202b (const range &r, char *task);
+char *integ203b (const range &r, char *task);
+char *integ204b (const range &r, char *task);
+char *integ205b (const range &r, char *task);
+char *integ206b (const range &r, char *task);
+char *integ207b (const range &r, char *task);
+char *integ208b (const range &r, char *task);
+char *integ301b (const range &r, char *task);
+char *integ302b (const range &r, char *task);
+char *integ303b (const range &r, char *task);
+char *integ304b (const range &r, char *task);
+char *integ305b (const range &r, char *task);
+char *integ306b (const range &r, char *task);
+char *integ307b (const range &r, char *task);
+char *integ308b (const range &r, char *task);
+char *integ309b (const range &r, char *task);
+char *integ310b (const range &r, char *task);
+char *integ311b (const range &r, char *task);
+char *integ312b (const range &r, char *task);
+char *integ313b (const range &r, char *task);
+char *integ314b (const range &r, char *task);
+char *integ315b (const range &r, char *task);
+char *integ316b (const range &r, char *task);
+char *integ317b (const range &r, char *task);
+char *integ318b (const range &r, char *task);
+char *integ319b (const range &r, char *task);
+char *integ320b (const range &r, char *task);
+char *integ321b (const range &r, char *task);
+char *integ322b (const range &r, char *task);
+
+#endif

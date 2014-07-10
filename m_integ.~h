@@ -1,0 +1,36 @@
+#include "m_expressions.h"
+
+char *integ101b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ102b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ103b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ104b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ105b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ106b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ107b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ108b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ109b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ110b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ111b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ112b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ113b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ114b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ115b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ118b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ119b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ120b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ121b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ122b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ123b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ124b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ125b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ126b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ127b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ128b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ129b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ130b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ131b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ132b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ133b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ134b (const range &r, char *task, char answ[][BUFSZ], char *src);
+char *integ135b (const range &r, char *task, char answ[][BUFSZ], char *src);
+

@@ -1,0 +1,40 @@
+head 3
+rndint
+head 4
+#1
+head 2
+someid
+1 1 52
+1 -5 5
+1 -5 5
+head 4
+#2
+head 2
+someid
+1 2 52
+2 -5 5
+2 -5 5
+head 4
+#3
+head 2
+someid
+1 3 52
+3 -5 5
+3 -5 5
+head 6
+rndint*
+head 2
+someid
+1 1 52
+1 -5 5
+1 -5 5
+head 2
+someid
+1 2 52
+2 -5 5
+2 -5 5
+head 2
+someid
+1 3 52
+3 -5 5
+3 -5 5
