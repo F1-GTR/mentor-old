@@ -8,6 +8,7 @@
 #include "MGenHtml.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
+// —”ÃÃ¿ Ã¿“–»÷
 #pragma package(smart_init)
 
 quest1::quest1(FILE* f)

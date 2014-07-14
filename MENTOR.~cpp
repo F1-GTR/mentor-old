@@ -2,7 +2,7 @@
 #include <vcl.h>
 //#pragma hdrstop
 //USERES("mentor.res");
-//USEFORM("headwin.cpp", hwin);
+USEFORM("headwin.cpp", hwin);
 USEUNIT("utilm.cpp");
 USEUNIT("fglobal.cpp");
 USEUNIT("tkurs.cpp");

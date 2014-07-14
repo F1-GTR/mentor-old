@@ -4,19 +4,19 @@
   <MACROS>
     <VERSION value="BCB.05.03"/>
     <PROJECT value="MENTOR.exe"/>
-    <OBJFILES value="ExprDraw.obj ExprMake.obj MENTOR.obj utilm.obj fglobal.obj tkurs.obj 
-      tquest.obj BMENTOR.obj quest1.obj matlin.obj dtask.obj qvarnt.obj 
-      nqselect.obj quest2.obj matumn.obj quest3.obj mateigv.obj quest4.obj 
-      matopr.obj quest5.obj gauss.obj integral.obj quest6.obj odsistem.obj 
-      quest7.obj scale.obj quest8.obj MPreview.obj quest9.obj MVectorMul.obj 
-      MNormal.obj quest10.obj MLine.obj quest11.obj MAngle.obj quest12.obj 
-      MPlane.obj quest13.obj MElips.obj quest14.obj MGiper.obj quest15.obj 
-      MParab.obj quest16.obj MSmMul.obj quest17.obj MDl.obj quest18.obj MPdl.obj 
-      quest19.obj MPreview2.obj integral2.obj quest20.obj MRang.obj quest21.obj 
-      MAbout.obj MLinDet.obj quest22.obj quest23.obj MKramer.obj MShow1.obj 
-      MKRVar.obj MPreview3.obj MGenKey.obj MObrMatr.obj quest24.obj 
-      MEditWork.obj MPr.obj quest25.obj MLinePlane.obj quest26.obj MComp.obj 
-      quest27.obj MLinePrizm.obj quest28.obj MLineCmp.obj quest29.obj 
+    <OBJFILES value="ExprDraw.obj ExprMake.obj MENTOR.obj headwin.obj utilm.obj fglobal.obj 
+      tkurs.obj tquest.obj BMENTOR.obj quest1.obj matlin.obj dtask.obj 
+      qvarnt.obj nqselect.obj quest2.obj matumn.obj quest3.obj mateigv.obj 
+      quest4.obj matopr.obj quest5.obj gauss.obj integral.obj quest6.obj 
+      odsistem.obj quest7.obj scale.obj quest8.obj MPreview.obj quest9.obj 
+      MVectorMul.obj MNormal.obj quest10.obj MLine.obj quest11.obj MAngle.obj 
+      quest12.obj MPlane.obj quest13.obj MElips.obj quest14.obj MGiper.obj 
+      quest15.obj MParab.obj quest16.obj MSmMul.obj quest17.obj MDl.obj 
+      quest18.obj MPdl.obj quest19.obj MPreview2.obj integral2.obj quest20.obj 
+      MRang.obj quest21.obj MAbout.obj MLinDet.obj quest22.obj quest23.obj 
+      MKramer.obj MShow1.obj MKRVar.obj MPreview3.obj MGenKey.obj MObrMatr.obj 
+      quest24.obj MEditWork.obj MPr.obj quest25.obj MLinePlane.obj quest26.obj 
+      MComp.obj quest27.obj MLinePrizm.obj quest28.obj MLineCmp.obj quest29.obj 
       MConvert.obj MRenameKonW.obj MMentorConfig.obj MGenHtml.obj MFtpMod.obj 
       MVarCmp.obj det.obj MPrint.obj drobi.obj determ.obj quest31.obj 
       queEigens.obj MATRGEN.obj MEigen.obj quelim01.obj MLim01.obj 
@@ -29,16 +29,16 @@
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) matlin.dfm dtask.dfm qvarnt.dfm nqselect.dfm matumn.dfm 
-      mateigv.dfm matopr.dfm gauss.dfm integral.dfm odsistem.dfm scale.dfm 
-      MPreview.dfm MVectorMul.dfm MNormal.dfm MLine.dfm MAngle.dfm MPlane.dfm 
-      MElips.dfm MGiper.dfm MParab.dfm MSmMul.dfm MDl.dfm MPdl.dfm MPreview2.dfm 
-      integral2.dfm MRang.dfm MAbout.dfm MLinDet.dfm MKramer.dfm MShow1.dfm 
-      MKRVar.dfm MPreview3.dfm MGenKey.dfm MObrMatr.dfm MEditWork.dfm MPr.dfm 
-      MLinePlane.dfm MComp.dfm MLinePrizm.dfm MLineCmp.dfm MRenameKonW.dfm 
-      MMentorConfig.dfm MGenHtml.dfm MFtpMod.dfm MVarCmp.dfm MPrint.dfm 
-      MEigen.dfm MLim01.dfm MTRconvene.dfm MDeriv.dfm TMFlabs.dfm MInteg.dfm 
-      LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm"/>
+    <RESDEPEN value="$(RESFILES) headwin.dfm matlin.dfm dtask.dfm qvarnt.dfm nqselect.dfm 
+      matumn.dfm mateigv.dfm matopr.dfm gauss.dfm integral.dfm odsistem.dfm 
+      scale.dfm MPreview.dfm MVectorMul.dfm MNormal.dfm MLine.dfm MAngle.dfm 
+      MPlane.dfm MElips.dfm MGiper.dfm MParab.dfm MSmMul.dfm MDl.dfm MPdl.dfm 
+      MPreview2.dfm integral2.dfm MRang.dfm MAbout.dfm MLinDet.dfm MKramer.dfm 
+      MShow1.dfm MKRVar.dfm MPreview3.dfm MGenKey.dfm MObrMatr.dfm MEditWork.dfm 
+      MPr.dfm MLinePlane.dfm MComp.dfm MLinePrizm.dfm MLineCmp.dfm 
+      MRenameKonW.dfm MMentorConfig.dfm MGenHtml.dfm MFtpMod.dfm MVarCmp.dfm 
+      MPrint.dfm MEigen.dfm MLim01.dfm MTRconvene.dfm MDeriv.dfm TMFlabs.dfm 
+      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="PKIECTRLC5.lib dclocx50.lib nmfast50.lib ibsmp50.lib vcljpg50.lib 
       vclbde50.lib vcldb50.lib qrpt50.lib vclx50.lib bcbsmp50.lib vcl50.lib"/>

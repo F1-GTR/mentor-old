@@ -9,6 +9,7 @@
 #include "test_class.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
+//ÏĞÎÈÇÂÅÄÅÍÈÅ ÌÀÒĞÈÖ
 #pragma package(smart_init)
 
 quest2::quest2(FILE* f)

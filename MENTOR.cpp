@@ -125,7 +125,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
         try
         {
                  Application->Initialize();
-                 Application->Title = "МЕНТОР";
+                 Application->Title = "Ментор - Генерация заданий к кнтрольным работам";
                  Application->HelpFile = "C:\\Igor\\Program\\MENTOR\\MENTOR.HLP";
                  Application->CreateForm(__classid(Thwin), &hwin);
          Application->CreateForm(__classid(Tpmatlin), &pmatlin);

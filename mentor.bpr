@@ -67,8 +67,8 @@
       -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; 
       -I&quot;C:\Program Files\Borland\CBuilder5\Bin\.&quot; -Ipas -I$(BCB)\include 
       -I$(BCB)\include\vcl -IBCB5 -src_suffix cpp -boa"/>
-    <CFLAG1 value="-Od -H=d:\mentor\mentorsrc\head -Vx -Ve -X- -r- -a8 -5 -b- -k -y -v -vi- 
-      -c -tW -tWM"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl50.csm -Vx -Ve -X- -r- -a8 -5 -b- -k -y -v -vi- -c 
+      -tW -tWM"/>
     <PFLAGS value="-$YD -$W -$O- -JPHNE -M"/>
     <RFLAGS value=""/>
     <AFLAGS value="/mx /w2 /zd"/>
@@ -81,7 +81,7 @@
   </LINKER>
   <IDEOPTIONS>
 [Version Info]
-IncludeVerInfo=1
+IncludeVerInfo=0
 AutoIncBuild=0
 MajorVer=1
 MinorVer=2
