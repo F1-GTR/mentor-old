@@ -41,6 +41,7 @@
 #include "queInteg.h"
 #include "quelimrnd.h"
 #include "quederivrnd.h"
+#include "queintegrnd.h"
 #pragma hdrstop
 
 void FWarning(char* s)
