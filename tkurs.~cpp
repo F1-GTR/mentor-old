@@ -34,6 +34,7 @@
 #include "quest29.h"
 //#include "quest30.h"
 #include "quest31.h"
+#include "quest32.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -41,6 +42,7 @@
 #include "queInteg.h"
 #include "queLimRnd.h"
 #include "quederivrnd.h"
+#include "queintegrnd.h"
 
 #pragma hdrstop
 
@@ -200,6 +202,11 @@ tkurs::tkurs( char * fname )
                 bm = new quest31(f);
               break;
 
+              //NEW TASK ADDITION
+              case ANGLINEPLANE
+                bm = new quest32(f);
+              break;
+
               case EIGEN3x3:
                 bm = new queeigens(f);
               break;
@@ -220,6 +227,9 @@ tkurs::tkurs( char * fname )
                 break;
               case MDERIVRND:
                 bm = new quederivrnd(f);
+                break;
+              case MINTEGRND:
+                bm = new queIntegRnd(f);
                 break;
               default:
                 FError("Несуществующий тип вопроса",0);

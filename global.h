@@ -44,6 +44,7 @@
 #define MLIMRND         50
 #define MDERIVRND       51
 #define MINTEGRND       52
+#define ANGLINEPLANE    53
 //int flagaddtask = 0;
 enum elem_code{
       KURS=1,

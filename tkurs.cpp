@@ -34,6 +34,7 @@
 #include "quest29.h"
 //#include "quest30.h"
 #include "quest31.h"
+#include "quest32.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -199,6 +200,11 @@ tkurs::tkurs( char * fname )
 
               case NEW_INT:
                 bm = new quest31(f);
+              break;
+
+              //NEW TASK ADDITION
+              case ANGLINEPLANE :
+                bm = new quest32(f);
               break;
 
               case EIGEN3x3:

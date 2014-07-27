@@ -7,6 +7,7 @@
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
 #include "quest12.h"
+#include "quest32.h"
 #include <ExtCtrls.hpp>
 //---------------------------------------------------------------------------
 class TAngle : public TForm
@@ -40,6 +41,7 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
          quest12* quest;
+         quest32* quest2;
         __fastcall TAngle(TComponent* Owner);
 };
 //---------------------------------------------------------------------------

@@ -19,7 +19,7 @@
       MComp.obj quest27.obj MLinePrizm.obj quest28.obj MLineCmp.obj quest29.obj 
       MConvert.obj MRenameKonW.obj MMentorConfig.obj MGenHtml.obj MFtpMod.obj 
       MVarCmp.obj det.obj MPrint.obj drobi.obj determ.obj quest31.obj 
-      queEigens.obj MATRGEN.obj MEigen.obj quelim01.obj MLim01.obj 
+      quest32.obj queEigens.obj MATRGEN.obj MEigen.obj quelim01.obj MLim01.obj 
       MTRconvene.obj m_limits.obj queDeriv.obj mc_deriv.obj MDeriv.obj 
       queMFlabs.obj m_mflab.obj m_expressions.obj TMFlabs.obj queInteg.obj 
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
@@ -57,13 +57,14 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="MENTOR.cpp"/>
-    <INCLUDEPATH value="C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
-    <LIBPATH value="C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
+    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
+    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
     <WARNINGS value="-w-par -w-8027 -w-8026"/>
     <WARNOPTSTR value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-IC:\CBuilder5\Projects\. 
+    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot; 
+      -IC:\CBuilder5\Projects\. 
       -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; 
       -I&quot;C:\Program Files\Borland\CBuilder5\Bin\.&quot; -Ipas -I$(BCB)\include 
       -I$(BCB)\include\vcl -IBCB5 -src_suffix cpp -boa"/>

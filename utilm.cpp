@@ -33,6 +33,7 @@
 #include "quest28.h"
 #include "quest29.h"
 //#include "quest30.h"
+#include "quest32.h"
 #include "quest31.h"
 #include "queeigens.h"
 #include "quelim01.h"
@@ -164,6 +165,7 @@ tquest* qcreate(tquest* q)
   quest29* t29 = NULL;
   //quest30* t30 = NULL;
   quest31* t31 = NULL;
+  quest32* t32 = NULL;
   queeigens* t34 = NULL;
   quelim01* tlim01 = NULL;
   queDeriv* tderiv=NULL;
@@ -308,6 +310,10 @@ tquest* qcreate(tquest* q)
       t31 = new quest31();
       t31->copy(( quest31 * )q);
       return t31;
+    case ANGLINEPLANE:
+      t32 = new quest32();
+      t32->copy(( quest32 * )q);
+      return t32;
 
     case EIGEN3x3:
       t34 = new queeigens();
