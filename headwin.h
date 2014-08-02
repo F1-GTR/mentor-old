@@ -74,6 +74,7 @@ __published:	// IDE-managed Components
     TMenuItem *N20;
     TMenuItem *MTRconv1;
     TBevel *Bevel1;
+        TMenuItem *N21;
         void __fastcall fopenkrClick(TObject *Sender);
         void __fastcall saveClick(TObject *Sender);
         void __fastcall saveasClick(TObject *Sender);
@@ -108,6 +109,7 @@ __published:	// IDE-managed Components
         void __fastcall printClick(TObject *Sender);
     void __fastcall MTRconv1Click(TObject *Sender);
     void __fastcall FormResize(TObject *Sender);
+        void __fastcall N21Click(TObject *Sender);
 //        void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 private:	// User declarations
 public:		// User declarations

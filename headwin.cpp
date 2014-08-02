@@ -26,6 +26,8 @@
 #include "MVarCmp.h"
 #include "MPrint.h"
 #include "MTRconvene.h"
+#include "Unit1.h"
+#include <windows.h>
 #pragma hdrstop
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -37,7 +39,8 @@ int flagaddtask = 0;
 __fastcall Thwin::Thwin(TComponent* Owner)
         : TForm(Owner)
 {
-        kurs = NULL;      
+        kurs = NULL;
+        
 }
 //---------------------------------------------------------------------------
 //dialog otkritiya faila
@@ -126,6 +129,7 @@ void __fastcall Thwin::qeditClick(TObject *Sender)
 //deystviya pri inicilizacii formi
 void __fastcall Thwin::FormActivate(TObject *Sender)
 {
+ Log->Add("Main form activate..");
   int kx = 0;
   int ky = 0;
   int mky[100];
@@ -234,6 +238,7 @@ void __fastcall Thwin::FormActivate(TObject *Sender)
   
   tasklist = new TList();
   }
+
 }
 //---------------------------------------------------------------------------
 
@@ -1290,6 +1295,12 @@ void __fastcall Thwin::FormResize(TObject *Sender)
     Table->Top = topIndent;
     Table->Height = this->ClientHeight - topIndent - bottomIndent;
     Table->Width = this->ClientWidth - leftIndent - rightIndent;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Thwin::N21Click(TObject *Sender)
+{
+        Log->Show();        
 }
 //---------------------------------------------------------------------------
 

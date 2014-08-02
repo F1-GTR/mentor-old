@@ -4,6 +4,11 @@
 #pragma hdrstop
 #include <stdio.h>
 
+//глобальные настройки
+
+#define LOG_WRITE false
+
+
 //Переменные для редактирования.
 #define NOQUEST 100
 #define ADDQUEST 101
