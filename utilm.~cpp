@@ -310,6 +310,10 @@ tquest* qcreate(tquest* q)
       t31 = new quest31();
       t31->copy(( quest31 * )q);
       return t31;
+    case ANGLINEPLANE:
+      t32 = new quest32();
+      t32->copy(( quest32 * )q);
+      return t32;
 
     case EIGEN3x3:
       t34 = new queeigens();
@@ -366,4 +370,51 @@ int rgen(int key,int n, int min,int max)
                 a = -2;*/
 
         return a;
+}
+//Получение знака, если was = True - знак рандомный, если нет - вернёт +
+//При минусе Was обращается в False
+int sign(bool &was)
+{
+        if (was)
+        {
+                int RD = random(2);
+                if (RD)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return -1;
+                }
+        }
+        else
+        {
+                return -1;
+        }
+
+}
+
+//Обращение в ноль, если was = True - возврат рандомный, если нет - вернёт 1
+//При нуле Was обращается в False
+int zero(bool &was)
+{
+        if (was)
+        {
+                int RD = random(2);
+                if (RD)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return 0;
+                }
+        }
+        else
+        {
+                return 1;
+        }
+
 }
