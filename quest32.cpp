@@ -146,7 +146,7 @@ quest32::Print(TList* plist)
         
         //get limits
         int firstKf     = 1;
-        int lastKf      = 100;
+        int lastKf      = 10;
         bool bZero       = true;
         //coefficients struct
         struct
@@ -170,6 +170,12 @@ quest32::Print(TList* plist)
         cc.n = sign(true)*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
 
         //Сборка уравненения
+
+         sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
+         plist->Add( strdup(buf) );
+
+         sprintf( buf, "String(Объекты заданы уравнениями:)" );
+         plist->Add( strdup(buf) );
 
         sprintf( buf, "a" );
         plist->Add( strdup(buf) );
@@ -200,25 +206,25 @@ quest32::Print(TList* plist)
         plist->Add( strdup(buf) );
         Log->Add(buf);
 
-        //sprintf( buf, "sin(!(alpha))=" );
-        //plist->Add( strdup(buf) );
-        //Log->Add(buf);
+        sprintf( buf, "sin(!(alpha))" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-        //sprintf( buf, "(abs((%d)*(%d)+(%d)*(%d)+(%d)*(%d)))/(sqrt(%d^2+%d^2*%d^2)*sqrt(%d^2+%d^2+%d^2))=",cc.A,cc.l,cc.B,cc.m,cc.C,cc.n,cc.l,cc.m,cc.n,cc.A,cc.B,cc.C);
-       // plist->Add( strdup(buf) );
-       // Log->Add(buf);
+        sprintf( buf, "(abs((%d)*(%d)+(%d)*(%d)+(%d)*(%d)))/(sqrt((%d)^2+(%d)^2+(%d)^2)*sqrt((%d)^2+(%d)^2+(%d)^2))",cc.A,cc.l,cc.B,cc.m,cc.C,cc.n,cc.l,cc.m,cc.n,cc.A,cc.B,cc.C);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-      //  sprintf( buf, "(abs(%d))/(sqrt(%d)*sqrt(%d))=",cc.A*cc.l+cc.B*cc.m+cc.C*cc.n,   cc.l*cc.l+cc.m*cc.m+cc.n*cc.n,   cc.A*cc.A+cc.B*cc.B+cc.C*cc.C);
-      //  plist->Add( strdup(buf) );
-      //  Log->Add(buf);
+        sprintf( buf, "(abs(%d))/(sqrt(%d)*sqrt(%d))",cc.A*cc.l+cc.B*cc.m+cc.C*cc.n,   cc.l*cc.l+cc.m*cc.m+cc.n*cc.n,   cc.A*cc.A+cc.B*cc.B+cc.C*cc.C);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-       // sprintf( buf, "(abs(%d))/(sqrt(%d))=",cc.A*cc.l+cc.B*cc.m+cc.C*cc.n,   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
-       /// plist->Add( strdup(buf) );
-       // Log->Add(buf);
+        sprintf( buf, "(abs(%d))/(sqrt(%d))",cc.A*cc.l+cc.B*cc.m+cc.C*cc.n,   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-        //sprintf( buf, "(%d*sqrt(%d))/%d=",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
-       // plist->Add( strdup(buf) );
-        //Log->Add(buf);
+        sprintf( buf, "(%d*sqrt(%d))/%d",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
 
         keygen = 0;
 
