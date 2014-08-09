@@ -24,7 +24,7 @@
       queMFlabs.obj m_mflab.obj m_expressions.obj TMFlabs.obj queInteg.obj 
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
       m_integ2.obj quederivrnd.obj MDerivRnd.obj m_integ_a01.obj m_deriv_02.obj 
-      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj"/>
+      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj Unit1.obj Unit2.obj"/>
     <RESFILES value=""/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -38,7 +38,7 @@
       MPr.dfm MLinePlane.dfm MComp.dfm MLinePrizm.dfm MLineCmp.dfm 
       MRenameKonW.dfm MMentorConfig.dfm MGenHtml.dfm MFtpMod.dfm MVarCmp.dfm 
       MPrint.dfm MEigen.dfm MLim01.dfm MTRconvene.dfm MDeriv.dfm TMFlabs.dfm 
-      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm"/>
+      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm Unit1.dfm Unit2.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="PKIECTRLC5.lib dclocx50.lib nmfast50.lib ibsmp50.lib vcljpg50.lib 
       vclbde50.lib vcldb50.lib qrpt50.lib vclx50.lib bcbsmp50.lib vcl50.lib"/>

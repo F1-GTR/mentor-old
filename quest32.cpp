@@ -7,6 +7,7 @@
 #include "drobi.h"
 #include "qvarnt.h"
 #include "Unit1.h"
+#include "Unit2.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
 //
@@ -22,14 +23,46 @@
 #pragma package(smart_init)
 
 
+struct  pAnswer
+{
+        char str[255];
+        bool legit;
+};
+
+void swapAnswers(pAnswer &one, pAnswer &two)
+{
+        char buff[255];
+        strcpy(buff,one.str);
+        strcat(buff," to ");
+        strcat(buff,two.str);
+        Log->Add("Swapping:");
+        Log->Add(buff);
+
+        pAnswer tmp = one;
+        one = two;
+        two = tmp;
+}
+
+void shuffleAnswers(pAnswer pAns[4])
+{
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                swapAnswers(pAns[j],pAns[random(4)]);
+            }
+        }
+}
+
+
 //Получение знака, если was = True - знак рандомный, если нет - вернёт +
 //При минусе Was обращается в False
 int sign(bool &was)
 {
         if (was)
         {
-                int RD = random(2);
-                if (RD)
+                int RD = random(10);
+                if (RD >= 3)
                 {
                         return 1;
                 }
@@ -43,6 +76,21 @@ int sign(bool &was)
         {
                 return -1;
         }
+
+}
+int sign()
+{
+       int RD = random(10);
+       char buff[10];
+       Log->Add(itoa(RD,buff,10));
+       if (RD >= 3)
+       {
+              return 1;
+       }
+       else
+       {
+                return -1;
+       }
 
 }
 
@@ -70,6 +118,20 @@ int zero(bool &was)
 
 }
 
+int zero()
+{
+   int RD = random(2);
+   if (RD)
+   {
+           return 1;
+   }
+   else
+   {
+         return 0;
+   }
+
+}
+
 //class init
 quest32::quest32(FILE* f)
 {
@@ -84,7 +146,7 @@ quest32::quest32(FILE* f)
   reads(f,buf);
   strpar2 = strdup(buf);
 
-  sscanf(strpar1,"%d %d",&amin,&amax);
+  sscanf(strpar1,"%d %d %d %d %d %d",&min.point,&max.point,&min.vector,&max.vector,&min.plate,&max.plate);
   qtype = type;
 
   delete buf;
@@ -108,20 +170,28 @@ quest32::Save(FILE* f)
 quest32::Edit()
 {
   Log->Add("Q32 Edit settings..");
-  
-  sscanf(strpar2,"%i%i",&amin,&amax);
+
+  sscanf(strpar2,"%d %d %d %d %d %d",&min.point,&max.point,&min.vector,&max.vector,&min.plate,&max.plate);
 
   keygen = 0;
   nvar = 1;
 
-  Angle->quest2 = this;
+  /*Angle->quest2 = this;
 
   Angle->Edit1->Text = IntToStr(amin);
   Angle->Edit2->Text = IntToStr(amax);
   Angle->Edit3->Text = IntToStr(keygen);
   Angle->Edit4->Text = IntToStr(nvar);
 
-  Angle->ShowModal();
+  Angle->ShowModal();   */
+  PLAngle->quest = this;
+  PLAngle->MinPoint->Position = min.point;
+  PLAngle->MinVector->Position = min.vector;
+  PLAngle->MinPlate->Position = min.plate;
+  PLAngle->MaxPoint->Position = max.point;
+  PLAngle->MaxVector->Position = max.vector;
+  PLAngle->MaxPlate->Position = max.plate;
+  PLAngle->ShowModal();
 
   return 0;
 }
@@ -143,7 +213,7 @@ quest32::Print(TList* plist)
 
         srand( keygen );
 
-        
+
         //get limits
         int firstKf     = 1;
         int lastKf      = 10;
@@ -156,20 +226,38 @@ quest32::Print(TList* plist)
                 int l,m,n;
         } cc;
 
-        cc.X0 = -1*sign(true)*rgen(keygen,1,firstKf,lastKf);
-        cc.Y0 = -1*sign(true)*rgen(keygen,1,firstKf,lastKf);
-        cc.Z0 = -1*sign(true)*rgen(keygen,1,firstKf,lastKf);
+       
 
-        cc.A = sign(true)*rgen(keygen,1,firstKf,lastKf);
-        cc.B = sign(true)*rgen(keygen,1,firstKf,lastKf);
-        cc.C = sign(true)*rgen(keygen,1,firstKf,lastKf);
-        cc.D = sign(true)*rgen(keygen,1,firstKf,lastKf);
 
-        cc.l = sign(true)*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
-        cc.m = sign(true)*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
-        cc.n = sign(true)*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
+        cc.X0 = -1*sign()*rgen(keygen,1,min.point,max.point);
+        cc.Y0 = -1*sign()*rgen(keygen,1,min.point,max.point);
+        cc.Z0 = -1*sign()*rgen(keygen,1,min.point,max.point);
+
+        cc.A = sign()*rgen(keygen,1,min.plate,max.plate);
+        cc.B = sign()*rgen(keygen,1,min.plate,max.plate);
+        cc.C = sign()*rgen(keygen,1,min.plate,max.plate);
+        cc.D = sign()*rgen(keygen,1,min.plate,max.plate);
+
+        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.vector,max.vector);
+        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.vector,max.vector);
+        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.vector,max.vector);
 
         //Сборка уравненения
+
+        if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) )
+        {
+                sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
+                plist->Add( strdup(buf) );
+        }
+        else
+        {
+                sprintf( buf, "String(#)" );
+                plist->Add( strdup(buf) );
+        }
+
+        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
+        plist->Add( strdup(buf) );
+
 
          sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
          plist->Add( strdup(buf) );
@@ -253,23 +341,36 @@ quest32::Print(TList* plist, class test &t)
                 keygen = random( 1000 ) + 1;
         }
 
-        Right_Numb = random( 5 ) + 1;
+        Right_Numb = -1;
 
         srand( keygen );
 
-        for( i = 0; i < 4; i ++ )
+        //get limits
+        int firstKf     = 1;
+        int lastKf      = 10;
+        bool bZero       = true;
+        //coefficients struct
+        struct
         {
-                /*plane[i] = pow(-1,random(amin)) * (random(amax) + 2);
-                plane2[i] = pow(-1,random(amin)) * (random(amax) + 2);*/
-                plane[i] = rgen( keygen, 1, amin, amax);
-                plane2[i] = rgen( keygen, 1, amin, amax);
-        }
+                int X0, Y0, Z0;
+                int A,B,C,D;
+                int l,m,n;
+        } cc;
 
-        while( !plane[0] )
-                plane[0] = rgen( keygen, 1, amin, amax );
+        cc.X0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
+        cc.Y0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
+        cc.Z0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
 
-        while( !plane2[0] )
-                plane2[0] = rgen( keygen, 1, amin, amax );
+        cc.A = sign()*rgen(keygen,1,firstKf,lastKf);
+        cc.B = sign()*rgen(keygen,1,firstKf,lastKf);
+        cc.C = sign()*rgen(keygen,1,firstKf,lastKf);
+        cc.D = sign()*rgen(keygen,1,firstKf,lastKf);
+
+        cc.l = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
+        cc.m = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
+        cc.n = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
+
+        //Сборка уравненения
 
         sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
         plist->Add( strdup(buf) );
@@ -277,180 +378,104 @@ quest32::Print(TList* plist, class test &t)
         sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
         plist->Add( strdup(buf) );
 
-        sprintf( buf, "String(Принт с двумя аргументами; Найти косинус угла между плоскостями.)" );
-        plist->Add( strdup(buf) );
+         sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
+         plist->Add( strdup(buf) );
 
-        sprintf( buf, "String(Плоскости заданы уравнениями:)" );
+         sprintf( buf, "String(Объекты заданы уравнениями:)" );
+         plist->Add( strdup(buf) );
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
+
+        sprintf( buf, "a" );
         plist->Add( strdup(buf) );
+        Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.X0,cc.l,cc.Y0,cc.m,cc.Z0,cc.n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
 
         sprintf( buf, "alpha" );
         plist->Add( strdup(buf) );
-
-        if( abs( plane[0] ) > 1 )
-                sprintf( buf, "%d*x", plane[0] );
-        else
-        if( plane[0] < 0 )
-                sprintf( buf, "-x" );
-        else
-                sprintf( buf, "x" );
-
-        if ( abs( plane[1] ) > 1 )
-                sprintf( buf1, "%+d*y", plane[1] );
-        else
-        if( plane[1] < 0 )
-                sprintf( buf1, "-y" );
-        else
-        if ( plane[1] > 0 )
-                sprintf( buf1, "+y" );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
-
-        if ( abs( plane[2] ) > 1 )
-                sprintf( buf1, "%+d*z", plane[2] );
-        else
-        if ( plane[2] < 0 )
-                sprintf( buf1, "-z" );
-        else
-        if ( plane[2] > 0 )
-                sprintf( buf1, "+z", plane[2] );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
-
-        if ( plane[3] )
-                sprintf( buf1, "%+d", plane[3] );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
-
-        strcat( buf, "=0" );
+        Log->Add(buf);
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.A,cc.B,cc.C,cc.D);
         plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-        sprintf( buf, "beta" );
+        sprintf( buf, "sin(!(alpha))=...");
         plist->Add( strdup(buf) );
+        Log->Add(buf);
 
-        if( abs( plane2[0] ) > 1 )
-                sprintf( buf, "%d*x", plane2[0] );
-        else
-        if( plane2[0] < 0 )
-                sprintf( buf, "-x" );
-        else
-                sprintf( buf, "x" );
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
 
-        if ( abs( plane2[1] ) > 1 )
-                sprintf( buf1, "%+d*y", plane2[1] );
-        else
-        if( plane2[1] < 0 )
-                sprintf( buf1, "-y" );
-        else
-        if ( plane2[1] > 0 )
-                sprintf( buf1, "+y" );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
+        //generating variants
+        Log->Add("Generating..");
+        pAnswer pAns[4];
 
-        if ( abs( plane2[2] ) > 1 )
-                sprintf( buf1, "%+d*z", plane2[2] );
-        else
-        if ( plane2[2] < 0 )
-                sprintf( buf1, "-z" );
-        else
-        if ( plane2[2] > 0 )
-                sprintf( buf1, "+z", plane2[2] );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
+        //right variant
+        pAns[0].legit = true;
+        sprintf( pAns[0].str, "(%d*sqrt(%d))/%d",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
 
-        if ( plane2[3] )
-                sprintf( buf1, "%+d", plane2[3] );
-        else
-                sprintf( buf1, "" );
-        strcat( buf, buf1 );
+        //wrong variant 1
+        pAns[1].legit = false;
+        sprintf( pAns[1].str, "(%d*sqrt(%d))/%d",-abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
 
-        strcat( buf, "=0" );
-        plist->Add( strdup(buf) );
+         //wrong variant 2
+        pAns[2].legit = false;
+        sprintf( pAns[2].str, "(%d*sqrt(%d))/%d",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n)+random(5)+1,   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
 
+         //wrong variant 3
+        pAns[3].legit = false;
+        sprintf( pAns[3].str, "(%d*%d)/sqrt(%d)",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
 
-        sprintf( buf, "cos(!(alpha&beta))=...");
-        plist->Add( strdup(buf) );
+        //shuffle ;)
+        Log->Add("Shuffle..");
+        shuffleAnswers(pAns);
 
-        scal = 0;
-        absa = 0;
-        absb = 0;
-
-        for ( i = 0; i < 3; i ++ )
+        Log->Add("Find right..");
+        //get right variant
+        for (int i = 0; i < 4 && Right_Numb == -1; i++)
         {
-                scal += plane[i] * plane2[i];
-                absa += plane[i] * plane[i];
-                absb += plane2[i] * plane2[i];
+                if (pAns[i].legit)
+                {
+                        Right_Numb = i+1;
+                         Log->Add("Right");
+                }
+                else
+                {
+                        Log->Add("Wrong");
+                }
         }
 
-        for( n = 0; n < 5; n ++ )
-        {
-                sprintf( buf, "String(\"Вариант %c):\")", 'a' + n );
-                plist->Add( strdup(buf) );
+        //output
 
-                sprintf( buf, "cos(!(alpha&beta))=(" );
+        plist->Add(strdup("String(Вариант a: )"));
+        plist->Add( strdup(pAns[0].str) );
+        Log->Add(pAns[0].str);
+                      sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
 
-                if ( ( ceil( sqrt( absa ) ) == sqrt( absa ) ) && ( ceil( sqrt( absb ) ) == sqrt( absb ) ) )
-                {
-                        dr = drobi( scal - ( Right_Numb - 1 ) + n, sqrt( absa ) * sqrt( absb ) );
+        plist->Add(strdup("String(Вариант b: )"));
+        plist->Add( strdup(pAns[1].str) );
+        Log->Add(pAns[1].str);
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
 
-                        sprintf( buf1, "%s", DrobiToStr ( dr ) );
-                        strcat( buf, buf1 );
-                }
-                else
-                if ( ( ceil( sqrt( absa ) ) == sqrt( absa ) ) )
-                {
-                        dr = drobi( scal - ( Right_Numb - 1 ) + n, sqrt( absa ) );
+        plist->Add(strdup("String(Вариант c: )"));
+        plist->Add( strdup(pAns[2].str) );
+        Log->Add(pAns[2].str);
+                sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
 
-                        sprintf( buf1, "%s/sqrt(%d)", DrobiToStr( dr ), absb );
-                        strcat( buf, buf1 );
-                }
-                else
-                if ( ( ceil( sqrt( absb ) ) == sqrt( absb ) ) )
-                {
-                        dr = drobi( scal - ( Right_Numb - 1 ) + n, sqrt( absb ) );
-
-                        sprintf( buf1, "%s/sqrt(%d)", DrobiToStr ( dr ), absa );
-                        strcat( buf, buf1 );
-                }
-                else
-                {
-                        if ( ceil ( sqrt ( absa * absb ) ) == sqrt ( absa * absb ) )
-                        {
-                                dr = drobi( scal - ( Right_Numb - 1 ) + n, sqrt (absa * absb ) );
-                                sprintf( buf1, "%s", DrobiToStr( dr ) );
-                        }
-                        else
-                        {
-                                if( scal - ( Right_Numb - 1 ) + n )
-                                        sprintf( buf1, "%d/(sqrt(%d)*sqrt(%d))=%d/(sqrt(%d*%d))", scal - ( Right_Numb - 1 ) + n, absa, absb, scal - ( Right_Numb - 1 ) + n, absa, absb );
-                                else
-                                        sprintf( buf1, "0" );
-                        }
-                        strcat( buf, buf1 );
-                }
-
-                strcat( buf, ")" );
-                plist->Add( strdup(buf) );
-        }
-
-        /*sprintf(buf,"String(@Часть преподавателя )");
-        plist->Add(strdup(buf));
-
-        sprintf(buf,"String(\"Тема - %s \")",selecttask->name);
-        plist->Add(strdup(buf));
-
-        sprintf(buf,"String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
-        plist->Add(strdup(buf));
-
-        sprintf(buf,"String( Правильный ответ - %c)", 'a' + Right_Numb - 1 );
-        plist->Add(strdup(buf));*/
+        plist->Add(strdup("String(Вариант d: )"));
+        plist->Add( strdup(pAns[3].str) );
+        Log->Add(pAns[3].str);
+                 sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
 
         t.pr_tst = 1;
-        t.ch_ask = 5;
+        t.ch_ask = 4;
         t.right_ask = Right_Numb;
         t.msg = "Тест успешно сгенерирован.";
 

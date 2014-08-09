@@ -121,6 +121,7 @@ USEUNIT("queIntegRnd.cpp");
 USEFORM("MIntegRnd.cpp", IntegRnd);
 USEUNIT("m_integ_a02.cpp");
 USEFORM("Unit1.cpp", Log);
+USEFORM("Unit2.cpp", PLAngle);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 {
@@ -186,6 +187,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
                  Application->CreateForm(__classid(TDerivRnd), &DerivRnd);
                  Application->CreateForm(__classid(TIntegRnd), &IntegRnd);
                  Application->CreateForm(__classid(TLog), &Log);
+                 Application->CreateForm(__classid(TPLAngle), &PLAngle);
                  Application->Run();
         }
         catch (Exception &exception)

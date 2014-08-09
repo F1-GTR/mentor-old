@@ -27,6 +27,7 @@
 #include "MPrint.h"
 #include "MTRconvene.h"
 #include "Unit1.h"
+#include "Unit2.h"
 #include <windows.h>
 #pragma hdrstop
 //---------------------------------------------------------------------------
@@ -1300,7 +1301,7 @@ void __fastcall Thwin::FormResize(TObject *Sender)
 
 void __fastcall Thwin::N21Click(TObject *Sender)
 {
-        Log->Show();        
+        Log->Show();
 }
 //---------------------------------------------------------------------------
 
