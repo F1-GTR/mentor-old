@@ -8,12 +8,99 @@
 #include "MMentorConfig.h"
 #include "MGenHtml.h"
 #include "test_class.h"
+#include "Unit1.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
+//Получение знака, если was = True - знак рандомный, если нет - вернёт +
+//При минусе Was обращается в False
+int sign(bool &was)
+{
+        if (was)
+        {
+                int RD = random(10);
+                if (RD >= 3)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return -1;
+                }
+        }
+        else
+        {
+                return -1;
+        }
+
+}
+int sign()
+{
+       int RD = random(10);
+       char buff[10];
+       if (RD >= 3)
+       {
+              return 1;
+       }
+       else
+       {
+                return -1;
+       }
+
+}
+
+//Обращение в ноль, если was = True - возврат рандомный, если нет - вернёт 1
+//При нуле Was обращается в False
+int Zero(bool &was)
+{
+        Log->Add("TEST");
+        if (was)
+        {
+               int RD = random(30);
+               char buff[10];
+               sprintf(buff,"%d",RD);
+               Log->Add(buff);
+                if ((RD <= 17) || (RD >= 22))
+                {
+                        Log->Add("! zero");
+                        return 1;
+
+                }
+                else
+                {
+                        Log->Add("zero");
+                        was = false;
+                        return 0;
+                }
+        }
+        else
+        {
+                Log->Add("lock zero");
+                return 1;
+        }
+
+}
+
+int Zero()
+{
+   int RD = random(30);
+   if (RD == 17)
+   {
+           return 1;
+   }
+   else
+   {
+         return 0;
+   }
+
+}
+
 quest4::quest4(FILE* f)
 {
+
+
   char* buf = new char[256];
 
   randomize();
@@ -103,6 +190,8 @@ quest4::Print( TList* plist )
   int det;
   int i, j;
 
+  bool wZero = true;
+
   if( keygen == 0 )
   {
         keygen = random( 1000 ) + 1;
@@ -110,11 +199,13 @@ quest4::Print( TList* plist )
 
   srand( keygen );
 
+  Log->Add("Quest 4 Generating");
+
   for( i = 0; i < dim; i++)
   {
         for( j = 0; j < dim; j++)
         {
-                ma[i][j] = rgen( keygen, 1, amin, amax );
+                ma[i][j] = sign()*Zero(wZero)*(1+abs(rgen( keygen, 1, amin, amax )));
         }
   }
 
@@ -250,6 +341,8 @@ quest4::Print( TList* plist, class test &t )
         char* buf = new char[256];
         char* buf1 = new char[256];
 
+        bool wZero = true;
+
         if( keygen == 0 )
         {
                 keygen = random( 1000 ) + 1;
@@ -282,7 +375,7 @@ quest4::Print( TList* plist, class test &t )
         {
                 for( j = 0; j < dim; j++ )
                 {
-                        ma[i][j] = rgen( keygen, 1, amin, amax );
+                        ma[i][j] = sign()*Zero(wZero)*(1+abs(rgen( keygen, 1, amin, amax )));
                 }
         }
 

@@ -12,6 +12,83 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
+//Получение знака, если was = True - знак рандомный, если нет - вернёт +
+//При минусе Was обращается в False
+int sign(bool &was)
+{
+        if (was)
+        {
+                int RD = random(10);
+                if (RD >= 3)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return -1;
+                }
+        }
+        else
+        {
+                return -1;
+        }
+
+}
+int sign()
+{
+       int RD = random(10);
+       char buff[10];
+       if (RD >= 3)
+       {
+              return 1;
+       }
+       else
+       {
+                return -1;
+       }
+
+}
+
+//Обращение в ноль, если was = True - возврат рандомный, если нет - вернёт 1
+//При нуле Was обращается в False
+int zero(bool &was)
+{
+        if (was)
+        {
+               int RD = random(10);
+
+                if (RD%2 == 0)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return 0;
+                }
+        }
+        else
+        {
+                return 1;
+        }
+
+}
+
+int zero()
+{
+   int RD = random(10);
+   if (RD%2 == 0)
+   {
+           return 1;
+   }
+   else
+   {
+         return 0;
+   }
+
+}
+
 quest3::quest3(FILE* f)
 {
   char* buf = new char[256];
@@ -65,6 +142,8 @@ quest3::Print(TList* plist)
   int b1 = 0, b2 = 0;
   int i, j;
 
+  bool wZero = true;
+
   drobi matr[5][5];
 
   sscanf( strpar1, "%i%i%i", &kstrok, &amin, &amax );
@@ -91,10 +170,10 @@ quest3::Print(TList* plist)
   while ( !b2 )
         b2 = amin + random( amax - amin + 1);
 
-  ma[0][0] = rgen( keygen, 0, amin, amax );
-  ma[0][1] = rgen( keygen, 0, amin, amax );
+  ma[0][0] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
+  ma[0][1] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
   while( !ma[0][1] )
-        ma[0][1] = rgen( keygen, 0, amin, amax );
+        ma[0][1] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
   ma[1][1] = b1 + b2 - ma[0][0];
 
   matr[0][0] = ma[0][0];
@@ -215,6 +294,8 @@ quest3::Print(TList* plist, class test &t)
         int i, j;
         int n, Right_Numb;
 
+        bool wZero = true;
+
         drobi matr[5][5];
 
         sscanf( strpar1, "%i%i%i", &kstrok, &amin, &amax );
@@ -243,10 +324,10 @@ quest3::Print(TList* plist, class test &t)
         while ( !b2 )
                 b2 = amin + random( amax - amin + 1);
 
-        ma[0][0] = amin + random( amax - amin + 1);
-        ma[0][1] = rgen( keygen, 0, amin, amax );
-        while( !ma[0][1] )
-                ma[0][1] = rgen( keygen, 0, amin, amax );
+        ma[0][0] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
+  ma[0][1] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
+  while( !ma[0][1] )
+        ma[0][1] = sign()*zero(wZero)*(1+abs(rgen( keygen, 0, amin, amax )));
         ma[1][1] = b1 + b2 - ma[0][0];
 
         matr[0][0] = ma[0][0];

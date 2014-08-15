@@ -82,7 +82,6 @@ int sign()
 {
        int RD = random(10);
        char buff[10];
-       Log->Add(itoa(RD,buff,10));
        if (RD >= 3)
        {
               return 1;
@@ -100,8 +99,8 @@ int zero(bool &was)
 {
         if (was)
         {
-                int RD = random(2);
-                if (RD)
+                int RD = random(10);
+                if (RD >= 3)
                 {
                         return 1;
                 }
@@ -120,8 +119,8 @@ int zero(bool &was)
 
 int zero()
 {
-   int RD = random(2);
-   if (RD)
+   int RD = random(10);
+   if (RD >= 3)
    {
            return 1;
    }

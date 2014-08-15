@@ -54,9 +54,9 @@ void convert (AnsiString textfile, AnsiString bmpfile)
 
 /** Configuring... */
     TFont *font = new TFont;
-    font->PixelsPerInch = 1000;
-    font->Name = "Century Schoolbook";
-    font->Size = 16;
+    font->PixelsPerInch = 750;
+    font->Name = "Arial";
+    font->Size = 8;
     font->Style = TFontStyles();
     font->Charset = RUSSIAN_CHARSET;
     FILE *fconf;
@@ -74,9 +74,9 @@ void convert (AnsiString textfile, AnsiString bmpfile)
         face[strlen(face)-1]=0; // remove \n
         fscanf(fconf, "%d\n%s\n", &size, style);
         fclose(fconf);
-        font->Name = (AnsiString)face;
-        font->Size = size;
-        font->Style = TFontStyles();
+        //font->Name = (AnsiString)face;
+        //font->Size = size;
+        //font->Style = TFontStyles();
         if (strchr(style, 'b')) font->Style = font->Style << fsBold;
         if (strchr(style, 'i')) font->Style = font->Style << fsItalic;
         if (strchr(style, 'u')) font->Style = font->Style << fsUnderline;

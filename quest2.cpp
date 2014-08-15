@@ -7,10 +7,88 @@
 #include "MMentorConfig.h"
 #include "MGenHtml.h"
 #include "test_class.h"
+#include "unit1.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
 //ПРОИЗВЕДЕНИЕ МАТРИЦ
 #pragma package(smart_init)
+
+//Получение знака, если was = True - знак рандомный, если нет - вернёт +
+//При минусе Was обращается в False
+int sign(bool &was)
+{
+        if (was)
+        {
+                int RD = random(10);
+                if (RD >= 3)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return -1;
+                }
+        }
+        else
+        {
+                return -1;
+        }
+
+}
+int sign()
+{
+       int RD = random(10);
+       char buff[10];
+       if (RD >= 3)
+       {
+              return 1;
+       }
+       else
+       {
+                return -1;
+       }
+
+}
+
+//Обращение в ноль, если was = True - возврат рандомный, если нет - вернёт 1
+//При нуле Was обращается в False
+int zero(bool &was)
+{
+        if (was)
+        {
+               int RD = random(10);
+
+                if (RD%2 == 0)
+                {
+                        return 1;
+                }
+                else
+                {
+                        was = false;
+                        return 0;
+                }
+        }
+        else
+        {
+                return 1;
+        }
+
+}
+
+int zero()
+{
+   int RD = random(10);
+   if (RD%2 == 0)
+   {
+           return 1;
+   }
+   else
+   {
+         return 0;
+   }
+
+}
 
 quest2::quest2(FILE* f)
 {
@@ -66,6 +144,8 @@ quest2::Print(TList* plist)
   int mc[15][15];
   int i, j, k;
 
+  bool wZero = true;
+
   sscanf( strpar1, "%i%i%i", &kstrok, &kstolb, &amin );
   sscanf( strpar2, "%i", &amax );
 
@@ -80,8 +160,9 @@ quest2::Print(TList* plist)
   {
         for( j = 0; j < kstolb; j ++ )
         {
-                ma[i][j] = amin + random( amax - amin + 1 );
-                mb[j][i] = amin + random( amax - amin + 1 );
+                //только один ноль в матрице
+                ma[i][j] = sign()*zero(wZero)*(1+abs(amin + random( amax - amin + 1 )));
+                mb[j][i] = sign()*zero(wZero)*(1+abs(amin + random( amax - amin + 1 )));
         }
   }
 
@@ -198,6 +279,7 @@ quest2::Print(TList* plist, class test &t)
         int mc[15][15];
         int i, j, k;
         int n, Right_Numb;
+        bool wZero = true;
 
         sscanf( strpar1, "%i%i%i", &kstrok, &kstolb, &amin );
         sscanf( strpar2, "%i", &amax );
@@ -215,8 +297,8 @@ quest2::Print(TList* plist, class test &t)
         {
                 for( j = 0; j < kstolb; j ++ )
                 {
-                        ma[i][j] = amin + random( amax - amin + 1 );
-                        mb[j][i] = amin + random( amax - amin + 1 );
+                        ma[i][j] = sign()*zero(wZero)*(1+abs(amin + random( amax - amin + 1 )));
+                        mb[j][i] = sign()*zero(wZero)*(1+abs(amin + random( amax - amin + 1 )));
                 }
         }
 

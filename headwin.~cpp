@@ -27,6 +27,7 @@
 #include "MPrint.h"
 #include "MTRconvene.h"
 #include "Unit1.h"
+#include "Unit2.h"
 #include <windows.h>
 #pragma hdrstop
 //---------------------------------------------------------------------------
@@ -40,8 +41,6 @@ __fastcall Thwin::Thwin(TComponent* Owner)
         : TForm(Owner)
 {
         kurs = NULL;
-        GetCurrentDirectory(256,wpath);
-        strcat(wpath,"\\");
         
 }
 //---------------------------------------------------------------------------
@@ -1302,7 +1301,8 @@ void __fastcall Thwin::FormResize(TObject *Sender)
 
 void __fastcall Thwin::N21Click(TObject *Sender)
 {
-        Log->Show();        
+        Log->Show();
+        PLAngle->Show();        
 }
 //---------------------------------------------------------------------------
 

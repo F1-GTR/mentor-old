@@ -9,6 +9,12 @@ class quest32: public tquest{
   char* strpar2;
   int amin;
   int amax;
+  struct
+  {
+                int point;
+                int vector;
+                int plate;
+  } min,max;
 //  int dim;
 
   quest32(FILE* f);

@@ -14,6 +14,54 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
+//Обращение в ноль, если was = True - возврат рандомный, если нет - вернёт 1
+//При нуле Was обращается в False
+int sign()
+{
+       int RD = random(10);
+       char buff[10];
+       if (RD >= 3)
+       {
+              return 1;
+       }
+       else
+       {
+                return -1;
+       }
+
+}
+
+int Zero(bool &was)
+{
+
+        if (was)
+        {
+               int RD = random(30);
+               //char buff[10];
+               //sprintf(buff,"%d",RD);
+               //Log->Add(buff);
+                if ((RD <= 17) || (RD >= 22))
+                {
+                //        Log->Add("! zero");
+                        return 1;
+
+                }
+                else
+                {
+               //         Log->Add("zero");
+                        was = false;
+                        return 0;
+                }
+        }
+        else
+        {
+                //Log->Add("lock zero");
+                return 1;
+        }
+
+}
+
+
 quest5::quest5(FILE* f,int type)
 {
   char* buf = new char[256];
@@ -82,9 +130,10 @@ quest5::Print(TList* plist)
         }
 
         srand( keygen );
+        bool wZero = true;
 
         for( i = 0; i < dim; i ++ )
-                x[i] = rgen( keygen, 1, amin, amax );
+                x[i] = sign()*Zero(wZero)*(1+abs(rgen( keygen, 1, amin, amax )));
 
         for( i = 0; i < dim; i++ )
         {
