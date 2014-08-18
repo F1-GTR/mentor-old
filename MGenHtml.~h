@@ -36,6 +36,7 @@ __published:
         TSaveDialog *SaveDialog1;
         TButton *Button2;
         TCheckBox *CheckBox1;
+        TImageEnIO *ImageEnIO1;
         void __fastcall OKBtnClick(TObject *Sender);
         void __fastcall FormActivate(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);

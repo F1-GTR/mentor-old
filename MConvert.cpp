@@ -55,7 +55,7 @@ void TxtToBmp (TList *List, Graphics::TBitmap *Bitmap, TFont *Font, int left, in
       * be set to bold, 'i' and 'u' is for italic and underline rspct.  *
       *                                                                 *
       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-    FILE *fconfig = fopen(conffile.c_str(), "wt");
+   /* FILE *fconfig = fopen(conffile.c_str(), "wt");
     fprintf(fconfig, "%d\n%d\n%s\n%d\n%c%c%c",
         left, top,
         Font->Name.c_str(),
@@ -64,7 +64,7 @@ void TxtToBmp (TList *List, Graphics::TBitmap *Bitmap, TFont *Font, int left, in
         Font->Style.Contains(fsItalic)?'i':'x',
         Font->Style.Contains(fsUnderline)?'u':'x'
     );
-    fclose(f);
+    fclose(f);     */
 
     /** Call the utility */
     SHELLEXECUTEINFO sei;
@@ -215,7 +215,7 @@ void FilePrint ( AnsiString FileName )
 
         //Bitmap->LoadFromFile( FileName );
         qvar->ImageEnIO1->LoadFromFile( FileName );
-        qvar->ImageEnIO1->Params->JPEG_Quality = 100;
+        qvar->ImageEnIO1->Params->JPEG_Quality = 70;
 
         //w = Bitmap->Width * 6;
         w = -1;

@@ -7,11 +7,67 @@
 #include "tkurs.h"
 #include "MGenKey.h"
 #include "qvarnt.h"
+#include "unit1.h"
 #pragma hdrstop
 //---------------------------------------------------------------------
 #pragma link "imageenio"
 #pragma resource "*.dfm"
 TGenHtml *GenHtml;
+
+void SlashReplace(char str[])
+{
+        while(strchr(str,'\\') != NULL)
+        {
+            strstr(str,"\\")[0] = '/';
+        }
+
+}
+
+void ConvertToMoodle(char * kname)
+{
+        char dir[255];
+        strcpy(dir, "-d \"");
+        strcat(dir,GetCurrentDir().c_str());
+        strcat(dir,"\\");
+        strcat(dir,kname);
+        strcat(dir,"\\\"");
+        Log->Add(dir);
+        SlashReplace(dir);
+        //preparation strings
+
+        AnsiString workdir = ExtractFilePath(Application->ExeName)+"utility\\mentor2moodle\\";
+        AnsiString utility = workdir + "toMoodleXML.exe";
+
+
+         /** Call the utility */
+        Log->Add(dir);
+        Log->Add(utility.c_str());
+        Log->Add("Start converting..");
+        /*
+        SHELLEXECUTEINFO sei;
+        sei.cbSize = sizeof(sei);
+        sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+        sei.lpVerb = NULL;
+        sei.lpFile = utility.c_str();
+        sei.lpParameters = strdup(dir);
+        sei.lpDirectory = workdir.c_str();
+        sei.nShow = SW_HIDE;
+        ShellExecuteEx(&sei);
+        // ... wait while it works
+        WaitForSingleObject(sei.hProcess, INFINITE);
+        */
+        ShellExecute(0,"open",utility.c_str(),dir,0,SW_SHOW); //запускаем
+
+        /*(char tmp[255];
+        strcpy(tmp,utility.c_str());
+        strcat(tmp," ");
+        strcat(tmp,dir);
+        Log->Add(tmp);
+        WinExec(tmp, SW_SHOW); */
+
+
+}
+
 //---------------------------------------------------------------------
 __fastcall TGenHtml::TGenHtml(TComponent* AOwner)
 	: TForm(AOwner)
@@ -157,7 +213,7 @@ void __fastcall TGenHtml::gen_test( int NVar )
                                                         TxtToBmp ( list1, bmv, qvar->FontDialog1->Font, 0, 0 );
                                                         bmv->SaveToFile( "temp.bmp" );
                                                         ImageEnIO1->LoadFromFile( "temp.bmp" );
-                                                        ImageEnIO1->Params->JPEG_Quality = 100;
+                                                        ImageEnIO1->Params->JPEG_Quality = 40;
 
                                                         ProgressBar1->Position ++;
 
@@ -224,7 +280,7 @@ void __fastcall TGenHtml::gen_test( int NVar )
                                                         VarHtml->Add("</html>");
 
                                                         sprintf( str, "\\var_%d_zad_%d.php", num_var, nz );
-                                                        VarHtml->SaveToFile( GetCurrentDir() + "\\" + kurs_name + "\\" + str );
+                                                        //VarHtml->SaveToFile( GetCurrentDir() + "\\" + kurs_name + "\\" + str );
 
                                                         delete list1;
                                                         delete list2;
@@ -250,6 +306,8 @@ void __fastcall TGenHtml::gen_test( int NVar )
         NumZ->Add( IntToStr( variant ) );
         NumZ->Add( IntToStr( Numb_Zad ) );
         NumZ->SaveToFile( GetCurrentDir() + "\\" + kurs_name + "\\Number.txt" );
+        Log->Add(GetCurrentDir().c_str());
+        ConvertToMoodle(kurs_name.c_str());
 
         delete list;
         delete VarHtml;
