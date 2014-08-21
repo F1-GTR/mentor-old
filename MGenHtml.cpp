@@ -14,6 +14,19 @@
 #pragma resource "*.dfm"
 TGenHtml *GenHtml;
 
+bool TrueStr(AnsiString str)
+{
+        char* ch = "/\\#*:?\"<>| ";
+        if (strlen(str.c_str()) < 1)
+                return false;
+        for (int i = 0; i < strlen(str.c_str()); i ++)
+        {
+                if (AnsiStrScan(ch,str.c_str()[i]))
+                        return false;
+        }
+        return true;
+}
+
 void SlashReplace(char str[])
 {
         while(strchr(str,'\\') != NULL)
@@ -22,6 +35,7 @@ void SlashReplace(char str[])
         }
 
 }
+
 
 void ConvertToMoodle(char * kname)
 {
@@ -77,36 +91,47 @@ __fastcall TGenHtml::TGenHtml(TComponent* AOwner)
 
 void __fastcall TGenHtml::OKBtnClick(TObject *Sender)
 {
-    this->Enabled = false;
-    OKBtn->Enabled = false; CancelBtn->Enabled = false;
-        if( !CheckBox1->Checked )
-                gen_test( StrToInt( Edit1->Text ) );
-        else
-                gen_for_redclass( StrToInt( Edit1->Text ) );
-    OKBtn->Enabled = true; CancelBtn->Enabled = true;
-    this->Enabled = true;
+    char *str = "/\\#*:?\"<>| ";
+    if (TrueStr(KName->Text))
+    {
+     KursName = KName->Text;
+     SOut->Lines->Add("Generating start for '"+KursName+"' with "+StrToInt(Edit1->Text)+" variants");
+
+     //this->Enabled = false;
+     OKBtn->Enabled = false; CancelBtn->Enabled = false;
+
+
+
+     gen_test( StrToInt( Edit1->Text ) );
+     SOut->Lines->Add("Generating complete");
+     SOut->Lines->Add("Now, you can open saved test using this button");
+     SOut->Lines->Add("       |");
+     SOut->Lines->Add("      \\/");
+     OpenFolder->Enabled = true;
+     //this->Enabled = true;
+     CancelBtn->Enabled = true;
+    }
+    else
+    {
+       SOut->Lines->Add("<!> Wrong kurs name");
+    }
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TGenHtml::FormActivate(TObject *Sender)
 {
         ProgressBar1->Position = 0;
+        SOut->Lines->Clear();
+        SOut->Lines->Add("Activate form");
+        OKBtn->Enabled = true;  CancelBtn->Enabled = true;
+        OpenFolder->Enabled = false;
+        KName->Text = "kurs_tmp";
+
 }
 //---------------------------------------------------------------------------
 
-
-void __fastcall TGenHtml::Button2Click(TObject *Sender)
-{
-        if( SaveDialog1->Execute() )
-                Edit2->Text = SaveDialog1->FileName;
-}
 //---------------------------------------------------------------------------
 
-void __fastcall TGenHtml::FormCreate(TObject *Sender)
-{
-        Edit2->Text = GetCurrentDir() + "\\kurs.zip";
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TGenHtml::gen_test( int NVar )
 {
@@ -126,6 +151,8 @@ void __fastcall TGenHtml::gen_test( int NVar )
         TStringList * NumZ = new TStringList;
 
         variant = NVar;
+
+        SOut->Lines->Add("Create and converting images");
 
         for( i = 0; i < kurs->qlist->Count; i ++ )
         {
@@ -213,11 +240,11 @@ void __fastcall TGenHtml::gen_test( int NVar )
                                                         TxtToBmp ( list1, bmv, qvar->FontDialog1->Font, 0, 0 );
                                                         bmv->SaveToFile( "temp.bmp" );
                                                         ImageEnIO1->LoadFromFile( "temp.bmp" );
-                                                        ImageEnIO1->Params->JPEG_Quality = 40;
+                                                        ImageEnIO1->Params->JPEG_Quality = 70;
 
                                                         ProgressBar1->Position ++;
 
-                                                        kurs_name = "tmp_kurs";
+                                                        kurs_name = KursName;
                                                         CreateDir( kurs_name );
 
                                                         sprintf( str, "Image_%d_zad_%d.jpg", num_var, nz );
@@ -297,7 +324,7 @@ void __fastcall TGenHtml::gen_test( int NVar )
 
 
         }
-
+        SOut->Lines->Add("Saving right.txt");
         Right->SaveToFile(  GetCurrentDir() + "\\" + kurs_name + "\\right.txt" );
 
         NumZ->Clear();
@@ -305,8 +332,10 @@ void __fastcall TGenHtml::gen_test( int NVar )
         NumZ->Add( kurs->selecttask->name );
         NumZ->Add( IntToStr( variant ) );
         NumZ->Add( IntToStr( Numb_Zad ) );
+        SOut->Lines->Add("Saving Number.txt");
         NumZ->SaveToFile( GetCurrentDir() + "\\" + kurs_name + "\\Number.txt" );
         Log->Add(GetCurrentDir().c_str());
+        SOut->Lines->Add("Converting to moodle");
         ConvertToMoodle(kurs_name.c_str());
 
         delete list;
@@ -316,10 +345,83 @@ void __fastcall TGenHtml::gen_test( int NVar )
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TGenHtml::gen_for_redclass( int NVar )
+
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TGenHtml::OpenFolderClick(TObject *Sender)
 {
+        ShellExecute(Handle, NULL, "explorer", (GetCurrentDir()+"\\"+KursName).c_str(), NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TGenHtml::FormClose(TObject *Sender, TCloseAction &Action)
+{
+        Log->Add("Gen. Form closing");        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::V1Click(TObject *Sender)
+{
+        Edit1->Text = "1";        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::V4Click(TObject *Sender)
+{
+        Edit1->Text = "4";        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::V10Click(TObject *Sender)
+{
+        Edit1->Text="10";        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::V30Click(TObject *Sender)
+{
+        Edit1->Text="30";        
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::VPlusClick(TObject *Sender)
+{
+        int Current = StrToInt(Edit1->Text);
+        Current++;
+        Edit1->Text  = StrToInt(Current);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::VMinusClick(TObject *Sender)
+{
+        int Current = StrToInt(Edit1->Text);
+        if (Current > 1)
+                Current--;
+        Edit1->Text  = StrToInt(Current);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::Edit1KeyPress(TObject *Sender, char &Key)
+{
+      char *str = "0123456789";
+      if (((int)Key==8) || ((int)Key==13))
+        return;
+      if (!( AnsiStrScan( str, Key)))
+        Key = NULL;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TGenHtml::KNameKeyPress(TObject *Sender, char &Key)
+{
+      char *str = "/\\#*:?\"<>| ";
+      if (((int)Key==8) || ((int)Key==13))
+        return;
+      if (( AnsiStrScan( str, Key)))
+        Key = NULL;
+}
+//---------------------------------------------------------------------------
 
 

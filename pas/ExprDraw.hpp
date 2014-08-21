@@ -2,13 +2,14 @@
 // Copyright (c) 1995, 1999 by Borland International
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'ExprDraw.pas' rev: 4.00
+// (DO NOT EDIT: machine generated header) 'ExprDraw.pas' rev: 5.00
 
 #ifndef ExprDrawHPP
 #define ExprDrawHPP
 
 #pragma delphiheader begin
 #pragma option push -w-
+#pragma option push -Vx
 #include <Math.hpp>	// Pascal unit
 #include <Graphics.hpp>	// Pascal unit
 #include <SysUtils.hpp>	// Pascal unit
@@ -43,7 +44,6 @@ enum TExprCapStyle { ecPoints, ecVector, ecCap, ecTilde, ecLine };
 #pragma option pop
 
 class DELPHICLASS TExprClass;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprClass : public System::TObject 
 {
 	typedef System::TObject inherited;
@@ -138,10 +138,8 @@ public:
 	void __fastcall Draw(int X, int Y, TExprHorAlign HorAlign, TExprVertAlign VertAlign);
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprParent;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprParent : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -163,10 +161,8 @@ public:
 	TExprClass* __fastcall CutOffSon(void);
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprBigParent;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprBigParent : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -188,10 +184,8 @@ public:
 	TExprClass* __fastcall CutOffDaughter(void);
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprChain;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprChain : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -220,10 +214,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprSimple;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprSimple : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -244,10 +236,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprVar;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprVar : public TExprSimple 
 {
 	typedef TExprSimple inherited;
@@ -269,10 +259,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprCustomText;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprCustomText : public TExprSimple 
 {
 	typedef TExprSimple inherited;
@@ -292,10 +280,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprNumber;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprNumber : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -326,10 +312,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprExpNumber;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprExpNumber : public TExprNumber 
 {
 	typedef TExprNumber inherited;
@@ -351,10 +335,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprRatio;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprRatio : public TExprBigParent 
 {
 	typedef TExprBigParent inherited;
@@ -375,10 +357,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprRoot;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprRoot : public TExprBigParent 
 {
 	typedef TExprBigParent inherited;
@@ -403,10 +383,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprBracketed;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprBracketed : public TExprChain 
 {
 	typedef TExprChain inherited;
@@ -433,10 +411,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprRound;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprRound : public TExprBracketed 
 {
 	typedef TExprBracketed inherited;
@@ -451,10 +427,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprExtSymbol;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprExtSymbol : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -479,10 +453,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprPlank;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprPlank : public TExprExtSymbol 
 {
 	typedef TExprExtSymbol inherited;
@@ -501,10 +473,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprSign;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprSign : public TExprExtSymbol 
 {
 	typedef TExprExtSymbol inherited;
@@ -530,10 +500,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprTwinParent;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprTwinParent : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -547,16 +515,14 @@ protected:
 	DYNAMIC void __fastcall DynaSetCanvas(void);
 	
 public:
-	__property TExprClass* Twin1 = {read=Twins[26], write=SetTwins, index=1};
-	__property TExprClass* Twin2 = {read=Twins[27], write=SetTwins, index=2};
+	__property TExprClass* Twin1 = {read=Twins[28], write=SetTwins, index=1};
+	__property TExprClass* Twin2 = {read=Twins[29], write=SetTwins, index=2};
 	__fastcall TExprTwinParent(TExprClass* ASon, TExprClass* FirstTwin, TExprClass* SecondTwin);
 	__fastcall virtual ~TExprTwinParent(void);
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprIndex;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprIndex : public TExprTwinParent 
 {
 	typedef TExprTwinParent inherited;
@@ -582,10 +548,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprArgument;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprArgument : public TExprBracketed 
 {
 	typedef TExprBracketed inherited;
@@ -604,10 +568,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprCommonFunc;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprCommonFunc : public TExprBigParent 
 {
 	typedef TExprBigParent inherited;
@@ -632,10 +594,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprFuncName;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprFuncName : public TExprSimple 
 {
 	typedef TExprSimple inherited;
@@ -654,10 +614,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprFunc;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprFunc : public TExprCommonFunc 
 {
 	typedef TExprCommonFunc inherited;
@@ -671,10 +629,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprBase;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprBase : public TExprBracketed 
 {
 	typedef TExprBracketed inherited;
@@ -691,10 +647,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprComma;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprComma : public TExprExtSymbol 
 {
 	typedef TExprExtSymbol inherited;
@@ -712,10 +666,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprLim;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprLim : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -738,10 +690,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprSpace;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprSpace : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -761,10 +711,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprStrokes;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprStrokes : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -786,10 +734,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprAtValue;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprAtValue : public TExprBigParent 
 {
 	typedef TExprBigParent inherited;
@@ -817,10 +763,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprCap;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprCap : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -852,10 +796,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprStand;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprStand : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -877,10 +819,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprMatrix;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprMatrix : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -908,10 +848,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprGroupOp;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprGroupOp : public TExprTwinParent 
 {
 	typedef TExprTwinParent inherited;
@@ -941,10 +879,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprSumma;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprSumma : public TExprGroupOp 
 {
 	typedef TExprGroupOp inherited;
@@ -966,10 +902,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprProd;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprProd : public TExprGroupOp 
 {
 	typedef TExprGroupOp inherited;
@@ -991,10 +925,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprCirc;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprCirc : public TExprGroupOp 
 {
 	typedef TExprGroupOp inherited;
@@ -1016,10 +948,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprIntegral;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprIntegral : public TExprGroupOp 
 {
 	typedef TExprGroupOp inherited;
@@ -1044,10 +974,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprLambda;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprLambda : public TExprExtSymbol 
 {
 	typedef TExprExtSymbol inherited;
@@ -1064,10 +992,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprNabla;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprNabla : public TExprExtSymbol 
 {
 	typedef TExprExtSymbol inherited;
@@ -1084,10 +1010,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprAsterix;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprAsterix : public TExprSimple 
 {
 	typedef TExprSimple inherited;
@@ -1104,10 +1028,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprCase;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprCase : public TExprParent 
 {
 	typedef TExprParent inherited;
@@ -1126,10 +1048,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS TExprEmpty;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprEmpty : public TExprClass 
 {
 	typedef TExprClass inherited;
@@ -1146,7 +1066,6 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 //-- var, const, procedure ---------------------------------------------------
 static const Shortint efLeft = 0x1;
@@ -1203,6 +1122,7 @@ static const Word tcSymbolHeight = 0x800;
 using namespace Exprdraw;
 #endif
 #pragma option pop	// -w-
+#pragma option pop	// -Vx
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------

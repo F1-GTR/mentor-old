@@ -1,0 +1,151 @@
+* {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	transition: all 0.3s ease-out;
+}
+body {
+	font-family: Arial;
+	background: #EEE;
+}
+h1 {
+	margin: 20px;
+	color: #555;
+	text-align: center;
+	font-family: Comic Sans MS, Comic Sans M5, cursive;
+	text-shadow: rgba(0,0,0,0.2) 3px 3px 2px;
+}
+
+h4 {
+	margin: 20px;
+	color: #555;
+	text-align: center;
+	font-family: Comic Sans MS, Comic Sans M5, cursive;
+	text-shadow: rgba(0,0,0,0.2) 3px 3px 2px;
+}
+
+table tr {
+	transition: all 0.3s ease-out;
+}
+div.tcontainer {
+	height: 800px;
+	width: 90%;
+	display: block;
+	margin: 0 auto;
+	padding: 5px;
+	border-radius: 10px;
+	background: #DDD;
+	box-shadow: inset rgba(0,0,0,0.8) 0px 0px 4px, rgba(0,0,0,0.8) 0px 0px 4px;
+	border: 4px rgba(0,0,0,0.1) dashed;
+}
+div.tbl {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+table td span {
+	display: block;
+	width: 160px;
+	height: 50px;
+	overflow: hidden;
+	font-size: 12px;
+	background: #FFF;
+	border-radius: 4px;
+	margin: 4px;
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px;
+	transition: all 0.3s ease-out;
+	padding: 4px;
+}
+table td span:hover {
+	background-color: #FFCC33;
+}
+table td h3 {
+	display: block;
+	width: 160px;
+	height: 50px;
+	overflow: hidden;
+	font-size: 16px;
+	text-align: center;
+	line-height: 50px;
+	background: rgba(255,255,200,0.6);
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px;
+	border-radius: 4px;
+	margin: 4px;
+	padding: 4px;
+}
+tr.hide {
+	display: none;
+}
+td span.eq, td.neq span:hover {
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px, inset rgba(0,255,0,0.6) 0px 0px 10px;
+}
+td span.neq, td.neq span:hover {
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px, inset rgba(255,0,0,0.6) 0px 0px 10px;
+}
+td span.free, td.neq span:hover {
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px, inset rgba(0,0,0,0.2) 0px 0px 10px;
+    background: #DDD;
+}
+a.drop {
+	display: block;
+	width: 160px;
+	height: 50px;
+	overflow: hidden;
+	font-size: 16px;
+	text-align: center;
+	line-height: 50px;
+	background: rgba(255,200,200,0.6);
+	box-shadow: rgba(0,0,0,0.8) 0px 0px 4px;
+	border-radius: 4px;
+	margin: 20px auto;
+	cursor: pointer;
+	padding: 4px;
+	font-family: Comic Sans MS, Comic Sans M5, cursive;
+	font-size: 20px;
+	font-weight: bold;
+}
+h2.left {
+	float: left;
+	display: block;
+	margin-left: 5%;
+	width: 40%;
+	text-align: center;
+	margin-bottom: 10px;
+}
+h2.right {
+	float: right;
+	display: block;
+	margin-right: 5%;
+	width: 40%;
+	text-align: center;
+	margin-bottom: 10px;
+}
+div.left {
+	float: left;
+	display: block;
+	margin-left: 5%;
+	width: 40%;
+	text-align: left;
+	background: #DDD;
+	height: 200px;
+	padding: 5px;
+	border-radius: 10px;
+	background: #DDD;
+	box-shadow: inset rgba(0,0,0,0.8) 0px 0px 4px, rgba(0,0,0,0.8) 0px 0px 4px;
+	border: 4px rgba(0,0,100,0.5) dashed;
+	margin-bottom: 10px;
+}
+div.right {
+	float: right;
+	display: block;
+	margin-right: 5%;
+	width: 40%;
+	height: 200px;
+	text-align: left;
+	padding: 5px;
+	border-radius: 10px;
+	background: #DDD;
+	box-shadow: inset rgba(0,0,0,0.8) 0px 0px 4px, rgba(0,0,0,0.8) 0px 0px 4px;
+	border: 4px rgba(0,100,0,0.5) dashed;
+	margin-bottom: 10px;
+}

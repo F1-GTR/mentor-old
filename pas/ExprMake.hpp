@@ -2,13 +2,14 @@
 // Copyright (c) 1995, 1999 by Borland International
 // All rights reserved
 
-// (DO NOT EDIT: machine generated header) 'ExprMake.pas' rev: 4.00
+// (DO NOT EDIT: machine generated header) 'ExprMake.pas' rev: 5.00
 
 #ifndef ExprMakeHPP
 #define ExprMakeHPP
 
 #pragma delphiheader begin
 #pragma option push -w-
+#pragma option push -Vx
 #include <SysUtils.hpp>	// Pascal unit
 #include <ExprDraw.hpp>	// Pascal unit
 #include <SysInit.hpp>	// Pascal unit
@@ -20,7 +21,6 @@ namespace Exprmake
 {
 //-- type declarations -------------------------------------------------------
 class DELPHICLASS TExprBuilder;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION TExprBuilder : public System::TObject 
 {
 	typedef System::TObject inherited;
@@ -64,10 +64,8 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 class DELPHICLASS EIncorrectExpr;
-#pragma pack(push, 4)
 class PASCALIMPLEMENTATION EIncorrectExpr : public Sysutils::Exception 
 {
 	typedef Sysutils::Exception inherited;
@@ -82,12 +80,12 @@ public:
 		* Args, const int Args_Size) : Sysutils::Exception(Msg, Args, Args_Size) { }
 	#pragma option pop
 	#pragma option push -w-inl
-	/* Exception.CreateRes */ inline __fastcall EIncorrectExpr(int Ident, Extended Dummy) : Sysutils::Exception(
-		Ident, Dummy) { }
+	/* Exception.CreateRes */ inline __fastcall EIncorrectExpr(int Ident)/* overload */ : Sysutils::Exception(
+		Ident) { }
 	#pragma option pop
 	#pragma option push -w-inl
 	/* Exception.CreateResFmt */ inline __fastcall EIncorrectExpr(int Ident, const System::TVarRec * Args
-		, const int Args_Size) : Sysutils::Exception(Ident, Args, Args_Size) { }
+		, const int Args_Size)/* overload */ : Sysutils::Exception(Ident, Args, Args_Size) { }
 	#pragma option pop
 	#pragma option push -w-inl
 	/* Exception.CreateHelp */ inline __fastcall EIncorrectExpr(const AnsiString Msg, int AHelpContext)
@@ -99,13 +97,13 @@ public:
 		) { }
 	#pragma option pop
 	#pragma option push -w-inl
-	/* Exception.CreateResHelp */ inline __fastcall EIncorrectExpr(int Ident, int AHelpContext) : Sysutils::Exception(
-		Ident, AHelpContext) { }
+	/* Exception.CreateResHelp */ inline __fastcall EIncorrectExpr(int Ident, int AHelpContext)/* overload */
+		 : Sysutils::Exception(Ident, AHelpContext) { }
 	#pragma option pop
 	#pragma option push -w-inl
-	/* Exception.CreateResFmtHelp */ inline __fastcall EIncorrectExpr(int Ident, const System::TVarRec 
-		* Args, const int Args_Size, int AHelpContext) : Sysutils::Exception(Ident, Args, Args_Size, AHelpContext
-		) { }
+	/* Exception.CreateResFmtHelp */ inline __fastcall EIncorrectExpr(System::PResStringRec ResStringRec
+		, const System::TVarRec * Args, const int Args_Size, int AHelpContext)/* overload */ : Sysutils::Exception(
+		ResStringRec, Args, Args_Size, AHelpContext) { }
 	#pragma option pop
 	
 public:
@@ -115,7 +113,6 @@ public:
 	
 };
 
-#pragma pack(pop)
 
 //-- var, const, procedure ---------------------------------------------------
 extern PACKAGE Exprdraw::TExprClass* __fastcall SafeBuildExpr(AnsiString Expr);
@@ -126,6 +123,7 @@ extern PACKAGE Exprdraw::TExprClass* __fastcall BuildExpr(AnsiString Expr);
 using namespace Exprmake;
 #endif
 #pragma option pop	// -w-
+#pragma option pop	// -Vx
 
 #pragma delphiheader end.
 //-- end unit ----------------------------------------------------------------

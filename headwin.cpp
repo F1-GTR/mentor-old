@@ -28,6 +28,7 @@
 #include "MTRconvene.h"
 #include "Unit1.h"
 #include "Unit2.h"
+#include "MScanDialog.h"
 #include <windows.h>
 #pragma hdrstop
 //---------------------------------------------------------------------------
@@ -1309,4 +1310,10 @@ void __fastcall Thwin::N21Click(TObject *Sender)
 
 
 
+
+void __fastcall Thwin::MTRScanner1Click(TObject *Sender)
+{
+     MScan->ShowModal();
+}
+//---------------------------------------------------------------------------
 

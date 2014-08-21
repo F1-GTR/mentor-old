@@ -122,6 +122,7 @@ USEFORM("MIntegRnd.cpp", IntegRnd);
 USEUNIT("m_integ_a02.cpp");
 USEFORM("Unit1.cpp", Log);
 USEFORM("Unit2.cpp", PLAngle);
+USEFORM("MScanDialog.cpp", MScan);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 {
@@ -188,6 +189,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
                  Application->CreateForm(__classid(TIntegRnd), &IntegRnd);
                  Application->CreateForm(__classid(TLog), &Log);
                  Application->CreateForm(__classid(TPLAngle), &PLAngle);
+                 Application->CreateForm(__classid(TMScan), &MScan);
                  Application->Run();
         }
         catch (Exception &exception)

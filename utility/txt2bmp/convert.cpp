@@ -74,9 +74,9 @@ void convert (AnsiString textfile, AnsiString bmpfile)
         face[strlen(face)-1]=0; // remove \n
         fscanf(fconf, "%d\n%s\n", &size, style);
         fclose(fconf);
-        //font->Name = (AnsiString)face;
-        //font->Size = size;
-        //font->Style = TFontStyles();
+        font->Name = (AnsiString)face;
+        font->Size = size;
+        font->Style = TFontStyles();
         if (strchr(style, 'b')) font->Style = font->Style << fsBold;
         if (strchr(style, 'i')) font->Style = font->Style << fsItalic;
         if (strchr(style, 'u')) font->Style = font->Style << fsUnderline;

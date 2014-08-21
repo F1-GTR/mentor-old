@@ -9,7 +9,10 @@
 #include "ExprMake.hpp"
 #include "tkurs.h"
 #include "qvarnt.h"
+#include "Unit1.h"
 #pragma hdrstop
+
+#include <process.h>
 //---------------------------------------------------------------------------
 extern tkurs* kurs;
 
@@ -30,6 +33,7 @@ void TxtToBmp (TList *List, Graphics::TBitmap *Bitmap, TFont *Font, int left, in
          picfile = workdir + "__temp.bmp",  /** resulting file,      */
         conffile = workdir + "custom.cfg";  /** config to write font *
                                               * and indent settings. */
+    Log->Add("Converting parameters:");
 
     /** Save text to temporary text file */
     FILE *f = fopen(textfile.c_str(), "wt");
@@ -66,20 +70,25 @@ void TxtToBmp (TList *List, Graphics::TBitmap *Bitmap, TFont *Font, int left, in
     );
     fclose(f);     */
 
-    /** Call the utility */
+    // Call the utility
+   
     SHELLEXECUTEINFO sei;
     sei.cbSize = sizeof(sei);
     sei.fMask = SEE_MASK_NOCLOSEPROCESS;
     sei.lpVerb = NULL;
     sei.lpFile = utility.c_str();
-    sei.lpParameters = strdup((textfile + " " + picfile).c_str());
-    sei.lpDirectory = workdir.c_str();
+
+    Log->Add(strdup(("\""+textfile + "\" \"" + picfile+"\"").c_str()));
+
+    sei.lpParameters = strdup(("\""+textfile + "\" \"" + picfile+"\"").c_str());
+    sei.lpDirectory = ("\""+workdir+"\"").c_str();
     sei.nShow = SW_HIDE;
     ShellExecuteEx(&sei);
-    /** ... wait while it works */
+    /// ... wait while it works
     WaitForSingleObject(sei.hProcess, INFINITE);
 
-    /** Load the result */
+    //spawnlp(P_WAIT,utility.c_str(),strdup(("\""+textfile + "\" \"" + picfile+"\"").c_str()),NULL);
+    //Load the result*/
     Bitmap->LoadFromFile(picfile);
 }
 

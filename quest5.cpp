@@ -424,6 +424,8 @@ quest5::Print(TList* plist, class test &t)
         char* buf = new char[256];
         char* buf1 = new char[256];
 
+        bool wZero = true;
+
         if( keygen == 0 )
         {
                 keygen = random( 1000 ) + 1;
@@ -434,7 +436,7 @@ quest5::Print(TList* plist, class test &t)
         Right_Numb = random( 5 ) + 1;
 
         for( i = 0; i < dim; i ++ )
-                x[i] = rgen( keygen, 1, amin, amax );
+                x[i] = sign()*Zero(wZero)*(1+abs(rgen( keygen, 1, amin, amax )));
 
         for( i = 0; i < dim; i++ )
         {

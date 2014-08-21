@@ -24,7 +24,8 @@
       queMFlabs.obj m_mflab.obj m_expressions.obj TMFlabs.obj queInteg.obj 
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
       m_integ2.obj quederivrnd.obj MDerivRnd.obj m_integ_a01.obj m_deriv_02.obj 
-      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj Unit1.obj Unit2.obj"/>
+      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj Unit1.obj Unit2.obj 
+      MScanDialog.obj"/>
     <RESFILES value=""/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -38,7 +39,8 @@
       MPr.dfm MLinePlane.dfm MComp.dfm MLinePrizm.dfm MLineCmp.dfm 
       MRenameKonW.dfm MMentorConfig.dfm MGenHtml.dfm MFtpMod.dfm MVarCmp.dfm 
       MPrint.dfm MEigen.dfm MLim01.dfm MTRconvene.dfm MDeriv.dfm TMFlabs.dfm 
-      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm Unit1.dfm Unit2.dfm"/>
+      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm Unit1.dfm Unit2.dfm 
+      MScanDialog.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="PKIECTRLC5.lib dclocx50.lib nmfast50.lib ibsmp50.lib vcljpg50.lib 
       vclbde50.lib vcldb50.lib qrpt50.lib vclx50.lib bcbsmp50.lib vcl50.lib"/>
@@ -57,13 +59,13 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="MENTOR.cpp"/>
-    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
-    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
+    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
+    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
     <WARNINGS value="-w-par -w-8027 -w-8026"/>
     <WARNOPTSTR value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects&quot; 
+    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\.&quot; 
       -IC:\CBuilder5\Projects\. 
       -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; 
       -I&quot;C:\Program Files\Borland\CBuilder5\Bin\.&quot; -Ipas -I$(BCB)\include 
@@ -82,10 +84,10 @@
   </LINKER>
   <IDEOPTIONS>
 [Version Info]
-IncludeVerInfo=0
+IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
-MinorVer=2
+MinorVer=6
 Release=1
 Build=1
 Debug=1
@@ -99,7 +101,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=1.2.1.1
+FileVersion=1.6.1.1
 InternalName=
 LegalCopyright=
 LegalTrademarks=
@@ -116,66 +118,70 @@ C:\Windows\system32\ibsmp50.bpl=Borland C++ InterBase Alerter Component
 $(BCB)\Bin\dclqrt50.bpl=QuickReport Components
 $(BCB)\Bin\dcltqr50.bpl=TeeChart 5.0 for QuickReport Components Design Package
 $(BCB)\Bin\DCLIB50.bpl=InterBase Data Access Components
-$(BCB)\Bin\dclmid50.bpl=Borland MIDAS Components
 $(BCB)\Bin\DCLNMF50.bpl=NetMasters Fastnet Tools
 $(BCB)\Bin\mfcwizard.bpl=MFC Wizard
+$(BCB)\Bin\dclmid50.bpl=Borland MIDAS Components
 
 [HistoryLists\hlIncludePath]
-Count=26
-Item0=C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
-Item1=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
-Item2=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5;D:\mentor\mentorsrc\BCB5
-Item3=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;C:\Igor\mentorsrc\BCB5
-Item4=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;Image En\BCB5
-Item5=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;D:\mentor\Mentor\Mentor\Image En\BCB5
-Item6=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl
-Item7=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;$(BCB)\include;$(BCB)\include\vcl
-Item8=C:\Program Files\Borland\CBuilder5\Bin\;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item9=C:\Program Files\Borland\CBuilder5\Bin;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item10=..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item11=..\Etalon\MENTOR;..\..\..\Program Files\Borland\CBuilder4\Bin;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item12=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item13=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects;pas;с:\Program Files\Borland\CBuilder4\Projects\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item14=F:\Program Files\Borland\CBuilder4\Projects;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item15=..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item16=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item17=F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item18=F:\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item19=F:\CBuilder4\Projects;..\3dtest;F:\CBuilder4\Projects\;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item20=..\3dtest;F:\CBuilder4\Projects;..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item21=..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item22=..\testform;F:\CBuilder4\Projects;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item23=F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item24=F:\CBuilder4\Projects;cunittst;D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
-Item25=D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Count=28
+Item0=C:\Program Files (x86)\Borland\CBuilder5\Projects\;C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
+Item1=C:\Program Files (x86)\Borland\CBuilder5\Projects;C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
+Item2=C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
+Item3=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5
+Item4=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5;D:\mentor\mentorsrc\BCB5
+Item5=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;C:\Igor\mentorsrc\BCB5
+Item6=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;Image En\BCB5
+Item7=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl;D:\mentor\Mentor\Mentor\Image En\BCB5
+Item8=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;pas;$(BCB)\include;$(BCB)\include\vcl
+Item9=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;$(BCB)\include;$(BCB)\include\vcl
+Item10=C:\Program Files\Borland\CBuilder5\Bin\;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item11=C:\Program Files\Borland\CBuilder5\Bin;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item12=..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item13=..\Etalon\MENTOR;..\..\..\Program Files\Borland\CBuilder4\Bin;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item14=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item15=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects;pas;с:\Program Files\Borland\CBuilder4\Projects\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item16=F:\Program Files\Borland\CBuilder4\Projects;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item17=..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item18=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item19=F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item20=F:\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item21=F:\CBuilder4\Projects;..\3dtest;F:\CBuilder4\Projects\;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item22=..\3dtest;F:\CBuilder4\Projects;..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item23=..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item24=..\testform;F:\CBuilder4\Projects;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item25=F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item26=F:\CBuilder4\Projects;cunittst;D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item27=D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\include;$(BCB)\include\vcl
 
 [HistoryLists\hlLibraryPath]
-Count=25
-Item0=C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
-Item1=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
-Item2=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5;D:\mentor\mentorsrc\BCB5
-Item3=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;C:\Igor\mentorsrc\BCB5
-Item4=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;Image En\BCB5
-Item5=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;D:\mentor\Mentor\Mentor\Image En\BCB5
-Item6=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib
-Item7=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib
-Item8=C:\Program Files\Borland\CBuilder5\Bin;$(BCB)\Projects\Lib;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item9=..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item10=..\Etalon\MENTOR;..\..\..\Program Files\Borland\CBuilder4\Bin;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item11=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item12=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects;pas;с:\Program Files\Borland\CBuilder4\Projects\;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item13=F:\Program Files\Borland\CBuilder4\Projects;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item14=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item15=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item16=F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item17=F:\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item18=F:\CBuilder4\Projects;..\3dtest;F:\CBuilder4\Projects\;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item19=..\3dtest;F:\CBuilder4\Projects;..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item20=..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item21=..\testform;F:\CBuilder4\Projects;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item22=F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item23=F:\CBuilder4\Projects;cunittst;D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
-Item24=D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Count=27
+Item0=C:\Program Files (x86)\Borland\CBuilder5\Projects\;C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
+Item1=C:\Program Files (x86)\Borland\CBuilder5\Projects;C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
+Item2=C:\CBuilder5\Projects\;D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
+Item3=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5
+Item4=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5;D:\mentor\mentorsrc\BCB5
+Item5=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;C:\Igor\mentorsrc\BCB5
+Item6=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;Image En\BCB5
+Item7=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;D:\mentor\Mentor\Mentor\Image En\BCB5
+Item8=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin\;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib
+Item9=D:\Program Files\HiComponents\CImageEn5\BCB5\;C:\Program Files\Borland\CBuilder5\Bin;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib
+Item10=C:\Program Files\Borland\CBuilder5\Bin;$(BCB)\Projects\Lib;..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item11=..\..\компоненты\imageen 1.8 with source for delphi and bcb\bcb5;..\Etalon\MENTOR;C:\Program Files\Borland\CBuilder4\Bin\;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item12=..\Etalon\MENTOR;..\..\..\Program Files\Borland\CBuilder4\Bin;symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item13=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects\;pas;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;с:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item14=symbols\symbols;с:\Program Files\Borland\CBuilder4\Projects;pas;с:\Program Files\Borland\CBuilder4\Projects\;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item15=F:\Program Files\Borland\CBuilder4\Projects;..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item16=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item17=..\CRMODEL\PRASHETB;..\..\Program Files\Borland\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item18=F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item19=F:\CBuilder4\Projects;F:\CBuilder4\Projects\;..\3dtest;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item20=F:\CBuilder4\Projects;..\3dtest;F:\CBuilder4\Projects\;..\testform;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item21=..\3dtest;F:\CBuilder4\Projects;..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item22=..\testform;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item23=..\testform;F:\CBuilder4\Projects;F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item24=F:\CBuilder4\Projects\;cunittst;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item25=F:\CBuilder4\Projects;cunittst;D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item26=D:\UTILF;D:\UTILF\;..\CBuilder4\Projects;$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
 Count=1
