@@ -17,7 +17,7 @@ __fastcall TMScan::TMScan(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMScan::FolderClick(TObject *Sender)
 {
-    AnsiString Path;
+    String Path;
     if (SelectDirectory("Выберите каталог", "",Path))   //Path - папка
     {
         Path = Path + "\\";
