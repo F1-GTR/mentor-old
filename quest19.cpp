@@ -235,8 +235,6 @@ quest19::Print(TList* plist)
         */
         /* --------------------- Kulikov 2015 ---------------------- */
 
-        drobi d;
-
         char* buf = new char[256];
 
         Log->Add("Q19 Printing to test..");
@@ -258,7 +256,7 @@ quest19::Print(TList* plist)
         {
                 int X0, Y0, Z0;
                 int A,B,C,D;
-        } cc;            
+        } cc;
 
         cc.X0 = -1*sign()*rgen(keygen,1,amin,amax);
         cc.Y0 = -1*sign()*rgen(keygen,1,amin,amax);
@@ -328,8 +326,7 @@ quest19::Print(TList* plist)
         sprintf( buf,
                 "d=%d/(sqrt(%d))",
                 abs(cc.A*cc.X0+cc.B*cc.Y0+cc.C*cc.Z0+cc.D),
-                cc.A*cc.A+cc.B*cc.B+
-                cc.C*cc.C);
+                cc.A*cc.A+cc.B*cc.B+cc.C*cc.C);
         plist->Add( strdup(buf) );
         Log->Add(buf);
 
@@ -342,6 +339,7 @@ quest19::Print(TList* plist)
 
 quest19::Print(TList* plist, class test &t)
 {
+        /* OLD CODE
         int i, p[4], n[4];
         int m, Right_Numb;
         int absb, absa;
@@ -366,8 +364,8 @@ quest19::Print(TList* plist, class test &t)
                 p[i] = rgen( keygen, 1, amin, amax );
         }
 
-        /*while( !n[0] )
-                n[0] = rgen( keygen, 1, amin, amax );*/
+        //while( !n[0] )
+        //      n[0] = rgen( keygen, 1, amin, amax );
         if( !n[0] )
                 n[0] ++;
 
@@ -476,17 +474,17 @@ quest19::Print(TList* plist, class test &t)
                 plist->Add( strdup(buf) );
         }
 
-        /*sprintf(buf,"String(@Часть преподавателя )");
-        plist->Add(strdup(buf));
+        //sprintf(buf,"String(@Часть преподавателя )");
+        //plist->Add(strdup(buf));
 
-        sprintf(buf,"String(\"Тема - %s \")",selecttask->name);
-        plist->Add(strdup(buf));
+        //sprintf(buf,"String(\"Тема - %s \")",selecttask->name);
+        //plist->Add(strdup(buf));
 
-        sprintf(buf,"String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
-        plist->Add(strdup(buf));
+        //sprintf(buf,"String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
+        //plist->Add(strdup(buf));
 
-        sprintf(buf,"String( Правильный ответ - %c)", 'a' + Right_Numb - 1 );
-        plist->Add(strdup(buf));*/
+        //sprintf(buf,"String( Правильный ответ - %c)", 'a' + Right_Numb - 1 );
+        //plist->Add(strdup(buf));
 
         t.pr_tst = 1;
         t.ch_ask = 5;
@@ -495,8 +493,163 @@ quest19::Print(TList* plist, class test &t)
 
         keygen = 0;
 
+
         delete buf;
         delete buf1;
+
+           */
+
+        /* ------------------ KULIKOV 2015 -------------------- */
+
+         int Right_Numb = -1;
+
+        char* buf = new char[256];
+
+         Log->Add("Q19 Printing to Joomla test..");  
+
+        if( keygen == 0 )
+        {
+                keygen = random( 1000 ) + 1;
+        }
+
+        srand( keygen );
+
+
+        //get limits
+        int firstKf     = 1;
+        int lastKf      = 10;
+        bool bZero       = true;
+        //coefficients struct
+        struct
+        {
+                int X0, Y0, Z0;
+                int A,B,C,D;
+        } cc;
+
+        cc.X0 = -1*sign()*rgen(keygen,1,amin,amax);
+        cc.Y0 = -1*sign()*rgen(keygen,1,amin,amax);
+        cc.Z0 = -1*sign()*rgen(keygen,1,amin,amax);
+
+        cc.A = sign()*rgen(keygen,1,amin,amax);
+        cc.B = sign()*rgen(keygen,1,amin,amax);
+        cc.C = sign()*rgen(keygen,1,amin,amax);
+        cc.D = sign()*rgen(keygen,1,amin,amax);
+
+        //Сборка уравненения
+
+        sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
+        plist->Add( strdup(buf) );
+
+        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
+        plist->Add( strdup(buf) );
+
+         sprintf( buf, "String(Посчитать расстояние между точкой и плоскостью. Объекты заданы уравнениями:)" );
+
+
+        sprintf( buf, "M!(%d, %d, %d)", cc.X0,cc.Y0,cc.Z0);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+         sprintf( buf, "alpha" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.A,cc.B,cc.C,cc.D); 
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+          //расчёт ответа
+
+        //      answer:    d =abs( A*x0 + B*y0 + C*z0 + D) / ( sqrt( A^2 + B^2 +C^2 ) )
+        // ------------------------
+
+         //generating variants
+        Log->Add("Generating..");
+        pAnswer pAns[4];
+
+        //right variant
+        pAns[0].legit = true;
+         sprintf( pAns[0].str,
+                "d=%d/(sqrt(%d))",
+                abs(cc.A*cc.X0+cc.B*cc.Y0+cc.C*cc.Z0+cc.D),
+                cc.A*cc.A+cc.B*cc.B+
+                cc.C*cc.C);
+        //wrong variant 1
+        pAns[1].legit = false;
+         sprintf( pAns[1].str,
+                "d=%d/(sqrt(%d))",
+                -abs(cc.A*cc.X0+cc.B*cc.Y0+cc.C*cc.Z0+cc.D),
+                cc.A*cc.A+cc.B*cc.B+
+                cc.C*cc.C);
+         //wrong variant 2
+        pAns[2].legit = false;
+         sprintf( pAns[2].str,
+                "d=%d/(sqrt(%d))",
+                abs(cc.A*cc.X0+cc.B*cc.Y0+cc.C*cc.Z0+cc.D+random(5)),
+                cc.A*cc.A+cc.B*cc.B+cc.C*cc.C);
+         //wrong variant 3
+        pAns[3].legit = false;
+        sprintf( pAns[3].str,
+                "d=%d/(sqrt(%d))",
+                abs(cc.A*cc.B+cc.B*cc.C+cc.C*cc.A+cc.X0*cc.Y0*cc.Z0-20),
+                cc.A*cc.A+cc.B*cc.B+cc.C*cc.C-1);
+
+
+        //shuffle ;)   ---------------------------------------------------
+        Log->Add("Shuffle..");
+        shuffleAnswers(pAns);
+
+        Log->Add("Find right..");
+        //get right variant
+        for (int i = 0; i < 4 && Right_Numb == -1; i++)
+        {
+                if (pAns[i].legit)
+                {
+                         Right_Numb = i+1;
+                         Log->Add("Right");
+                }
+                else
+                {
+                        Log->Add("Wrong");
+                }
+        }
+
+        //output
+
+        plist->Add(strdup("String(Вариант a: )"));
+        plist->Add( strdup(pAns[0].str) );
+        Log->Add(pAns[0].str);
+                      sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант b: )"));
+        plist->Add( strdup(pAns[1].str) );
+        Log->Add(pAns[1].str);
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант c: )"));
+        plist->Add( strdup(pAns[2].str) );
+        Log->Add(pAns[2].str);
+                sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант d: )"));
+        plist->Add( strdup(pAns[3].str) );
+        Log->Add(pAns[3].str);
+                 sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        t.pr_tst = 1;
+        t.ch_ask = 4;
+        t.right_ask = Right_Numb;
+        t.msg = "Тест успешно сгенерирован.";
+
+        keygen = 0;
+
+        delete buf;
+
+        // ------------------------
 
         return 0;
 }
