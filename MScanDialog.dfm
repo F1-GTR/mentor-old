@@ -27,7 +27,7 @@ object MScan: TMScan
   object Label2: TLabel
     Left = 224
     Top = 72
-    Width = 137
+    Width = 132
     Height = 29
     Caption = 'MTR Scanner'
     Font.Charset = DEFAULT_CHARSET

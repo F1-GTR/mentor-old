@@ -120,8 +120,8 @@ USEUNIT("m_deriv_02.cpp");
 USEUNIT("queIntegRnd.cpp");
 USEFORM("MIntegRnd.cpp", IntegRnd);
 USEUNIT("m_integ_a02.cpp");
-USEFORM("Unit1.cpp", Log);
-USEFORM("Unit2.cpp", PLAngle);
+USEFORM("MLog.cpp", Log);
+USEFORM("MQ32Settings.cpp", PLAngle);
 USEFORM("MScanDialog.cpp", MScan);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)

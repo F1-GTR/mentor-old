@@ -26,8 +26,8 @@
 #include "MVarCmp.h"
 #include "MPrint.h"
 #include "MTRconvene.h"
-#include "Unit1.h"
-#include "Unit2.h"
+#include "MLog.h"
+#include "MQ32Settings.h"
 #include "MScanDialog.h"
 #include <windows.h>
 #pragma hdrstop

@@ -7,6 +7,7 @@
 #include "MPdl.h"
 #include "qvarnt.h"
 #pragma hdrstop
+#include "MLog.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
@@ -60,6 +61,7 @@ quest19::Edit()
 
 quest19::Print(TList* plist)
 {
+        
         int i, p[4], n[4];
 
         double absb, absa;

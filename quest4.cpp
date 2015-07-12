@@ -8,7 +8,7 @@
 #include "MMentorConfig.h"
 #include "MGenHtml.h"
 #include "test_class.h"
-#include "Unit1.h"
+#include "MLog.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

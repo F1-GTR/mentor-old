@@ -7,7 +7,7 @@
 #include "tkurs.h"
 #include "MGenKey.h"
 #include "qvarnt.h"
-#include "unit1.h"
+#include "MLog.h"
 #pragma hdrstop
 //---------------------------------------------------------------------
 #pragma link "imageenio"

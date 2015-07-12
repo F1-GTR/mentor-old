@@ -24,7 +24,7 @@
       queMFlabs.obj m_mflab.obj m_expressions.obj TMFlabs.obj queInteg.obj 
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
       m_integ2.obj quederivrnd.obj MDerivRnd.obj m_integ_a01.obj m_deriv_02.obj 
-      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj Unit1.obj Unit2.obj 
+      queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj MLog.obj MQ32Settings.obj 
       MScanDialog.obj"/>
     <RESFILES value=""/>
     <IDLFILES value=""/>
@@ -39,8 +39,8 @@
       MPr.dfm MLinePlane.dfm MComp.dfm MLinePrizm.dfm MLineCmp.dfm 
       MRenameKonW.dfm MMentorConfig.dfm MGenHtml.dfm MFtpMod.dfm MVarCmp.dfm 
       MPrint.dfm MEigen.dfm MLim01.dfm MTRconvene.dfm MDeriv.dfm TMFlabs.dfm 
-      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm Unit1.dfm Unit2.dfm 
-      MScanDialog.dfm"/>
+      MInteg.dfm LimRnd.dfm MDerivRnd.dfm MIntegRnd.dfm MLog.dfm 
+      MQ32Settings.dfm MScanDialog.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="PKIECTRLC5.lib dclocx50.lib nmfast50.lib ibsmp50.lib vcljpg50.lib 
       vclbde50.lib vcldb50.lib qrpt50.lib vclx50.lib bcbsmp50.lib vcl50.lib"/>
@@ -59,17 +59,16 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="MENTOR.cpp"/>
-    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
-    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;&quot;C:\Program Files\Borland\CBuilder5\Bin\&quot;;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
+    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
+    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
     <WARNINGS value="-w-par -w-8027 -w-8026"/>
     <WARNOPTSTR value=""/>
   </MACROS>
   <OPTIONS>
     <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\.&quot; 
       -IC:\CBuilder5\Projects\. 
-      -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; 
-      -I&quot;C:\Program Files\Borland\CBuilder5\Bin\.&quot; -Ipas -I$(BCB)\include 
-      -I$(BCB)\include\vcl -IBCB5 -src_suffix cpp -boa"/>
+      -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; -I..\..\Bin -Ipas 
+      -I$(BCB)\include -I$(BCB)\include\vcl -IBCB5 -src_suffix cpp -boa"/>
     <CFLAG1 value="-Od -H=$(BCB)\lib\vcl50.csm -Vx -Ve -X- -r- -a8 -5 -b- -k -y -v -vi- -c 
       -tW -tWM"/>
     <PFLAGS value="-$YD -$W -$O- -JPHNE -M"/>
@@ -84,7 +83,7 @@
   </LINKER>
   <IDEOPTIONS>
 [Version Info]
-IncludeVerInfo=1
+IncludeVerInfo=0
 AutoIncBuild=0
 MajorVer=1
 MinorVer=6
@@ -114,13 +113,12 @@ Comments=
 $(BCB)\Bin\dcl31w50.bpl=Delphi 1.0 Compatibility Components
 $(BCB)\Bin\bcbsmp50.bpl=Borland C++ Sample Components
 $(BCB)\Bin\dclado50.bpl=Borland ADO DB Components
-C:\Windows\system32\ibsmp50.bpl=Borland C++ InterBase Alerter Component
+C:\WINDOWS\system32\ibsmp50.bpl=Borland C++ InterBase Alerter Component
 $(BCB)\Bin\dclqrt50.bpl=QuickReport Components
 $(BCB)\Bin\dcltqr50.bpl=TeeChart 5.0 for QuickReport Components Design Package
 $(BCB)\Bin\DCLIB50.bpl=InterBase Data Access Components
-$(BCB)\Bin\DCLNMF50.bpl=NetMasters Fastnet Tools
-$(BCB)\Bin\mfcwizard.bpl=MFC Wizard
 $(BCB)\Bin\dclmid50.bpl=Borland MIDAS Components
+$(BCB)\Bin\DCLNMF50.bpl=NetMasters Fastnet Tools
 
 [HistoryLists\hlIncludePath]
 Count=28

@@ -7,7 +7,7 @@
 #include "MMentorConfig.h"
 #include "MGenHtml.h"
 #include "test_class.h"
-#include "unit1.h"
+#include "MLog.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
 //опнхгбедемхе люрпхж

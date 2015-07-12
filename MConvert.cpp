@@ -9,7 +9,7 @@
 #include "ExprMake.hpp"
 #include "tkurs.h"
 #include "qvarnt.h"
-#include "Unit1.h"
+#include "MLog.h"
 #pragma hdrstop
 
 #include <process.h>

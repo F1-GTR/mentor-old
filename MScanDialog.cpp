@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
-#include "Unit1.h"
+#include "MLog.h"
 #pragma hdrstop
 
 #include "MScanDialog.h"
