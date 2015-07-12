@@ -8,7 +8,25 @@
 #include "qvarnt.h"
 #pragma hdrstop
 #include "MLog.h"
+
+#include "UtilsNG.h"
 //---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+//      Расстояние от точки до плоскости
+//
+//      dot: (x0,y0,z0)
+//
+//      plane:  A*x + B*y + C*z + D = 0
+//
+//      Generating kfc.:        (x0,x0,z0),(A,B,C,D)
+//
+//      answer:    d =abs( A*x0 + B*y0 + C*z0 + D) / ( sqrt( A^2 + B^2 +C^2 ) )
+//
+//---------------------------------------------------------------------------
+
+
+
 #pragma package(smart_init)
 
 quest19::quest19(FILE* f)
@@ -61,7 +79,8 @@ quest19::Edit()
 
 quest19::Print(TList* plist)
 {
-        
+        /* OLD CODE
+
         int i, p[4], n[4];
 
         double absb, absa;
@@ -84,8 +103,6 @@ quest19::Print(TList* plist)
                 p[i] = rgen( keygen, 1, amin, amax );
         }
 
-        /*while( !n[0] )
-                n[0] = rgen( keygen, 1, amin, amax );*/
 
         if( !n[0] )
                 n[0] ++;
@@ -215,6 +232,110 @@ quest19::Print(TList* plist)
         delete buf;
         delete buf1;
 
+        */
+        /* --------------------- Kulikov 2015 ---------------------- */
+
+        drobi d;
+
+        char* buf = new char[256];
+
+        Log->Add("Q19 Printing to test..");
+
+        if( keygen == 0 )
+        {
+                keygen = random( 1000 ) + 1;
+        }
+
+        srand( keygen );
+
+
+        //get limits
+        int firstKf     = 1;
+        int lastKf      = 10;
+        bool bZero       = true;
+        //coefficients struct
+        struct
+        {
+                int X0, Y0, Z0;
+                int A,B,C,D;
+        } cc;            
+
+        cc.X0 = -1*sign()*rgen(keygen,1,amin,amax);
+        cc.Y0 = -1*sign()*rgen(keygen,1,amin,amax);
+        cc.Z0 = -1*sign()*rgen(keygen,1,amin,amax);
+
+        cc.A = sign()*rgen(keygen,1,amin,amax);
+        cc.B = sign()*rgen(keygen,1,amin,amax);
+        cc.C = sign()*rgen(keygen,1,amin,amax);
+        cc.D = sign()*rgen(keygen,1,amin,amax);
+
+        //Сборка уравненения
+
+        if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) )
+        {
+                sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
+                plist->Add( strdup(buf) );
+        }
+        else
+        {
+                sprintf( buf, "String(#)" );
+                plist->Add( strdup(buf) );
+        }
+
+        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
+        plist->Add( strdup(buf) );
+
+
+        sprintf( buf, "String(Посчитать расстояние между точкой и плоскостью. Объекты заданы уравнениями:)" );
+
+        sprintf( buf, "M!(%d, %d, %d)", cc.X0,cc.Y0,cc.Z0);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "alpha" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.A,cc.B,cc.C,cc.D);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+          //расчёт ответа
+
+        //      answer:    d =abs( A*x0 + B*y0 + C*z0 + D) / ( sqrt( A^2 + B^2 +C^2 ) )
+
+        sprintf( buf, "String(@Часть преподавателя )" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+
+        sprintf( buf, "String(\"Тема - %s \")", selecttask->name );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "d=abs(A*x0+B*y0+C*z0+D)/(sqrt(A^2+B^2+C^2))" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "d=abs((%d)*(%d)+(%d)*(%d)+(%d)*(%d)+(%d))/(sqrt((%d)^2+(%d)^2+(%d)^2))",cc.A,cc.X0,cc.B,cc.Y0,cc.C,cc.Z0,cc.D,cc.A,cc.B,cc.C);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf,
+                "d=%d/(sqrt(%d))",
+                abs(cc.A*cc.X0+cc.B*cc.Y0+cc.C*cc.Z0+cc.D),
+                cc.A*cc.A+cc.B*cc.B+
+                cc.C*cc.C);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        delete buf;
+
+        Log->Add("Q19 Generating Complete");
         return 0;
 }
 //------------------------------------------------------------------------------

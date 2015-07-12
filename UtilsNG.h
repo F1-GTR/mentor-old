@@ -2,12 +2,21 @@
 #define _NG_UTILS
 
 #include "MLog.h"
+
+//шанс выпадения отрицательного значения для функций знака     (0-10)
+#define _SIGN_CHANCE 3
+
+//шанс выпадения нуля для функций обнуления                       (0-10)
+#define _ZERO_CHANCE 3
+
+//хранит ответ на тест и флаг, указывающий на его правильность
 struct  pAnswer
 {
         char str[255];
         bool legit;
 };
 
+//функция для обмена между структурой pAnswer
 void swapAnswers(pAnswer &one, pAnswer &two)
 {
         char buff[255];
@@ -22,6 +31,7 @@ void swapAnswers(pAnswer &one, pAnswer &two)
         two = tmp;
 }
 
+//перемешивает массив структур pAnswer
 void shuffleAnswers(pAnswer pAns[4])
 {
         for (int i = 0; i < 10; i++)
@@ -57,6 +67,8 @@ int sign(bool &was)
         }
 
 }
+
+//тоже самое, но без флага сохранения результата
 int sign()
 {
        int RD = random(10);
@@ -96,6 +108,8 @@ int zero(bool &was)
 
 }
 
+
+//тоже самое, но без флага сохранения результата
 int zero()
 {
    int RD = random(10);
