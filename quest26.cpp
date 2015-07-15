@@ -469,15 +469,15 @@ quest26::Print(TList* plist, class test &t)
                 sprintf( buf, "String(\"Вариант %c):\")", 'a' + n );
                 plist->Add( strdup(buf) );
 
-                if ( m0[0].znak > 0 )
-                        sprintf( buf, "(x+%s)/%d", DrobiToStr(m0[0]), p[0] - ( Right_Numb - 1 ) + n );
-                else
-                        sprintf( buf, "(x%s)/%d", DrobiToStr(m0[0]), p[0] - ( Right_Numb - 1 ) + n );
+                //if ( m0[0].znak > 0 )
+                        sprintf( buf, "(x-(%s))/%d", DrobiToStr(m0[0]), p[0] - ( Right_Numb - 1 ) + n );
+                //else
+                //        sprintf( buf, "(x%s)/%d", DrobiToStr(m0[0]), p[0] - ( Right_Numb - 1 ) + n );
 
-                if ( m0[1].znak > 0 )
-                        sprintf( buf1, "=(y+%s)/%d", DrobiToStr(m0[1]), p[1] - ( Right_Numb - 1 ) + n );
-                else
-                        sprintf( buf1, "=(y%s)/%d", DrobiToStr(m0[1]), p[1] - ( Right_Numb - 1 ) + n );
+                //if ( m0[1].znak > 0 )
+                        sprintf( buf1, "=(y-(%s))/%d", DrobiToStr(m0[1]), p[1] - ( Right_Numb - 1 ) + n );
+                //else
+                //        sprintf( buf1, "=(y%s)/%d", DrobiToStr(m0[1]), p[1] - ( Right_Numb - 1 ) + n );
 
                 strcat ( buf, buf1 );
 
