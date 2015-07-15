@@ -253,15 +253,15 @@ quest26::Print(TList* plist)
         sprintf( buf, "String( Линия пересечения плоскостей есть прямая.)" );
         plist->Add( strdup(buf) );
 
-        if ( m0[0].znak > 0 )
-                sprintf( buf, "(x+%s)/%d", DrobiToStr(m0[0]), p[0] );
-        else
-                sprintf( buf, "(x%s)/%d", DrobiToStr(m0[0]), p[0] );
+        //if ( m0[0].znak > 0 )
+                sprintf( buf, "(x-(%s))/%d", DrobiToStr(m0[0]), p[0] );
+        //else
+        //        sprintf( buf, "(x%s)/%d", DrobiToStr(m0[0]), p[0] );
 
-        if ( m0[1].znak > 0 )
-                sprintf( buf1, "=(y+%s)/%d", DrobiToStr(m0[1]), p[1] );
-        else
-                sprintf( buf1, "=(y%s)/%d", DrobiToStr(m0[1]), p[1] );
+        //if ( m0[1].znak > 0 )
+                sprintf( buf1, "=(y-(%s))/%d", DrobiToStr(m0[1]), p[1] );
+        //else
+        //        sprintf( buf1, "=(y%s)/%d", DrobiToStr(m0[1]), p[1] );
 
         strcat ( buf, buf1 );
 

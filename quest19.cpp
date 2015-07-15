@@ -285,6 +285,7 @@ quest19::Print(TList* plist)
 
 
         sprintf( buf, "String(Посчитать расстояние между точкой и плоскостью. Объекты заданы уравнениями:)" );
+        plist->Add( strdup(buf) );
 
         sprintf( buf, "M!(%d, %d, %d)", cc.X0,cc.Y0,cc.Z0);
         plist->Add( strdup(buf) );
