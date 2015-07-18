@@ -125,6 +125,7 @@ USEFORM("MQ32Settings.cpp", PLAngle);
 USEFORM("MScanDialog.cpp", MScan);
 USEUNIT("UtilsNG.cpp");
 USE("UtilsNG.h", File);
+USEUNIT("quest33.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 {

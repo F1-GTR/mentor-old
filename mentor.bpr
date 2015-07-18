@@ -25,7 +25,7 @@
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
       m_integ2.obj quederivrnd.obj MDerivRnd.obj m_integ_a01.obj m_deriv_02.obj 
       queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj MLog.obj MQ32Settings.obj 
-      MScanDialog.obj UtilsNG.obj"/>
+      MScanDialog.obj UtilsNG.obj quest33.obj"/>
     <RESFILES value=""/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -59,13 +59,13 @@
     <USERDEFINES value=""/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="MENTOR.cpp"/>
-    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
-    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
+    <INCLUDEPATH value="..\;&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;pas;$(BCB)\include;$(BCB)\include\vcl;BCB5"/>
+    <LIBPATH value="..\;&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\&quot;;C:\CBuilder5\Projects\;&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\&quot;;..\..\Bin;$(BCB)\Projects\Lib;pas;$(BCB)\lib\obj;$(BCB)\lib;BCB5"/>
     <WARNINGS value="-w-par -w-8027 -w-8026"/>
     <WARNOPTSTR value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\.&quot; 
+    <IDLCFLAGS value="-I..\. -I&quot;C:\Program Files (x86)\Borland\CBuilder5\Projects\.&quot; 
       -IC:\CBuilder5\Projects\. 
       -I&quot;D:\Program Files\HiComponents\CImageEn5\BCB5\.&quot; -I..\..\Bin -Ipas 
       -I$(BCB)\include -I$(BCB)\include\vcl -IBCB5 -src_suffix cpp -boa"/>

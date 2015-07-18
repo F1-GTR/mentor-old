@@ -52,7 +52,8 @@ quest32::Save(FILE* f)
   fprintf(f,"head %i\n",type);
   fprintf(f,"%s\n",name);
   fprintf(f,"%i %i %i\n",itemnumber,subitemnumber,qtype);
-  fprintf(f,"%s\n",strpar1);
+  //fprintf(f,"%s\n",strpar1);
+  fprintf(f,"%d %d %d %d %d %d\n",min.point,max.point,min.vector,max.vector,min.plate,max.plate );
   fprintf(f,"%s\n",strpar2);
 
   return 0;
@@ -64,7 +65,7 @@ quest32::Edit()
 {
   Log->Add("Q32 Edit settings..");
 
-  sscanf(strpar2,"%d %d %d %d %d %d",&min.point,&max.point,&min.vector,&max.vector,&min.plate,&max.plate);
+  //sscanf(strpar2,"%d %d %d %d %d %d",&min.point,&max.point,&min.vector,&max.vector,&min.plate,&max.plate);
 
   keygen = 0;
   nvar = 1;

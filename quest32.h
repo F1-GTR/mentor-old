@@ -7,15 +7,12 @@ class quest32: public tquest{
   public:
   char* strpar1;
   char* strpar2;
-  int amin;
-  int amax;
   struct
   {
                 int point;
                 int vector;
                 int plate;
   } min,max;
-//  int dim;
 
   quest32(FILE* f);
   quest32(){};
@@ -23,9 +20,8 @@ class quest32: public tquest{
   copy(quest32* q){
     strpar1 = strdup(q->strpar1);
     strpar2 = strdup(q->strpar2);
-    amin = q->amin;
-    amax = q->amax;
-//    dim = q->dim;
+    min = q->min;
+    max = q->max;
     tquest::copy(q);
     return 0;
   }
