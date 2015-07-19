@@ -207,9 +207,9 @@ tkurs::tkurs( char * fname )
               case ANGLINEPLANE :
                 bm = new quest32(f);
               break;
-              case = ANGLELINES :
+              case ANGLELINES :
                 bm = new quest33(f);
-              break
+              break;
               //---------------------
               case EIGEN3x3:
                 bm = new queeigens(f);

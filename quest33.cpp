@@ -90,8 +90,6 @@ quest33::Edit()
 //output to plist
 quest33::Print(TList* plist)
 {
-        drobi dr;
-
         char* buf = new char[256];
         char* buf1 = new char[256];
 
@@ -119,6 +117,7 @@ quest33::Print(TList* plist)
         cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
         cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
+        bzero = true;
         cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
@@ -191,6 +190,58 @@ quest33::Print(TList* plist)
         plist->Add( strdup(buf) );
         Log->Add(buf);
 
+        sprintf(buf,
+                "((%d)+(%d)+(%d))/(sqrt((%d)+(%d)+(%d))*sqrt((%d)+(%d)+(%d)))",
+                cc[0].l*cc[1].l,
+                cc[0].m*cc[1].m,
+                cc[0].n*cc[1].n,
+                cc[0].l*cc[0].l,cc[0].m*cc[0].m,cc[0].n*cc[0].n,
+                cc[1].l*cc[1].l,cc[1].m*cc[1].m,cc[1].n*cc[1].n);
+
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf(buf,
+                "(%d)/(sqrt(%d))",
+                cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
+
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf(buf,
+                "(%d*(sqrt(%d))/%d)",
+                cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
+
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+         sprintf(buf,
+                "arccos(abs(cos(%d*sqrt(%d)/%d)))",
+                (cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n),
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
+
+        plist->Add( strdup(buf) );
+
+        Log->Add(buf);
+
         keygen = 0;
 
         delete buf;
@@ -202,52 +253,44 @@ quest33::Print(TList* plist)
 //output to test
 quest33::Print(TList* plist, class test &t)
 {
-        /*Log->Add("Q32 Printing to Joomla test..");
-        int i;
-        int plane[4], plane2[4];
-        int scal, absa, absb;
-        int n, Right_Numb;
-
-        drobi dr;
-
         char* buf = new char[256];
         char* buf1 = new char[256];
+
+        Log->Add("Q33 Printing to Joomla test..");
 
         if( keygen == 0 )
         {
                 keygen = random( 1000 ) + 1;
         }
 
-        Right_Numb = -1;
-
         srand( keygen );
-
-        //get limits
-        int firstKf     = 1;
-        int lastKf      = 10;
         bool bZero       = true;
+        int Right_Numb;
         //coefficients struct
         struct
         {
-                int X0, Y0, Z0;
-                int A,B,C,D;
+                int X, Y, Z;
                 int l,m,n;
-        } cc;
+        } cc[2];
 
-        cc.X0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
-        cc.Y0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
-        cc.Z0 = -1*sign()*rgen(keygen,1,firstKf,lastKf);
+        cc[0].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc.A = sign()*rgen(keygen,1,firstKf,lastKf);
-        cc.B = sign()*rgen(keygen,1,firstKf,lastKf);
-        cc.C = sign()*rgen(keygen,1,firstKf,lastKf);
-        cc.D = sign()*rgen(keygen,1,firstKf,lastKf);
+        cc[0].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
-        cc.l = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
-        cc.m = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
-        cc.n = sign()*zero(bZero)*rgen(keygen,1,firstKf,lastKf);
+        cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        cc[1].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
         //Сборка уравненения
+
 
         sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
         plist->Add( strdup(buf) );
@@ -255,33 +298,26 @@ quest33::Print(TList* plist, class test &t)
         sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
         plist->Add( strdup(buf) );
 
-         sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
+         sprintf( buf, "String(Посчитать угол между прямыми.)" );
          plist->Add( strdup(buf) );
 
          sprintf( buf, "String(Объекты заданы уравнениями:)" );
          plist->Add( strdup(buf) );
-                sprintf( buf, "String( )" );
-                 plist->Add( strdup(buf) );
 
         sprintf( buf, "a" );
         plist->Add( strdup(buf) );
         Log->Add(buf);
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.X0,cc.l,cc.Y0,cc.m,cc.Z0,cc.n);
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-                sprintf( buf, "String( )" );
-                 plist->Add( strdup(buf) );
-
-        sprintf( buf, "alpha" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.A,cc.B,cc.C,cc.D);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[0].X,cc[0].l,cc[0].Y,cc[0].m,cc[0].Z,cc[0].n);
         plist->Add( strdup(buf) );
         Log->Add(buf);
 
-        sprintf( buf, "sin(!(alpha))=...");
+        sprintf( buf, "b" );
         plist->Add( strdup(buf) );
         Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[1].X,cc[1].l,cc[1].Y,cc[1].m,cc[1].Z,cc[1].n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
 
                 sprintf( buf, "String( )" );
                  plist->Add( strdup(buf) );
@@ -292,19 +328,51 @@ quest33::Print(TList* plist, class test &t)
 
         //right variant
         pAns[0].legit = true;
-        sprintf( pAns[0].str, "(%d*sqrt(%d))/%d",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        sprintf( pAns[0].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
+                (cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n),
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
 
         //wrong variant 1
         pAns[1].legit = false;
-        sprintf( pAns[1].str, "(%d*sqrt(%d))/%d",-abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        sprintf( pAns[1].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
+                cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n+sign()*(random(10)+1),
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
 
          //wrong variant 2
         pAns[2].legit = false;
-        sprintf( pAns[2].str, "(%d*sqrt(%d))/%d",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n)+random(5)+1,   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        sprintf( pAns[2].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
+                (cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n+sign()*(random(20)+1)),
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "(%d*%d)/sqrt(%d)",abs(cc.A*cc.l+cc.B*cc.m+cc.C*cc.n),   (cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C),(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n)*(cc.A*cc.A+cc.B*cc.B+cc.C*cc.C));
+        sprintf( pAns[3].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
+                (cc[0].l*cc[1].l+
+                cc[0].m*cc[1].m+
+                cc[0].n*cc[1].n+sign()*(random(30)+1)),
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
+                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
+                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+
 
         //shuffle ;)
         Log->Add("Shuffle..");
@@ -360,7 +428,7 @@ quest33::Print(TList* plist, class test &t)
 
         delete buf;
         delete buf1;
-          */
+
         return 0;
 }
 //-----------------------------------------------------------
