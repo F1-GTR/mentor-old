@@ -126,6 +126,7 @@ USEFORM("MScanDialog.cpp", MScan);
 USEUNIT("UtilsNG.cpp");
 USE("UtilsNG.h", File);
 USEUNIT("quest33.cpp");
+USEUNIT("quest34.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 {

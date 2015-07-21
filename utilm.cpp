@@ -36,6 +36,7 @@
 #include "quest32.h"
 #include "quest31.h"
 #include "quest33.h"
+#include "quest34.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -168,7 +169,8 @@ tquest* qcreate(tquest* q)
   quest31* t31 = NULL;
   quest32* t32 = NULL;
   quest33* t33 = NULL;
-  queeigens* t34 = NULL;
+  quest34* t34 = NULL;
+  queeigens* tue = NULL;
   quelim01* tlim01 = NULL;
   queDeriv* tderiv=NULL;
   queInteg* tinteg=NULL;
@@ -321,11 +323,15 @@ tquest* qcreate(tquest* q)
       t33 = new quest33();
       t33->copy(( quest33 *)q);
     return t33;
+    case DISTSKEWLINES:
+      t34 = new quest34();
+      t34->copy(( quest34 *)q);
+    return t34;
     //--------------------------------
     case EIGEN3x3:
-      t34 = new queeigens();
-      t34->copy(( queeigens * )q);
-      return t34;
+      tue = new queeigens();
+      tue->copy(( queeigens * )q);
+      return tue;
 
     case LIM01:
       tlim01 = new quelim01();

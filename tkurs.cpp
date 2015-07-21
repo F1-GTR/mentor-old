@@ -36,6 +36,7 @@
 #include "quest31.h"
 #include "quest32.h"
 #include "quest33.h"
+#include "quest34.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -209,6 +210,9 @@ tkurs::tkurs( char * fname )
               break;
               case ANGLELINES :
                 bm = new quest33(f);
+              break;
+              case DISTSKEWLINES:
+                bm = new quest34(f);
               break;
               //---------------------
               case EIGEN3x3:

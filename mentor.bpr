@@ -25,7 +25,7 @@
       MInteg.obj m_integ.obj queLimRnd.obj LimRnd.obj m_deriv_01.obj 
       m_integ2.obj quederivrnd.obj MDerivRnd.obj m_integ_a01.obj m_deriv_02.obj 
       queIntegRnd.obj MIntegRnd.obj m_integ_a02.obj MLog.obj MQ32Settings.obj 
-      MScanDialog.obj UtilsNG.obj quest33.obj"/>
+      MScanDialog.obj UtilsNG.obj quest33.obj quest34.obj"/>
     <RESFILES value=""/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>

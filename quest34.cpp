@@ -1,189 +1,413 @@
+//---------------------------------------------------------------------------
 #include <vcl.h>
 #include <stdlib.h>
 #include <math.h>
-//#define QEDBG
-#include "queeigens.h"
-
-#ifndef QEDBG
-#include "MEigen.h"
+#include "quest34.h"
+#include "MAngle.h"
+#include "drobi.h"
 #include "qvarnt.h"
-#endif
+#include "MLog.h"
 
-#include "matrgen.h"
+#include "UtilsNG.h"
+
 #pragma hdrstop
-#pragma package(smart_init)
+//---------------------------------------------------------------------------
+//      Distance within skew lines
+//
+//      line1:   (x-x1)/l1 = (y-y1)/m1 = (z-z1)/n1
+//
+//      line2:   (x-x2)/l2 = (y-y2)/m2 = (z-z2)/n2
+//
+//      plane:  A*x + B*y + C*z + D = 0
+//
+//      Generating kfc.:        (x1,y1,z1),(l1,m1,n1)
+//                              (x2,y2,z2),(l2,m2,n2)
+//
+//      One kfc != 0
+//
+//---------------------------------------------------------------------------
+#pragma package(smart_init)   
 
-queeigens::queeigens (FILE* f)
-{ // параметры передаются через файл?
-    // генерация ключа
-    randomize();
-    keygen=random(1000)+1;
-    // чтение параметров
-    char buf[256];
-#ifndef QEDBG
-    reads(f, buf); strpar1 = strdup(buf);
-    reads(f, buf); strpar2 = strdup(buf);
-#endif
-    // разбор параметров
-    sscanf(strpar1, "%d %d", &size, &variouseigens);
-    // инициализация типа вопроса
-    qtype = type;
-}
-
-queeigens::Save(FILE* f)
-{ // не знаю, для чего
-    fprintf(f,"head %i\n",type);
-    fprintf(f,"%s\n",name);
-    fprintf(f,"%i %i %i\n",itemnumber,subitemnumber,qtype);
-    fprintf(f,"%s\n",strpar1);
-    fprintf(f,"%s\n",strpar2);
-    return 0;
-}
-
-// вызвать окно генератора?
-queeigens::Edit()
+//class init
+quest34::quest34(FILE* f)
 {
-    //ShowMessage("queeigensedit");
-    // не знаю, для чего
-    sscanf(strpar2, "%i%i", &size, &variouseigens);
-    // инициализация ключа и номера варианта
-    keygen=0; nvar=1;
-    // установка параметров в окне и показ окна
-#ifndef QEDBG
-    Eigen->quest=this;
-    Eigen->Edit1->Text = IntToStr(size);
-    Eigen->Edit2->Text = IntToStr(variouseigens);
-    Eigen->Edit3->Text = IntToStr(keygen);
-    Eigen->Edit4->Text = IntToStr(nvar);
-    Eigen->ShowModal();
-#endif
-    return 0;
+  Log->Add("Q34 Init..");
+  char* buf = new char[256];
+
+  randomize();
+  keygen = random (1000) + 1;
+
+  reads(f,buf);
+  strpar1 = strdup(buf);
+  reads(f,buf);
+  strpar2 = strdup(buf);
+
+  sscanf(strpar1,"%d %d %d %d %d %d",&min.top,&max.top,&min.bot,&max.bot);
+  qtype = type;
+
+  delete buf;
+}
+
+//save to file??
+quest34::Save(FILE* f)
+{
+  Log->Add("Q34 Saving..");
+  fprintf(f,"head %i\n",type);
+  fprintf(f,"%s\n",name);
+
+  fprintf(f,"%i %i %i\n",itemnumber,subitemnumber,qtype);
+  //fprintf(f,"%s\n",strpar1);
+  fprintf(f,"%d %d %d %d\n",min.top,max.top,min.bot,max.bot);
+  fprintf(f,"%s\n",strpar2);
+
+  return 0;
 }
 
 
-void queeigens::TruePrint (TList* plist, bool make_answers=false, class test* t=NULL)
+//edit settings dialog
+quest34::Edit()
 {
-    if (variouseigens>size || variouseigens==0 || size>4 || (size==4 && variouseigens!=4))
-    {
-        ShowMessage("Incorrect params!");
-        return;
-    }
+  Log->Add("Q34 Edit settings..");
 
-    char str[500], tempstr[500];
-    if (keygen==0)
-        keygen=random(1000)+1;
+  //sscanf(strpar1,"%d %d %d %d %d %d",&min.top,&max.top,&min.bot,&max.bot);
 
-    srand(keygen);
+  keygen = 0;
+  nvar = 1;
+  /*
+  LAngle->quest = this;
+  PLAngle->MinPoint->Position = min.point;
+  PLAngle->MinVector->Position = min.vector;
+  PLAngle->MinPlate->Position = min.plate;
+  PLAngle->MaxPoint->Position = max.point;
+  PLAngle->MaxVector->Position = max.vector;
+  PLAngle->MaxPlate->Position = max.plate;
+  PLAngle->ShowModal();
+   */
+  return 0;
+}
 
-#ifndef QEDBG
-    if (!qvar->MZad||(qvar->MZad&&nvar==1))
-    {
-        sprintf(str, "String(\"# Тема - %s \")", selecttask->name);
-        plist->Add(strdup(str));
-    }
-    else
-    {
-        sprintf(str, "String(#)");
-        plist->Add(strdup(str));
-    }
-#endif
-    sprintf(str, "String(Вариант   %i, задача %i.)", nvar, nzad);
-    plist->Add(strdup(str));
+//output to plist
+quest34::Print(TList* plist)
+{
+        char* buf = new char[256];
+        char* buf1 = new char[256];
 
-#ifndef QEDBG
-    if (!qvar->MZad||(qvar->MZad&&nvar==1))
-    {
-         sprintf(str, "String(Найти все собственные числа матрицы %dх%d:)", size, size);
-        plist->Add(strdup(str));
-    }
-#endif
+        Log->Add("Q34 Printing to test..");
 
-    int i,j;
-    matrix matr;
-    if (!generate(matr, size, variouseigens))
-        ShowMessage("can't generate matrix"); //?
-
-    sprintf(str, "!(Matrix(%d,%d,", size, size);
-    for(i=0; i<size; ++i)
-        for(j=0; j<size; ++j)
+        if( keygen == 0 )
         {
-            sprintf(tempstr, "%d,", matr.e[i][j]);
-            strcat(str, tempstr);
+                keygen = random( 1000 ) + 1;
         }
-    str[strlen(str)-1]='\0';
-    strcpy(tempstr, "))");
-    strcat(str, tempstr);
-    plist->Add(strdup(str));
 
-    if (make_answers)
-    {
-        const int answc = 3;
-        int err[answc];
-        bool newvalue;
-        int rightansw = random(answc), n;
-        int i,j;
+        srand( keygen );
+        bool bZero       = true;
+        //coefficients struct
+        struct
+        {
+                int X, Y, Z;
+                int l,m,n;
+        } cc[2];
 
-        for(i=0; i<answc; ++i)
-            do {
-                err[i]=random(8)-4;
-                if (err[i]==0)
-                    newvalue=false;
+        cc[0].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        cc[0].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+
+        bZero = true;
+        cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        cc[1].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+
+        //Сборка уравненения
+
+        if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) )
+        {
+                sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
+                plist->Add( strdup(buf) );
+        }
+        else
+        {
+                sprintf( buf, "String(#)" );
+                plist->Add( strdup(buf) );
+        }
+
+        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
+        plist->Add( strdup(buf) );
+
+
+         sprintf( buf, "String(Посчитать расстояние между скрещивающимися прямыми.)" );
+         plist->Add( strdup(buf) );
+
+         sprintf( buf, "String(Объекты заданы уравнениями:)" );
+         plist->Add( strdup(buf) );
+
+        sprintf( buf, "a" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[0].X,cc[0].l,cc[0].Y,cc[0].m,cc[0].Z,cc[0].n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "b" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[1].X,cc[1].l,cc[1].Y,cc[1].m,cc[1].Z,cc[1].n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+
+        //расчёт ответа
+        //---------------------------------------------- CALCULATING
+        //module is a mixed product
+        int MIsMiP =    (cc[0].X-cc[1].X)*(cc[0].m*cc[1].n-cc[0].n*cc[1].m)+
+                        (cc[0].Y-cc[1].Y)*(cc[0].l*cc[1].n-cc[0].n*cc[1].l)+
+                        (cc[0].Z-cc[1].Z)*(cc[0].l*cc[1].m-cc[0].m*cc[1].l);
+        //square of module is a vector product
+        int MIsVeP =    (cc[0].m*cc[1].n-cc[1].m*cc[0].n)*(cc[0].m*cc[1].n-cc[1].m*cc[0].n)+
+                        (cc[0].l*cc[1].n-cc[1].l*cc[0].n)*(cc[0].l*cc[1].n-cc[1].l*cc[0].n)+
+                        (cc[0].l*cc[1].m-cc[1].l*cc[0].m)*(cc[0].l*cc[1].m-cc[1].l*cc[0].m);
+        //
+        sprintf( buf, "String(@Часть преподавателя )" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+
+
+        sprintf( buf, "String(\"Тема - %s \")", selecttask->name );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf(buf,    "d=!(abs(abs(Matrix(3,3,((%d)-(%d)),((%d)-(%d)),((%d)-(%d)),%d,%d,%d,%d,%d,%d))/sqrt(abs(Matrix(2,2,%d,%d,%d,%d))^2+abs(Matrix(2,2,%d,%d,%d,%d))^2+abs(Matrix(2,2,%d,%d,%d,%d))^2)))",
+                        cc[0].X,cc[1].X,cc[0].Y,cc[1].Y,cc[0].Z,cc[1].Z,
+                        cc[0].l,cc[0].m,cc[0].n,
+                        cc[1].l,cc[1].m,cc[1].n,
+                        cc[0].m,cc[0].n,cc[1].m,cc[1].n,
+                        cc[0].l,cc[0].n,cc[1].l,cc[1].n,
+                        cc[0].l,cc[0].m,cc[1].l,cc[1].m);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+         sprintf(buf,    "d=!(abs(abs(Matrix(3,3,%d,%d,%d,%d,%d,%d,%d,%d,%d))/sqrt(%d^2+%d^2+%d^2)))",
+                        cc[0].X-cc[1].X,cc[0].Y-cc[1].Y,cc[0].Z-cc[1].Z,
+                        cc[0].l,cc[0].m,cc[0].n,
+                        cc[1].l,cc[1].m,cc[1].n,
+                        cc[0].m*cc[1].n-cc[1].m*cc[0].n,
+                        cc[0].l*cc[1].n-cc[1].l*cc[0].n,
+                        cc[0].l*cc[1].m-cc[1].l*cc[0].m);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf(buf,    "d=!(abs(%d/sqrt(%d+%d+%d)))",
+                        MIsMiP,
+                        (cc[0].m*cc[1].n-cc[1].m*cc[0].n)*(cc[0].m*cc[1].n-cc[1].m*cc[0].n),
+                        (cc[0].l*cc[1].n-cc[1].l*cc[0].n)*(cc[0].l*cc[1].n-cc[1].l*cc[0].n),
+                        (cc[0].l*cc[1].m-cc[1].l*cc[0].m)*(cc[0].l*cc[1].m-cc[1].l*cc[0].m));
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf(buf,    "d=!(abs(%d/sqrt(%d)))",
+                        MIsMiP,
+                        MIsVeP);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+         sprintf(buf,    "d=!(%d*sqrt(%d)/%d)",
+                        abs(MIsMiP),MIsVeP,MIsVeP);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+         sprintf(buf,    "d=!(%f)",  (float)abs(MIsMiP)/sqrt((float)MIsVeP));
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        delete buf;
+        delete buf1;
+
+        return 0;
+}
+//------------------------------------------------------------------------------
+//output to test
+quest34::Print(TList* plist, class test &t)
+{
+       char* buf = new char[256];
+        char* buf1 = new char[256];
+
+        Log->Add("Q34 Printing to test..");
+
+        if( keygen == 0 )
+        {
+                keygen = random( 1000 ) + 1;
+        }
+
+        srand( keygen );
+        bool bZero       = true;
+
+        int n, Right_Numb;
+        Right_Numb = -1;
+
+        //coefficients struct
+        struct
+        {
+                int X, Y, Z;
+                int l,m,n;
+        } cc[2];
+
+        cc[0].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[0].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        cc[0].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+
+        bZero = true;
+        cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        cc[1].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc[1].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+
+        //Сборка уравненения
+
+        if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) )
+        {
+                sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
+                plist->Add( strdup(buf) );
+        }
+        else
+        {
+                sprintf( buf, "String(#)" );
+                plist->Add( strdup(buf) );
+        }
+
+        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
+        plist->Add( strdup(buf) );
+
+
+         sprintf( buf, "String(Посчитать расстояние между скрещивающимися прямыми.)" );
+         plist->Add( strdup(buf) );
+
+         sprintf( buf, "String(Объекты заданы уравнениями:)" );
+         plist->Add( strdup(buf) );
+
+        sprintf( buf, "a" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[0].X,cc[0].l,cc[0].Y,cc[0].m,cc[0].Z,cc[0].n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+        sprintf( buf, "b" );
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[1].X,cc[1].l,cc[1].Y,cc[1].m,cc[1].Z,cc[1].n);
+        plist->Add( strdup(buf) );
+        Log->Add(buf);
+
+
+        //расчёт ответа
+        //---------------------------------------------- CALCULATING
+        //module is a mixed product
+        int MIsMiP =    (cc[0].X-cc[1].X)*(cc[0].m*cc[1].n-cc[0].n*cc[1].m)+
+                        (cc[0].Y-cc[1].Y)*(cc[0].l*cc[1].n-cc[0].n*cc[1].l)+
+                        (cc[0].Z-cc[1].Z)*(cc[0].l*cc[1].m-cc[0].m*cc[1].l);
+        //square of module is a vector product
+        int MIsVeP =    (cc[0].m*cc[1].n-cc[1].m*cc[0].n)*(cc[0].m*cc[1].n-cc[1].m*cc[0].n)+
+                        (cc[0].l*cc[1].n-cc[1].l*cc[0].n)*(cc[0].l*cc[1].n-cc[1].l*cc[0].n)+
+                        (cc[0].l*cc[1].m-cc[1].l*cc[0].m)*(cc[0].l*cc[1].m-cc[1].l*cc[0].m);
+        //
+
+        //generating variants
+        Log->Add("Generating..");
+        pAnswer pAns[4];
+
+        pAns[0].legit = true;
+        sprintf( pAns[0].str,  "d=!(%f)",  (float)abs(MIsMiP)/sqrt((float)MIsVeP));
+
+
+        //wrong variant 1
+        pAns[1].legit = false;
+        sprintf( pAns[1].str, "d=!(%f)",  -(float)abs(MIsMiP)/sqrt((float)MIsVeP)-random(10));
+
+
+         //wrong variant 2
+        pAns[2].legit = false;
+        sprintf( pAns[2].str,  "d=!(%f)",  4+random(5)+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
+
+
+         //wrong variant 3
+        pAns[3].legit = false;
+        sprintf( pAns[3].str, "d=!(%f)",  -random(4)-4+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
+
+
+        //shuffle ;)
+        Log->Add("Shuffle..");
+        shuffleAnswers(pAns);
+
+        Log->Add("Find right..");
+        //get right variant
+        for (int i = 0; i < 4 && Right_Numb == -1; i++)
+        {
+                if (pAns[i].legit)
+                {
+                        Right_Numb = i+1;
+                         Log->Add("Right");
+                }
                 else
-                    for(newvalue=true, j=0; j<i; ++j)
-                        if (err[j]==err[i]) newvalue=false;
-            } while (newvalue==false);
-
-        for(i=0; i<answc; ++i)
-        {
-            sprintf(str, "String(\"Вариант %c):\")", 'a'+i);
-            plist->Add(strdup(str));
-
-            if (i==rightansw) n=0; else n=err[i];
-
-            sprintf(str, "!(Matrix(%d,1,", size);
-            for(j=0; j<size; ++j)
-            {
-                sprintf(tempstr, "%d,", matr.eigenv[j]+n);
-                strcat(str, tempstr);
-            }
-            str[strlen(str)-1]='\0';
-            strcat(str, "))");
-            plist->Add(strdup(str));
+                {
+                        Log->Add("Wrong");
+                }
         }
-        if (t!=NULL)
-        {
-            /*t->pr_tst = 1;
-            t->ch_ask = answc;
-            t->right_ask = rightansw+1;
-            t->msg = "Тест успешно сгенерирован";*/
-        }
-    }
 
-    sprintf(str, "String(@Часть преподавателя )"); plist->Add(strdup(str));
-    sprintf(str, "String(\"Тема - %s \")", selecttask->name); plist->Add(strdup(str));
-    sprintf(str, "String(ВАРИАНТ %i, решение задачи %i, ключ %i)", nvar, nzad, keygen); plist->Add(strdup(str));
+        //output
 
-    sprintf(str, "!(Matrix(%d,1,", size);
-    for(j=0; j<size; ++j)
-    {
-        sprintf(tempstr, "%d,", matr.eigenv[j]);
-        strcat(str, tempstr);
-    }
-    keygen=0;
-    str[strlen(str)-1]='\0';
-    strcat(str, "))");
-    plist->Add(strdup(str));
+        plist->Add(strdup("String(Вариант a: )"));
+        plist->Add( strdup(pAns[0].str) );
+        Log->Add(pAns[0].str);
+                      sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант b: )"));
+        plist->Add( strdup(pAns[1].str) );
+        Log->Add(pAns[1].str);
+                sprintf( buf, "String( )" );
+                 plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант c: )"));
+        plist->Add( strdup(pAns[2].str) );
+        Log->Add(pAns[2].str);
+                sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        plist->Add(strdup("String(Вариант d: )"));
+        plist->Add( strdup(pAns[3].str) );
+        Log->Add(pAns[3].str);
+                 sprintf( buf, "String( )" );
+                  plist->Add( strdup(buf) );
+
+        t.pr_tst = 1;
+        t.ch_ask = 4;
+        t.right_ask = Right_Numb;
+        t.msg = "Тест успешно сгенерирован.";
+
+        keygen = 0;
+
+        delete buf;
+        delete buf1;
+
+        return 0;
 }
-
-queeigens::Print(TList* plist)
-{ // функция вывода задания (без ответов)
-    TruePrint(plist);
-    return 0;
-}
-
-queeigens::Print(TList* plist, class test &t)
-{ // вывод с вариантами ответа?
-    TruePrint(plist, true, &t);
-    return 0;
-}
-
+//-----------------------------------------------------------

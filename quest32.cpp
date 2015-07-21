@@ -153,11 +153,11 @@ quest32::Print(TList* plist)
         plist->Add( strdup(buf) );
 
 
-         sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
-         plist->Add( strdup(buf) );
+        sprintf( buf, "String(Посчитать угол между прямой и плоскостью.)" );
+        plist->Add( strdup(buf));
 
-         sprintf( buf, "String(Объекты заданы уравнениями:)" );
-         plist->Add( strdup(buf) );
+        sprintf( buf, "String(Объекты заданы уравнениями:)" );
+        plist->Add( strdup(buf) );
 
         sprintf( buf, "a" );
         plist->Add( strdup(buf) );

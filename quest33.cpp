@@ -7,7 +7,6 @@
 #include "drobi.h"
 #include "qvarnt.h"
 #include "MLog.h"
-//#include "MQ32Settings.h"
 
 #include "UtilsNG.h"
 
@@ -117,7 +116,7 @@ quest33::Print(TList* plist)
         cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
         cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
-        bzero = true;
+        bZero = true;
         cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
@@ -265,7 +264,7 @@ quest33::Print(TList* plist, class test &t)
 
         srand( keygen );
         bool bZero       = true;
-        int Right_Numb;
+        int Right_Numb = -1;
         //coefficients struct
         struct
         {
