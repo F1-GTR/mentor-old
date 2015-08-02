@@ -52,6 +52,9 @@
 #define ANGLINEPLANE    53
 #define ANGLELINES      54
 #define DISTSKEWLINES   55
+#define POINTLINEPANE   56
+#define POINTSYMMETRICPANE 57
+#define POINTSYMMETRICLINE 58
 
 //int flagaddtask = 0;
 enum elem_code{

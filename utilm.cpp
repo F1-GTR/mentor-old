@@ -37,6 +37,9 @@
 #include "quest31.h"
 #include "quest33.h"
 #include "quest34.h"
+#include "quest35.h"
+#include "quest36.h"
+#include "quest37.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -170,6 +173,9 @@ tquest* qcreate(tquest* q)
   quest32* t32 = NULL;
   quest33* t33 = NULL;
   quest34* t34 = NULL;
+  quest35* t35 = NULL;
+  quest36* t36 = NULL;
+  quest37* t37 = NULL;
   queeigens* tue = NULL;
   quelim01* tlim01 = NULL;
   queDeriv* tderiv=NULL;
@@ -327,6 +333,18 @@ tquest* qcreate(tquest* q)
       t34 = new quest34();
       t34->copy(( quest34 *)q);
     return t34;
+    case POINTLINEPANE:
+      t35 = new quest35();
+      t35->copy(( quest35 *)q);
+    return t35;
+    case POINTSYMMETRICPANE:
+      t36 = new quest36();
+      t36->copy(( quest36 *)q);
+    return t36;
+    case POINTSYMMETRICLINE:
+      t37 = new quest37();
+      t37->copy(( quest37 *)q);
+    return t37;
     //--------------------------------
     case EIGEN3x3:
       tue = new queeigens();

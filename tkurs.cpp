@@ -37,6 +37,9 @@
 #include "quest32.h"
 #include "quest33.h"
 #include "quest34.h"
+#include "quest35.h"
+#include "quest36.h"
+#include "quest37.h"
 #include "queeigens.h"
 #include "quelim01.h"
 #include "queDeriv.h"
@@ -213,6 +216,15 @@ tkurs::tkurs( char * fname )
               break;
               case DISTSKEWLINES:
                 bm = new quest34(f);
+              break;
+              case POINTLINEPANE:
+                bm = new quest35(f);
+              break;
+              case POINTSYMMETRICPANE:
+                bm = new quest36(f);
+              break;
+              case POINTSYMMETRICLINE:
+                bm = new quest37(f);
               break;
               //---------------------
               case EIGEN3x3:
