@@ -128,12 +128,15 @@ int zero()
 //plist printng
 #define  mwl; plist->Add(strdup(buf)); Log->Add(buf);
 #define  msl; plist->Add(strdup("String( )"));
+#define  mbuffsinit; char buf1[255],buf2[255],buf3[255],buf4[255], buf5[255],buf6[255],buf7[255],buf8[255];
+#define  mbuffsclear; *buf1 = '\0'; *buf2 = '\0';*buf3 = '\0';*buf4 = '\0';*buf5 = '\0';*buf6 = '\0';*buf7 = '\0';*buf8 = '\0';
+#define  mbuffscat;   *buf = '\0'; strcat(buf,buf1); strcat(buf,buf2);strcat(buf,buf3);strcat(buf,buf4);strcat(buf,buf5);strcat(buf,buf6);strcat(buf,buf7);strcat(buf,buf8);
 
 //normal test
 #define  mqinit; Log->Add("Printing to test.."); char* buf = new char[256]; if( keygen == 0 ){keygen = random( 1000 ) + 1;} srand( keygen );
 #define  mqtask; if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) ){ sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );plist->Add( strdup(buf) );} else{ sprintf( buf, "String(#)" );plist->Add( strdup(buf) );}sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );plist->Add( strdup(buf) );
 #define  mqteacher; msl; sprintf( buf, "String(@Часть преподавателя )" );plist->Add( strdup(buf) );sprintf( buf, "String(\"Тема - %s \")", selecttask->name );plist->Add( strdup(buf) );sprintf( buf, "String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );plist->Add( strdup(buf) );
-#define  mqend; msl; keygen = 0; delete buf; return 0;  Log->Add("Completed");
+#define  mqend; msl; keygen = 0; delete buf;  Log->Add("Completed"); return 0;
 
 //online test
 #define  tqinit; char* buf = new char[256];Log->Add("Printing to Joomla test..");if( keygen == 0 ){keygen = random( 1000 ) + 1;}pAnswer pAns[4];srand( keygen );int Right_Numb = -1;

@@ -84,7 +84,6 @@ quest36::Print(TList* plist)
         struct
         {
                 int x, y, z;
-                int l,m,n;
                 int a,b,c,d;
         } cc;
 
@@ -92,9 +91,6 @@ quest36::Print(TList* plist)
         cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
         bZero = true;
         cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
@@ -102,53 +98,80 @@ quest36::Print(TList* plist)
         cc.c = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc.d = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        double t = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
+        double t = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.a+cc.b*cc.b+cc.c*cc.c);
 
         //Сборка уравненения
         mqtask;
 
-        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
+        sprintf( buf, "String(Найти точку, симметричную данной относительно плоскости.)" );mwl;
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
-        sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
         sprintf( buf, "String(Плоскость:)" );mwl;
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Точка:)" );mwl;
+        sprintf( buf, "m(%d,%d,%d)", cc.x,cc.y,cc.z);mwl;
         msl;
+
         //расчёт ответа
         mqteacher;
 
-        sprintf(buf,"x=(%d)*t+(%d)",cc.l,cc.x); mwl;
-        sprintf(buf,"y=(%d)*t+(%d)",cc.m,cc.y); mwl;
-        sprintf(buf,"z=(%d)*t+(%d)",cc.n,cc.z); mwl;
-        sprintf(buf,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);mwl;
+         sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.a,cc.y,cc.b,cc.z,cc.c);mwl;
+
+         //иницилизация дополнительных 8 буферов
+        mbuffsinit;
+        //очистка буферов
+        mbuffsclear;
+        
+        sprintf(buf1,"System(");
+
+        sprintf(buf2,"x=(%d)*t+(%d),",cc.a,cc.x);
+        sprintf(buf3,"y=(%d)*t+(%d),",cc.b,cc.y);
+        sprintf(buf4,"z=(%d)*t+(%d),",cc.c,cc.z);
+        sprintf(buf5,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);
+
+        sprintf(buf6,")");
+
+        //склеивание буферов в buf
+        mbuffscat;mwl;
 
         msl;
         sprintf(buf,"(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)=0",
-                cc.a,cc.l,cc.x,cc.b,cc.m,cc.y,cc.c,cc.n,cc.z,cc.d); mwl;
+                cc.a,cc.a,cc.x,cc.b,cc.b,cc.y,cc.c,cc.c,cc.z,cc.d); mwl;
 
         msl;
-        sprintf(buf,"t*((%d)*(%d)+(%d)*(%d)+(%d)*(%d))=-((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
-                cc.a,cc.l,cc.b,cc.m,cc.c,cc.n,
+        sprintf(buf,"(%d)^2*t+(%d)^2*t+(%d)^2*t=-((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
+                cc.a,cc.b,cc.c,
                 cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z);mwl;
         msl;
 
-        sprintf(buf,"-t=((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))/((%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
-                cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z,
-               cc.a,cc.l,cc.b,cc.m,cc.c,cc.n);mwl;
+        sprintf(buf,"-t=((%d)*(%d)+(%d)*(%d)+(%d)*(%d))/((%d)^2+(%d)^2+(%d)^2)",
+                cc.a,cc.x,cc.b,cc.y,cc.c,cc.z,
+                cc.a,cc.b,cc.c);mwl;
         msl;
 
         sprintf(buf,"t=%f",t); mwl;
         msl;
 
-        sprintf(buf,"x=(%d)*(%f)+(%d)",cc.l,t,cc.x); mwl;
-        sprintf(buf,"y=(%d)*(%f)+(%d)",cc.m,t,cc.y); mwl;
-        sprintf(buf,"z=(%d)*(%f)+(%d)",cc.n,t,cc.z); mwl;
+        mbuffsclear;
+        sprintf(buf1,"System(");
+
+        sprintf(buf2,"x_1=(%d)*(%f)+(%d),",cc.a,t,cc.x);
+        sprintf(buf3,"y_1=(%d)*(%f)+(%d),",cc.b,t,cc.y);
+        sprintf(buf4,"z_1=(%d)*(%f)+(%d)",cc.c,t,cc.z);
+
+        sprintf(buf5,")");
+
+        mbuffscat;mwl;
         msl;
 
-        sprintf(buf,"m(%f,%f,%f)",
-                cc.l*t+cc.x,
-                cc.m*t+cc.y,
-                cc.n*t+cc.z);mwl;
+        sprintf(buf,"o(%f,%f,%f)",
+                cc.a*t+cc.x,
+                cc.b*t+cc.y,
+                cc.c*t+cc.z);mwl;msl;
+
+        sprintf(buf,"p(%f,%f,%f)",
+                2*(cc.a*t+cc.x)-cc.x,
+                2*(cc.b*t+cc.y)-cc.y,
+                2*(cc.c*t+cc.z)-cc.z);mwl;
 
         mqend;
 }
@@ -165,7 +188,6 @@ quest36::Print(TList* plist, class test &t)
         struct
         {
                 int x, y, z;
-                int l,m,n;
                 int a,b,c,d;
         } cc;
 
@@ -173,9 +195,7 @@ quest36::Print(TList* plist, class test &t)
         cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
         cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+
 
         bZero = true;
         cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
@@ -187,50 +207,48 @@ quest36::Print(TList* plist, class test &t)
 
         tqtask;
 
-        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
-
+        sprintf( buf, "String(Найти точку, симметричную данной относительно плоскости.)" );mwl;
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
-
-        sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
         sprintf( buf, "String(Плоскость:)" );mwl;
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Точка:)" );mwl;
+        sprintf( buf, "m(%d,%d,%d)", cc.x,cc.y,cc.z);mwl;
 
         msl;
-        double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
+        double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.a+cc.b*cc.b+cc.c*cc.c);
 
         //generating variants
        
         //right variant
         pAns[0].legit = true;
-        sprintf( pAns[0].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x,
-                cc.m*t0+cc.y,
-                cc.n*t0+cc.z);
+        sprintf( pAns[0].str, "p(%f,%f,%f)",
+                2*(cc.a*t0+cc.x)-cc.x,
+                2*(cc.b*t0+cc.y)-cc.y,
+                2*(cc.c*t0+cc.z)-cc.z);
 
 
         //wrong variant 1
         pAns[1].legit = false;
-        sprintf( pAns[1].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x+random(5)+1,
-                cc.m*t0+cc.y-random(5)-5,
-                cc.n*t0+cc.z+random(5)+10);
+        sprintf( pAns[1].str, "p(%f,%f,%f)",
+                2*(cc.a*t0+cc.x+random(5)+1)-cc.x,
+                2*(cc.b*t0+cc.y-random(5)-5)-cc.y,
+                2*(cc.c*t0+cc.z+random(5)+10)-cc.z);
 
 
          //wrong variant 2
         pAns[2].legit = false;
-        sprintf( pAns[2].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x-random(5)-1,
-                cc.m*t0+cc.y+random(5)+10,
-                cc.n*t0+cc.z+random(5)+5);
+        sprintf( pAns[2].str, "p(%f,%f,%f)",
+                2*(cc.a*t0+cc.x-random(5)-1)-cc.x,
+                2*(cc.b*t0+cc.y+random(5)+10)-cc.y,
+                2*(cc.c*t0+cc.z+random(5)+5)-cc.z);
 
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x+random(5)+1,
-                cc.m*t0+cc.y+random(5)+25,
-                cc.n*t0+cc.z+random(5)+10);
+        sprintf( pAns[3].str, "p(%f,%f,%f)",
+                2*(cc.a*t0+cc.x+random(5)+1)-cc.x,
+                2*(cc.b*t0+cc.y+random(5)+25)-cc.y,
+                2*(cc.c*t0+cc.z+random(5)+10)-cc.z);
 
         tqend;
 }

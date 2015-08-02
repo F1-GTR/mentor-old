@@ -9,6 +9,7 @@
 #include "MMentorConfig.h"
 #include "MGenHtml.h"
 #include "drobi.h"
+#include "MLog.h"
 #include "determ.h"
 #pragma hdrstop
 //---------------------------------------------------------------------------
@@ -260,6 +261,7 @@ quest5::Print(TList* plist)
         }
 
         strcat( buf, ")" );
+        Log->Add(buf);
         plist->Add( strdup(buf) );
 
 /*  sprintf(buf,"String(___________________________________________)");

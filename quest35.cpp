@@ -77,6 +77,7 @@ quest35::Edit()
 quest35::Print(TList* plist)
 {
         Log->Add("Q35");
+        //иницилизация
         mqinit;
 
         bool bZero       = true;
@@ -109,18 +110,31 @@ quest35::Print(TList* plist)
 
         sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
-        sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
         sprintf( buf, "String(Плоскость:)" );mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Прямая:)" );mwl;
         sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
         msl;
+
         //расчёт ответа
         mqteacher;
 
-        sprintf(buf,"x=(%d)*t+(%d)",cc.l,cc.x); mwl;
-        sprintf(buf,"y=(%d)*t+(%d)",cc.m,cc.y); mwl;
-        sprintf(buf,"z=(%d)*t+(%d)",cc.n,cc.z); mwl;
-        sprintf(buf,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);mwl;
+        //иницилизация дополнительных 8 буферов
+        mbuffsinit;
+        //очистка буферов
+        mbuffsclear;
+        
+        sprintf(buf1,"System(");
+
+        sprintf(buf2,"x=(%d)*t+(%d),",cc.l,cc.x);
+        sprintf(buf3,"y=(%d)*t+(%d),",cc.m,cc.y);
+        sprintf(buf4,"z=(%d)*t+(%d),",cc.n,cc.z);
+        sprintf(buf5,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);
+
+        sprintf(buf6,")");
+
+        //склеивание буферов в buf
+        mbuffscat;mwl;
 
         msl;
         sprintf(buf,"(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)=0",
@@ -140,16 +154,24 @@ quest35::Print(TList* plist)
         sprintf(buf,"t=%f",t); mwl;
         msl;
 
-        sprintf(buf,"x=(%d)*(%f)+(%d)",cc.l,t,cc.x); mwl;
-        sprintf(buf,"y=(%d)*(%f)+(%d)",cc.m,t,cc.y); mwl;
-        sprintf(buf,"z=(%d)*(%f)+(%d)",cc.n,t,cc.z); mwl;
+        mbuffsclear;
+        sprintf(buf1,"System(");
+
+        sprintf(buf2,"x_1=(%d)*(%f)+(%d),",cc.l,t,cc.x);
+        sprintf(buf3,"y_1=(%d)*(%f)+(%d),",cc.m,t,cc.y);
+        sprintf(buf4,"z_1=(%d)*(%f)+(%d)",cc.n,t,cc.z);
+
+        sprintf(buf5,")");
+
+        mbuffscat;mwl;
         msl;
+
 
         sprintf(buf,"m(%f,%f,%f)",
                 cc.l*t+cc.x,
                 cc.m*t+cc.y,
                 cc.n*t+cc.z);mwl;
-
+        //конец
         mqend;
 }
 //------------------------------------------------------------------------------
@@ -191,9 +213,9 @@ quest35::Print(TList* plist, class test &t)
 
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
 
-        sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
         sprintf( buf, "String(Плоскость:)" );mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Прямая:)" );mwl;
         sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
 
         msl;
