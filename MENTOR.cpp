@@ -128,6 +128,9 @@ USE("UtilsNG.h", File);
 USEUNIT("quest33.cpp");
 USEUNIT("quest34.cpp");
 USE("global.h", File);
+USEUNIT("quest35.cpp");
+USEUNIT("quest36.cpp");
+USEUNIT("quest37.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int)
 {
