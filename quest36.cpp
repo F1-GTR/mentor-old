@@ -68,368 +68,171 @@ quest36::Save(FILE* f)
 //edit settings dialog
 quest36::Edit()
 {
-  Log->Add("Q36 Edit settings..");
-
-  //sscanf(strpar1,"%d %d %d %d %d %d",&min.top,&max.top,&min.bot,&max.bot);
-
+   Log->Add("Q36 Edit settings..");
   keygen = 0;
   nvar = 1;
-  /*
-  LAngle->quest = this;
-  PLAngle->MinPoint->Position = min.point;
-  PLAngle->MinVector->Position = min.vector;
-  PLAngle->MinPlate->Position = min.plate;
-  PLAngle->MaxPoint->Position = max.point;
-  PLAngle->MaxVector->Position = max.vector;
-  PLAngle->MaxPlate->Position = max.plate;
-  PLAngle->ShowModal();
-   */
   return 0;
 }
 
 //output to plist
 quest36::Print(TList* plist)
-{
-        char* buf = new char[256];
-        char* buf1 = new char[256];
+{       Log->Add("Q36");
+        mqinit;
 
-        Log->Add("Q36 Printing to test..");
-
-        if( keygen == 0 )
-        {
-                keygen = random( 1000 ) + 1;
-        }
-
-        srand( keygen );
         bool bZero       = true;
         //coefficients struct
         struct
         {
-                int X, Y, Z;
+                int x, y, z;
                 int l,m,n;
-        } cc[2];
+                int a,b,c,d;
+        } cc;
 
-        cc[0].X = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[0].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[0].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc[0].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
         bZero = true;
-        cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.b = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.c = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.d = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc[1].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[1].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[1].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        double t = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
 
         //Сборка уравненения
+        mqtask;
 
-        if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) )
-        {
-                sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
-                plist->Add( strdup(buf) );
-        }
-        else
-        {
-                sprintf( buf, "String(#)" );
-                plist->Add( strdup(buf) );
-        }
-
-        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
-        plist->Add( strdup(buf) );
-
-
-         sprintf( buf, "String(Посчитать угол между прямыми.)" );
-         plist->Add( strdup(buf) );
-
-         sprintf( buf, "String(Объекты заданы уравнениями:)" );
-         plist->Add( strdup(buf) );
-
-        sprintf( buf, "a" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[0].X,cc[0].l,cc[0].Y,cc[0].m,cc[0].Z,cc[0].n);
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-        sprintf( buf, "b" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[1].X,cc[1].l,cc[1].Y,cc[1].m,cc[1].Z,cc[1].n);
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-
+        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
+        sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
+        sprintf( buf, "String(Прямая:)" );mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Плоскость:)" );mwl;
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
+        msl;
         //расчёт ответа
-        sprintf( buf, "String(@Часть преподавателя )" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
+        mqteacher;
 
+        sprintf(buf,"x=(%d)*t+(%d)",cc.l,cc.x); mwl;
+        sprintf(buf,"y=(%d)*t+(%d)",cc.m,cc.y); mwl;
+        sprintf(buf,"z=(%d)*t+(%d)",cc.n,cc.z); mwl;
+        sprintf(buf,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);mwl;
 
+        msl;
+        sprintf(buf,"(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)=0",
+                cc.a,cc.l,cc.x,cc.b,cc.m,cc.y,cc.c,cc.n,cc.z,cc.d); mwl;
 
-        sprintf( buf, "String(\"Тема - %s \")", selecttask->name );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
+        msl;
+        sprintf(buf,"t*((%d)*(%d)+(%d)*(%d)+(%d)*(%d))=-((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
+                cc.a,cc.l,cc.b,cc.m,cc.c,cc.n,
+                cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z);mwl;
+        msl;
 
-        sprintf( buf, "String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
+        sprintf(buf,"-t=((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))/((%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
+                cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z,
+               cc.a,cc.l,cc.b,cc.m,cc.c,cc.n);mwl;
+        msl;
 
-        sprintf(buf,
-                "((%d)*(%d)+(%d)*(%d)+(%d)*(%d))/(sqrt((%d)^2+(%d)^2+(%d)^2)*sqrt((%d)^2+(%d)^2+(%d)^2))",
-                cc[0].l,cc[1].l,
-                cc[0].m,cc[1].m,
-                cc[0].n,cc[1].n,
-                cc[0].l,cc[0].m,cc[0].n,
-                cc[1].l,cc[1].m,cc[1].n);
+        sprintf(buf,"t=%f",t); mwl;
+        msl;
 
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
+        sprintf(buf,"x=(%d)*(%f)+(%d)",cc.l,t,cc.x); mwl;
+        sprintf(buf,"y=(%d)*(%f)+(%d)",cc.m,t,cc.y); mwl;
+        sprintf(buf,"z=(%d)*(%f)+(%d)",cc.n,t,cc.z); mwl;
+        msl;
 
-        sprintf(buf,
-                "((%d)+(%d)+(%d))/(sqrt((%d)+(%d)+(%d))*sqrt((%d)+(%d)+(%d)))",
-                cc[0].l*cc[1].l,
-                cc[0].m*cc[1].m,
-                cc[0].n*cc[1].n,
-                cc[0].l*cc[0].l,cc[0].m*cc[0].m,cc[0].n*cc[0].n,
-                cc[1].l*cc[1].l,cc[1].m*cc[1].m,cc[1].n*cc[1].n);
+        sprintf(buf,"m(%f,%f,%f)",
+                cc.l*t+cc.x,
+                cc.m*t+cc.y,
+                cc.n*t+cc.z);mwl;
 
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-        sprintf(buf,
-                "(%d)/(sqrt(%d))",
-                cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
-
-
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-        sprintf(buf,
-                "(%d*(sqrt(%d))/%d)",
-                cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
-
-
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-         sprintf(buf,
-                "arccos(abs(cos(%d*sqrt(%d)/%d)))",
-                (cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n),
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
-
-
-        plist->Add( strdup(buf) );
-
-        Log->Add(buf);
-
-        keygen = 0;
-
-        delete buf;
-        delete buf1;
-
-        return 0;
+        mqend;
 }
 //------------------------------------------------------------------------------
 //output to test
 quest36::Print(TList* plist, class test &t)
 {
-        char* buf = new char[256];
-        char* buf1 = new char[256];
+       Log->Add("Q36");
 
-        Log->Add("Q36 Printing to Joomla test..");
+        tqinit;
 
-        if( keygen == 0 )
-        {
-                keygen = random( 1000 ) + 1;
-        }
-
-        srand( keygen );
         bool bZero       = true;
-        int Right_Numb = -1;
         //coefficients struct
         struct
         {
-                int X, Y, Z;
+                int x, y, z;
                 int l,m,n;
-        } cc[2];
+                int a,b,c,d;
+        } cc;
 
-        cc[0].X = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[0].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[0].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc[0].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[0].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[0].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
-        cc[1].X = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[1].Y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc[1].Z = -1*sign()*rgen(keygen,1,min.top,max.top);
-
-        cc[1].l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[1].m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc[1].n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
+        bZero = true;
+        cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.b = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.c = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.d = -1*sign()*rgen(keygen,1,min.top,max.top);
 
         //Сборка уравненения
 
+        tqtask;
 
-        sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );
-        plist->Add( strdup(buf) );
+        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
 
-        sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );
-        plist->Add( strdup(buf) );
+        sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
 
-         sprintf( buf, "String(Посчитать угол между прямыми.)" );
-         plist->Add( strdup(buf) );
+        sprintf( buf, "String(Прямая:)" );mwl;
+        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
+        sprintf( buf, "String(Плоскость:)" );mwl;
+        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
 
-         sprintf( buf, "String(Объекты заданы уравнениями:)" );
-         plist->Add( strdup(buf) );
-
-        sprintf( buf, "a" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[0].X,cc[0].l,cc[0].Y,cc[0].m,cc[0].Z,cc[0].n);
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-        sprintf( buf, "b" );
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc[1].X,cc[1].l,cc[1].Y,cc[1].m,cc[1].Z,cc[1].n);
-        plist->Add( strdup(buf) );
-        Log->Add(buf);
-
-
-                sprintf( buf, "String( )" );
-                 plist->Add( strdup(buf) );
+        msl;
+        double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
 
         //generating variants
-        Log->Add("Generating..");
-        pAnswer pAns[4];
-
+       
         //right variant
         pAns[0].legit = true;
-        sprintf( pAns[0].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
-                (cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n),
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+        sprintf( pAns[0].str, "m(%f,%f,%f)",
+                cc.l*t0+cc.x,
+                cc.m*t0+cc.y,
+                cc.n*t0+cc.z);
 
 
         //wrong variant 1
         pAns[1].legit = false;
-        sprintf( pAns[1].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
-                cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(10)+1),
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+        sprintf( pAns[1].str, "m(%f,%f,%f)",
+                cc.l*t0+cc.x+random(5)+1,
+                cc.m*t0+cc.y-random(5)-5,
+                cc.n*t0+cc.z+random(5)+10);
 
 
          //wrong variant 2
         pAns[2].legit = false;
-        sprintf( pAns[2].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
-                (cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(20)+1)),
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+        sprintf( pAns[2].str, "m(%f,%f,%f)",
+                cc.l*t0+cc.x-random(5)-1,
+                cc.m*t0+cc.y+random(5)+10,
+                cc.n*t0+cc.z+random(5)+5);
 
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
-                (cc[0].l*cc[1].l+
-                cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(30)+1)),
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
-                cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
-                cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n);
+        sprintf( pAns[3].str, "m(%f,%f,%f)",
+                cc.l*t0+cc.x+random(5)+1,
+                cc.m*t0+cc.y+random(5)+25,
+                cc.n*t0+cc.z+random(5)+10);
 
-
-        //shuffle ;)
-        Log->Add("Shuffle..");
-        shuffleAnswers(pAns);
-
-        Log->Add("Find right..");
-        //get right variant
-        for (int i = 0; i < 4 && Right_Numb == -1; i++)
-        {
-                if (pAns[i].legit)
-                {
-                        Right_Numb = i+1;
-                         Log->Add("Right");
-                }
-                else
-                {
-                        Log->Add("Wrong");
-                }
-        }
-
-        //output
-
-        plist->Add(strdup("String(Вариант a: )"));
-        plist->Add( strdup(pAns[0].str) );
-        Log->Add(pAns[0].str);
-                      sprintf( buf, "String( )" );
-                  plist->Add( strdup(buf) );
-
-        plist->Add(strdup("String(Вариант b: )"));
-        plist->Add( strdup(pAns[1].str) );
-        Log->Add(pAns[1].str);
-                sprintf( buf, "String( )" );
-                 plist->Add( strdup(buf) );
-
-        plist->Add(strdup("String(Вариант c: )"));
-        plist->Add( strdup(pAns[2].str) );
-        Log->Add(pAns[2].str);
-                sprintf( buf, "String( )" );
-                  plist->Add( strdup(buf) );
-
-        plist->Add(strdup("String(Вариант d: )"));
-        plist->Add( strdup(pAns[3].str) );
-        Log->Add(pAns[3].str);
-                 sprintf( buf, "String( )" );
-                  plist->Add( strdup(buf) );
-
-        t.pr_tst = 1;
-        t.ch_ask = 4;
-        t.right_ask = Right_Numb;
-        t.msg = "Тест успешно сгенерирован.";
-
-        keygen = 0;
-
-        delete buf;
-        delete buf1;
-
-        return 0;
+        tqend;
 }
 //-----------------------------------------------------------
 

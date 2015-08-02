@@ -1,4 +1,4 @@
-#ifndef quest33H
+#ifndef quest36H
 #define quest36H
 //---------------------------------------------------------------------------
 #include "tquest.h"

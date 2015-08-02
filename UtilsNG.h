@@ -1,7 +1,7 @@
 #ifndef _NG_UTILS
 #define _NG_UTILS
 
-#include "MLog.h"
+#include "MLog.h" 
 
 //шанс выпадения отрицательного значения для функций знака     (0-10)
 #define _SIGN_CHANCE 3
@@ -123,5 +123,72 @@ int zero()
    }
 
 }
+
+//defines for fast generator greating
+//plist printng
+#define  mwl; plist->Add(strdup(buf)); Log->Add(buf);
+#define  msl; plist->Add(strdup("String( )"));
+
+//normal test
+#define  mqinit; Log->Add("Printing to test.."); char* buf = new char[256]; if( keygen == 0 ){keygen = random( 1000 ) + 1;} srand( keygen );
+#define  mqtask; if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) ){ sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );plist->Add( strdup(buf) );} else{ sprintf( buf, "String(#)" );plist->Add( strdup(buf) );}sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );plist->Add( strdup(buf) );
+#define  mqteacher; msl; sprintf( buf, "String(@Часть преподавателя )" );plist->Add( strdup(buf) );sprintf( buf, "String(\"Тема - %s \")", selecttask->name );plist->Add( strdup(buf) );sprintf( buf, "String(ВАРИАНТ   %i, решение задачи %i, ключ %i)", nvar, nzad, keygen );plist->Add( strdup(buf) );
+#define  mqend; msl; keygen = 0; delete buf; return 0;  Log->Add("Completed");
+
+//online test
+#define  tqinit; char* buf = new char[256];Log->Add("Printing to Joomla test..");if( keygen == 0 ){keygen = random( 1000 ) + 1;}pAnswer pAns[4];srand( keygen );int Right_Numb = -1;
+#define  tqtask; if ( !qvar->MZad || ( qvar->MZad && nvar == 1 ) ){sprintf( buf, "String(\"# Тема - %s \")", selecttask->name );plist->Add( strdup(buf) );}else{sprintf( buf, "String(#)" );plist->Add( strdup(buf) );}sprintf( buf, "String(Вариант   %i, задача %i.)", nvar, nzad );plist->Add( strdup(buf) );
+#define  tqend;    \
+        Log->Add("Shuffle.."); \
+        shuffleAnswers(pAns); \
+        Log->Add("Find right.."); \
+        for (int i = 0; i < 4 && Right_Numb == -1; i++)\
+        {\
+                if (pAns[i].legit) \
+                { \
+                        Right_Numb = i+1; \
+                         Log->Add("Right"); \
+                } \
+                else  \
+                {\
+                        Log->Add("Wrong");\
+                } \
+        }\
+        plist->Add(strdup("String(Вариант a: )")); \
+        plist->Add( strdup(pAns[0].str) ); \
+        Log->Add(pAns[0].str);\
+        sprintf( buf, "String( )" );\
+        plist->Add( strdup(buf) );\
+                  \
+        plist->Add(strdup("String(Вариант b: )"));\
+        plist->Add( strdup(pAns[1].str) );\
+        Log->Add(pAns[1].str);\
+        sprintf( buf, "String( )" );\
+        plist->Add( strdup(buf) );\
+                                            \
+        plist->Add(strdup("String(Вариант c: )"));\
+        plist->Add( strdup(pAns[2].str) );\
+        Log->Add(pAns[2].str); \
+        sprintf( buf, "String( )" );\
+        plist->Add( strdup(buf) );\
+                                         \
+        plist->Add(strdup("String(Вариант d: )"));\
+        plist->Add( strdup(pAns[3].str) );\
+        Log->Add(pAns[3].str); \
+        sprintf( buf, "String( )" );\
+        plist->Add( strdup(buf) ); \
+                                             \
+        t.pr_tst = 1;                        \
+        t.ch_ask = 4;                        \
+        t.right_ask = Right_Numb;            \
+        t.msg = "Тест успешно сгенерирован.";\
+        Log->Add("Completed");\
+                                             \
+        keygen = 0;                           \
+                                              \
+        delete buf;                           \
+                                              \
+        return 0;
+//-----------------------------------------------
 
 #endif
