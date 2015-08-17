@@ -342,7 +342,7 @@ quest33::Print(TList* plist, class test &t)
         sprintf( pAns[1].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
                 cc[0].l*cc[1].l+
                 cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(10)+1),
+                cc[0].n*cc[1].n+sign()*(random(2)-2),
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
                 cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
@@ -354,7 +354,7 @@ quest33::Print(TList* plist, class test &t)
         sprintf( pAns[2].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
                 (cc[0].l*cc[1].l+
                 cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(20)+1)),
+                cc[0].n*cc[1].n+sign()*(random(2)+4)),
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
                 cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
@@ -366,7 +366,7 @@ quest33::Print(TList* plist, class test &t)
         sprintf( pAns[3].str, "arccos(abs(cos(%d*sqrt(%d)/%d)))",
                 (cc[0].l*cc[1].l+
                 cc[0].m*cc[1].m+
-                cc[0].n*cc[1].n+sign()*(random(30)+1)),
+                cc[0].n*cc[1].n+sign()*(random(2)+6)),
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+
                 cc[1].l*cc[1].l+cc[1].m*cc[1].m+cc[1].n*cc[1].n,
                 cc[0].l*cc[0].l+cc[0].m*cc[0].m+cc[0].n*cc[0].n+

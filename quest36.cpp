@@ -13,19 +13,7 @@
 
 #pragma hdrstop
 //---------------------------------------------------------------------------
-//      Angle within lines
-//
-//      line1:   (x-x1)/l1 = (y-y1)/m1 = (z-z1)/n1
-//
-//      line2:   (x-x2)/l2 = (y-y2)/m2 = (z-z2)/n2
-//
-//      plane:  A*x + B*y + C*z + D = 0
-//
-//      Generating kfc.:        (x1,y1,z1),(l1,m1,n1)
-//                              (x2,y2,z2),(l2,m2,n2)
-//
-//      One kfc != 0
-//
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)   
 
@@ -120,7 +108,7 @@ quest36::Print(TList* plist)
         mbuffsinit;
         //очистка буферов
         mbuffsclear;
-        
+
         sprintf(buf1,"System(");
 
         sprintf(buf2,"x=(%d)*t+(%d),",cc.a,cc.x);
@@ -163,12 +151,12 @@ quest36::Print(TList* plist)
         mbuffscat;mwl;
         msl;
 
-        sprintf(buf,"o(%f,%f,%f)",
+        sprintf(buf,"q(%f,%f,%f)",
                 cc.a*t+cc.x,
                 cc.b*t+cc.y,
                 cc.c*t+cc.z);mwl;msl;
 
-        sprintf(buf,"p(%f,%f,%f)",
+        sprintf(buf,"p(%f;%f;%f)",
                 2*(cc.a*t+cc.x)-cc.x,
                 2*(cc.b*t+cc.y)-cc.y,
                 2*(cc.c*t+cc.z)-cc.z);mwl;
@@ -218,7 +206,7 @@ quest36::Print(TList* plist, class test &t)
         double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.a+cc.b*cc.b+cc.c*cc.c);
 
         //generating variants
-       
+
         //right variant
         pAns[0].legit = true;
         sprintf( pAns[0].str, "p(%f,%f,%f)",

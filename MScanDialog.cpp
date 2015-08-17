@@ -2,6 +2,7 @@
 
 #include <vcl.h>
 #include "MLog.h"
+#include <windows.h>
 #pragma hdrstop
 
 #include "MScanDialog.h"

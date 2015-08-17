@@ -340,17 +340,17 @@ quest34::Print(TList* plist, class test &t)
 
         //wrong variant 1
         pAns[1].legit = false;
-        sprintf( pAns[1].str, "d=!(%f)",  -(float)abs(MIsMiP)/sqrt((float)MIsVeP)-random(10));
+        sprintf( pAns[1].str, "d=!(%f)",  (float)abs(MIsMiP)/sqrt((float)MIsVeP)+random(2)+2);
 
 
          //wrong variant 2
         pAns[2].legit = false;
-        sprintf( pAns[2].str,  "d=!(%f)",  4+random(5)+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
+        sprintf( pAns[2].str,  "d=!(%f)",  1+random(2)+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
 
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "d=!(%f)",  -random(4)-4+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
+        sprintf( pAns[3].str, "d=!(%f)",  random(2)+3+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
 
 
         //shuffle ;)
