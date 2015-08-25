@@ -112,7 +112,7 @@ quest35::Print(TList* plist)
         mbuffsinit;
         //очистка буферов
         mbuffsclear;
-        
+
         sprintf(buf1,"System(");
 
         sprintf(buf2,"x=(%d)*t+(%d),",cc.l,cc.x);
@@ -211,7 +211,7 @@ quest35::Print(TList* plist, class test &t)
         double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
 
         //generating variants
-       
+
         //right variant
         pAns[0].legit = true;
         sprintf( pAns[0].str, "m(%f,%f,%f)",

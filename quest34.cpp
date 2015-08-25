@@ -350,7 +350,7 @@ quest34::Print(TList* plist, class test &t)
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "d=!(%f)",  random(2)+3+(float)abs(MIsMiP)/sqrt((float)MIsVeP));
+        sprintf( pAns[3].str, "d=!(%f)",  random(2)+3+(float)abs(MIsMiP)/sqrt(random(2)+3+(float)MIsVeP));
 
 
         //shuffle ;)

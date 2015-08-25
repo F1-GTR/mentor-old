@@ -1,6 +1,6 @@
 object MScan: TMScan
-  Left = 532
-  Top = 129
+  Left = 494
+  Top = 138
   Width = 392
   Height = 156
   Caption = 'Содержимое MTR файлов'

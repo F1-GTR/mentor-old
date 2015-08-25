@@ -23,8 +23,8 @@ void swapAnswers(pAnswer &one, pAnswer &two)
         strcpy(buff,one.str);
         strcat(buff," to ");
         strcat(buff,two.str);
-        Log->Add("Swapping:");
-        Log->Add(buff);
+        //Log->Add("Swapping:");
+        //Log->Add(buff);
 
         pAnswer tmp = one;
         one = two;

@@ -12,18 +12,6 @@
 
 #pragma hdrstop
 //---------------------------------------------------------------------------
-//      Angle within lines
-//
-//      line1:   (x-x1)/l1 = (y-y1)/m1 = (z-z1)/n1
-//
-//      line2:   (x-x2)/l2 = (y-y2)/m2 = (z-z2)/n2
-//
-//      plane:  A*x + B*y + C*z + D = 0
-//
-//      Generating kfc.:        (x1,y1,z1),(l1,m1,n1)
-//                              (x2,y2,z2),(l2,m2,n2)
-//
-//      One kfc != 0
 //
 //---------------------------------------------------------------------------
 #pragma package(smart_init)   
@@ -96,72 +84,99 @@ quest37::Print(TList* plist)
         //coefficients struct
         struct
         {
-                int x, y, z;
+                //point
+                int x0, y0, z0;
+                //line
+                int x3, y3, z3;
+                //int a,b,c,d;
+                //line
                 int l,m,n;
-                int a,b,c,d;
         } cc;
 
-        cc.x = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x0 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y0 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z0 = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
         bZero = true;
-        cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.b = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.c = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.d = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x3 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y3 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z3 = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        double t = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
+        bZero = true;
+        cc.l = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.m = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.n = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        double t = (double)(cc.l*(cc.x0-cc.x3)+cc.m*(cc.y0-cc.y3)+cc.n*(cc.x0-cc.x3))/(double)(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n);
 
         //Сборка уравненения
         mqtask;
 
-        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
+        sprintf( buf, "String(Найти точку, симметричную данной относительно прямой.)" );mwl;
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
         sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
-        sprintf( buf, "String(Плоскость:)" );mwl;
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
+        sprintf( buf, "(x-(%d))/(%d)=(y-(%d))/(%d)=(z-(%d))/(%d)", cc.x3,cc.l,cc.y3,cc.m,cc.z3,cc.n);mwl;
+        sprintf( buf, "String(Точка:)" );mwl;
+        sprintf( buf, "m(%d,%d,%d)", cc.x0,cc.y0,cc.z0);mwl;
         msl;
+
         //расчёт ответа
         mqteacher;
 
-        sprintf(buf,"x=(%d)*t+(%d)",cc.l,cc.x); mwl;
-        sprintf(buf,"y=(%d)*t+(%d)",cc.m,cc.y); mwl;
-        sprintf(buf,"z=(%d)*t+(%d)",cc.n,cc.z); mwl;
-        sprintf(buf,"(%d)*x+(%d)*y+(%d)*z+(%d)=0",cc.a,cc.b,cc.c,cc.d);mwl;
+         sprintf( buf, "(%d)*(x-(%d))+(%d)*(y-(%d))+(%d)*(z-(%d))=0",
+          cc.l,cc.x3,cc.m,cc.y3,cc.n,cc.x3);mwl;
 
-        msl;
-        sprintf(buf,"(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)*((%d)*t+(%d))+(%d)=0",
-                cc.a,cc.l,cc.x,cc.b,cc.m,cc.y,cc.c,cc.n,cc.z,cc.d); mwl;
+         //иницилизация дополнительных 8 буферов
+        mbuffsinit;
+        //очистка буферов
+        mbuffsclear;
 
-        msl;
-        sprintf(buf,"t*((%d)*(%d)+(%d)*(%d)+(%d)*(%d))=-((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
-                cc.a,cc.l,cc.b,cc.m,cc.c,cc.n,
-                cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z);mwl;
-        msl;
+        sprintf(buf1,"System(");
 
-        sprintf(buf,"-t=((%d)+(%d)*(%d)+(%d)*(%d)+(%d)*(%d))/((%d)*(%d)+(%d)*(%d)+(%d)*(%d))",
-                cc.d,cc.a,cc.x,cc.b,cc.y,cc.c,cc.z,
-               cc.a,cc.l,cc.b,cc.m,cc.c,cc.n);mwl;
-        msl;
+        sprintf(buf2,"x=(%d)*t+(%d),",cc.l,cc.x3);
+        sprintf(buf3,"y=(%d)*t+(%d),",cc.m,cc.y3);
+        sprintf(buf4,"z=(%d)*t+(%d),",cc.n,cc.z3);
+        sprintf(buf5,"(%d)*x+(%d)*y+(%d)*z=(%d)*(%d)+(%d)*(%d)+(%d)*(%d)",cc.l,cc.m,cc.n,cc.l,cc.x0,cc.m,cc.y0,cc.n,cc.z0);
 
-        sprintf(buf,"t=%f",t); mwl;
-        msl;
+        sprintf(buf6,")");
 
-        sprintf(buf,"x=(%d)*(%f)+(%d)",cc.l,t,cc.x); mwl;
-        sprintf(buf,"y=(%d)*(%f)+(%d)",cc.m,t,cc.y); mwl;
-        sprintf(buf,"z=(%d)*(%f)+(%d)",cc.n,t,cc.z); mwl;
+        //склеивание буферов в buf
+        mbuffscat;mwl;
+
+        sprintf(buf,"t_1=((%d)*((%d)-(%d))+(%d)*((%d)-(%d))+(%d)*((%d)-(%d)))/((%d)^2+(%d)^2+(%d)^2)",
+                cc.l,cc.x0,cc.x3,cc.m,cc.y0,cc.y3, cc.n,cc.z0,cc.z3,
+                cc.l,cc.m,cc.n);mwl;
         msl;
 
-        sprintf(buf,"m(%f,%f,%f)",
-                cc.l*t+cc.x,
-                cc.m*t+cc.y,
-                cc.n*t+cc.z);mwl;
+        sprintf(buf,"t_1=%f",t); mwl;
+        msl;
+
+        mbuffsclear;
+        sprintf(buf1,"System(");
+
+        sprintf(buf2,"x_1=(%d)*(%f)+(%d),",cc.l,t,cc.x3);
+        sprintf(buf3,"y_1=(%d)*(%f)+(%d),",cc.m,t,cc.y3);
+        sprintf(buf4,"z_1=(%d)*(%f)+(%d)",cc.n,t,cc.z3);
+
+        double x1=cc.l*t+cc.x3;
+        double y1=cc.m*t+cc.y3;
+        double z1=cc.n*t+cc.z3;
+
+        sprintf(buf5,")");
+
+        mbuffscat;mwl;
+        msl;
+
+        sprintf(buf,"q(%f,%f,%f)",
+                x1,
+                y1,
+                z1);mwl;msl;
+
+        sprintf(buf,"p(%f,%f,%f)",
+                2*(x1)-cc.x0,
+                2*(y1)-cc.y0,
+                2*(z1)-cc.z0);mwl;
 
         mqend;
 }
@@ -173,81 +188,92 @@ quest37::Print(TList* plist, class test &t)
 
         tqinit;
 
-        bool bZero       = true;
+         bool bZero       = true;
         //coefficients struct
         struct
         {
-                int x, y, z;
+                //point
+                int x0, y0, z0;
+                //line
+                int x3, y3, z3;
+                //int a,b,c,d;
+                //line
                 int l,m,n;
-                int a,b,c,d;
         } cc;
 
-        cc.x = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.y = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.z = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x0 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y0 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z0 = -1*sign()*rgen(keygen,1,min.top,max.top);
 
-        cc.l = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.m = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
-        cc.n = sign()*zero(bZero)*rgen(keygen,1,min.bot,max.bot);
 
         bZero = true;
-        cc.a = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.b = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.c = -1*sign()*rgen(keygen,1,min.top,max.top);
-        cc.d = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.x3 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.y3 = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.z3 = -1*sign()*rgen(keygen,1,min.top,max.top);
 
+        bZero = true;
+        cc.l = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.m = -1*sign()*rgen(keygen,1,min.top,max.top);
+        cc.n = -1*sign()*rgen(keygen,1,min.top,max.top);
+
+        float t0 = (float)(cc.l*(cc.x0-cc.x3)+cc.m*(cc.y0-cc.y3)+cc.n*(cc.x0-cc.x3))/(float)(cc.l*cc.l+cc.m*cc.m+cc.n*cc.n);
+        sprintf(buf,"%f",t0);  Log->Add(buf);
+        float x1=cc.l*t0+cc.x3;
+        sprintf(buf,"%f",x1); Log->Add(buf);
+        float y1=cc.m*t0+cc.y3;
+        sprintf(buf,"%f",y1); Log->Add(buf);
+        float z1=cc.n*t0+cc.z3;
+        sprintf(buf,"%f",z1); Log->Add(buf);
         //Сборка уравненения
 
         tqtask;
 
-        sprintf( buf, "String(Найти точку пересечения прямой и плоскости.)" );mwl;
-
+        sprintf( buf, "String(Найти точку, симметричную данной относительно прямой.)" );mwl;
         sprintf( buf, "String(Объекты заданы уравнениями:)" );mwl;
-
         sprintf( buf, "String(Прямая:)" );mwl;
-        sprintf( buf, "(%d)*x+(%d)*y+(%d)*z+(%d)=0", cc.a,cc.b,cc.c,cc.d);mwl;
-        sprintf( buf, "String(Плоскость:)" );mwl;
-        sprintf( buf, "((x-(%d))/%d)=((y-(%d))/%d)=((z-(%d))/%d)", cc.x,cc.l,cc.y,cc.m,cc.z,cc.n);mwl;
+        sprintf( buf, "(x-(%d))/(%d)=(y-(%d))/(%d)=(z-(%d))/(%d)", cc.x3,cc.l,cc.y3,cc.m,cc.z3,cc.n);mwl;
+        sprintf( buf, "String(Точка:)" );mwl;
+        sprintf( buf, "m(%d,%d,%d)", cc.x0,cc.y0,cc.z0);mwl;
+        msl;
+
 
         msl;
-        double t0 = - (double)(cc.a*cc.x+cc.b*cc.y+cc.c*cc.z+cc.d)/(double)(cc.a*cc.l+cc.b*cc.m+cc.c*cc.n);
 
         //generating variants
-       
+
         //right variant
         pAns[0].legit = true;
-        sprintf( pAns[0].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x,
-                cc.m*t0+cc.y,
-                cc.n*t0+cc.z);
+        sprintf( pAns[0].str, "p(%f,%f,%f)",
+                2*(x1)-cc.x0,
+                2*(y1)-cc.y0,
+                2*(z1)-cc.z0);
 
 
         //wrong variant 1
         pAns[1].legit = false;
-        sprintf( pAns[1].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x+random(5)+1,
-                cc.m*t0+cc.y-random(5)-5,
-                cc.n*t0+cc.z+random(5)+10);
+        sprintf( pAns[1].str, "p(%f,%f,%f)",
+                2*(x1)-cc.x0+sign()*(random(5)+15),
+                2*(y1)-cc.y0+sign()*(random(5)+5),
+                2*(z1)-cc.z0+sign()*(random(5)+25));
 
 
          //wrong variant 2
         pAns[2].legit = false;
-        sprintf( pAns[2].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x-random(5)-1,
-                cc.m*t0+cc.y+random(5)+10,
-                cc.n*t0+cc.z+random(5)+5);
+        sprintf( pAns[2].str, "p(%f,%f,%f)",
+                2*(x1)-cc.x0+sign()*(random(5)+25),
+                2*(y1)-cc.y0+sign()*(random(5)+5),
+                2*(z1)-cc.z0+sign()*(random(5)+15));
 
 
          //wrong variant 3
         pAns[3].legit = false;
-        sprintf( pAns[3].str, "m(%f,%f,%f)",
-                cc.l*t0+cc.x+random(5)+1,
-                cc.m*t0+cc.y+random(5)+25,
-                cc.n*t0+cc.z+random(5)+10);
+        sprintf( pAns[3].str, "p(%f,%f,%f)",
+                2*(x1)-cc.x0+sign()*(random(5)+5),
+                2*(y1)-cc.y0+sign()*(random(5)+15),
+                2*(z1)-cc.z0+sign()*(random(5)+25));
 
         tqend;
 }
 //-----------------------------------------------------------
 
 
- 

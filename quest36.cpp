@@ -156,7 +156,7 @@ quest36::Print(TList* plist)
                 cc.b*t+cc.y,
                 cc.c*t+cc.z);mwl;msl;
 
-        sprintf(buf,"p(%f;%f;%f)",
+        sprintf(buf,"p(%f,%f,%f)",
                 2*(cc.a*t+cc.x)-cc.x,
                 2*(cc.b*t+cc.y)-cc.y,
                 2*(cc.c*t+cc.z)-cc.z);mwl;
